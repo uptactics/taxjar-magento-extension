@@ -1,7 +1,27 @@
-<config>    
+<?xml version="1.0"?>
+<config>
     <modules>
         <Taxjar_Rateupdater>
-            <version>0.1.0</version>
+            <version>1.0.0</version>
         </Taxjar_Rateupdater>
     </modules>
-</config>  
+        <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Taxjar_Rateupdater after="Mage_Adminhtml">Taxjar_Rateupdater</Taxjar_Rateupdater>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <global>
+        <helpers>
+            <Taxjar_Rateupdater>
+                <class>Taxjar_Rateupdater_Helper</class>
+            </Taxjar_Rateupdater>
+        </helpers>
+    </global>
+</config>

@@ -3,17 +3,7 @@
         <Taxjar_Rateupdater>
             <active>true</active>
             <codePool>local</codePool>
+            <depends></depends>
         </Taxjar_Rateupdater>
-    </modules>
-    <frontend>
-        <routers>
-            <helloworld>
-                <use>standard</use>
-                <args>
-                    <module>Taxjar_Rateupdater</module>
-                    <frontName>rateupdater</frontName>
-                </args>
-            </helloworld>
-        </routers>  
-    </frontend>    
+    </modules>   
 </config>    
