@@ -1,0 +1,19 @@
+<config>
+    <modules>
+        <Taxjar_Rateupdater>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Taxjar_Rateupdater>
+    </modules>
+    <frontend>
+        <routers>
+            <helloworld>
+                <use>standard</use>
+                <args>
+                    <module>Taxjar_Rateupdater</module>
+                    <frontName>rateupdater</frontName>
+                </args>
+            </helloworld>
+        </routers>  
+    </frontend>    
+</config>    
