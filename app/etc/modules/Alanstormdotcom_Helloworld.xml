@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Alanstormdotcom_Helloworld>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Alanstormdotcom_Helloworld>
+    </modules>
+</config>
