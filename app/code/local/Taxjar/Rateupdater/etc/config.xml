@@ -1,27 +1,50 @@
 <?xml version="1.0"?>
-<config>
-    <modules>
-        <Taxjar_Rateupdater>
-            <version>1.0.0</version>
-        </Taxjar_Rateupdater>
-    </modules>
-        <admin>
-        <routers>
-            <adminhtml>
-                <args>
-                    <modules>
-                        <Taxjar_Rateupdater after="Mage_Adminhtml">Taxjar_Rateupdater</Taxjar_Rateupdater>
-                    </modules>
-                </args>
-            </adminhtml>
-        </routers>
-    </admin>
-    
-    <global>
-        <helpers>
-            <Taxjar_Rateupdater>
-                <class>Taxjar_Rateupdater_Helper</class>
-            </Taxjar_Rateupdater>
-        </helpers>
-    </global>
+<config>    
+	<modules>
+	   <Taxjar_Rateupdater><version>0.1.0</version></Taxjar_Rateupdater>
+  </modules>
+	<global>
+		<helpers>
+			<rateupdater>
+				<class>Taxjar_Rateupdater_Helper</class>
+			</rateupdater>
+		</helpers>
+      <models>
+          <rateupdater>
+              <class>Taxjar_Rateupdater_Model</class>
+          </rateupdater>   
+      </models>
+	</global>
+  <frontend>
+      <routers>
+          <rateupdater>
+              <use>standard</use>
+              <args>
+                  <module>Taxjar_Rateupdater</module>
+                  <frontName>rateupdater</frontName>
+              </args>
+          </rateupdater>
+      </routers>  
+  </frontend>
+  <adminhtml>
+      <acl>
+          <resources>
+              <admin>
+                  <children>
+                      <system>
+                          <children>
+                              <config>
+                                  <children>
+                                      <rateupdater_options>
+                                          <title>Store Rate Upater Module Section</title>
+                                      </rateupdater_options>
+                                  </children>
+                              </config>
+                          </children>
+                      </system>
+                  </children>
+              </admin>
+          </resources>
+      </acl>
+  </adminhtml>
 </config>
