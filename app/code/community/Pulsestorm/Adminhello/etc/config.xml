@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Pulsestorm_Adminhello>
+            <version>1.0.0</version>
+        </Pulsestorm_Adminhello>
+    </modules>
+        <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Pulsestorm_Adminhello after="Mage_Adminhtml">Pulsestorm_Adminhello</Pulsestorm_Adminhello>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <global>
+        <helpers>
+            <pulsestorm_adminhello>
+                <class>Pulsestorm_Adminhello_Helper</class>
+            </pulsestorm_adminhello>
+        </helpers>
+    </global>
+</config>

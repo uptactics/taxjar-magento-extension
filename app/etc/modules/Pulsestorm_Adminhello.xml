@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Pulsestorm_Adminhello>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends></depends>
+        </Pulsestorm_Adminhello>
+    </modules>
+</config>

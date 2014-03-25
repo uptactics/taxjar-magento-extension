@@ -1,0 +1,32 @@
+<config>
+    <menu>
+        <pulsestorm translate="title" module="pulsestorm_adminhello">
+            <title>Pulse Storm</title>
+            <sort_order>1</sort_order>
+            <children>
+                <example>
+                    <title>Example</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/adminhello/index</action>
+                </example>
+            </children>
+        </pulsestorm>
+    </menu>    
+    <acl>
+        <resources>
+            <admin>
+                <children>                
+                    <pulsestorm translate="title" module="pulsestorm_adminhello">
+                        <title>Top Level Pulse Storm Menu Item</title>
+                        <sort_order>1</sort_order>
+                        <children>
+                            <example>
+                                <title>Example Menu Item</title>
+                            </example>
+                        </children>
+                    </pulsestorm>
+                </children>
+            </admin>
+        </resources>
+    </acl>    
+</config> 
