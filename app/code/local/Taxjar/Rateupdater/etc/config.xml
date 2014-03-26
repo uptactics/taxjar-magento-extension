@@ -19,6 +19,17 @@
           <class>Taxjar_Rateupdater_Block</class>
         </rateupdater>
       </blocks>
+      <events>
+          <admin_system_config_changed_section_rateupdater_options>
+              <observers>
+                  <taxjar_rateupdater_model_observer>
+                      <type>singleton</type>
+                      <class>Taxjar_Rateupdater_Model_Observer</class>
+                      <method>logobs</method>
+                  </taxjar_rateupdater_model_observer>
+              </observers>
+          </admin_system_config_changed_section_rateupdater_options> 
+      </events>      
 	</global>
   <frontend>
       <routers>
