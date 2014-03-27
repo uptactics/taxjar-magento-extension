@@ -2,14 +2,28 @@
 class Taxjar_Rateupdater_Model_Observer {
 
   public function execute($observer) {
-    $configJson = $this->_getConfiguration();
+    $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
+    $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
+    $configJson = $this->_getResource('configuration', $regionCode);
     $this->_setTaxBasis($configJson);
     $this->_setShippingTaxability($configJson);
     $this->_purgeExisting('tax/calculation_rule');
     $this->_purgeExisting('tax/calculation_rate');
+    $rateJson = $this->_getResource('rates', $regionCode);
+    Mage::log($rateJson);
   }
 
   // private methods
+
+  private function _createRate($rateJson) {
+    $rateModel = Mage::getModel('tax/calculation_rate');
+    $rateModel->setTaxCountryId('US');
+    $rateModel->setTaxRegionId(12);
+    $rateModel->setTaxPostcode('94597');
+    $rateModel->setCode('US-CA-walnut-creek-Rate 1');
+    $rateModel->setRate('8.2500');
+    $rateModel->save();
+  }
 
   private function _purgeExisting($path) {
     $existingRecords = Mage::getModel($path)->getCollection();
@@ -47,10 +61,8 @@ class Taxjar_Rateupdater_Model_Observer {
     return $client;
   }
 
-  private function _getConfiguration() {
-    $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
-    $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode();
-    $url        = 'http://localhost:4000/magento/get_configuration/' . $regionCode;
+  private function _getResource($resourceName, $regionCode) {
+    $url        = 'http://localhost:4000/magento/get_' . $resourceName . '/' . $regionCode;
     $response   = $this->_getClient($url)->request();
     if ($response->isSuccessful()) {
       $json = $response->getBody();      
