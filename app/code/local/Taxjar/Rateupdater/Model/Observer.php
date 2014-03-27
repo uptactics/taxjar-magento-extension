@@ -5,10 +5,19 @@ class Taxjar_Rateupdater_Model_Observer {
     $configJson = $this->_getConfiguration();
     $this->_setTaxBasis($configJson);
     $this->_setShippingTaxability($configJson);
+    $this->_purgeExisting('tax/calculation_rule');
+    $this->_purgeExisting('tax/calculation_rate');
   }
 
   // private methods
-  
+
+  private function _purgeExisting($path) {
+    $existingRecords = Mage::getModel($path)->getCollection();
+    foreach($existingRecords as $record) {
+      $record->delete();
+    }        
+  }
+
   private function _setShippingTaxability($configJson) {
     $taxClass = 0;
     if($configJson['shipping_taxable']) {
