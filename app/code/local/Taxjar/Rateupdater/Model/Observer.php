@@ -1,7 +1,8 @@
 <?php
 class Taxjar_Rateupdater_Model_Observer {
-
-  public function execute($observer) {
+  
+  public function execute($observer) {    
+    $this->newRates = array();
     $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
     $configJson = $this->_getResource('configuration', $regionCode);
@@ -10,9 +11,28 @@ class Taxjar_Rateupdater_Model_Observer {
     $this->_purgeExisting('tax/calculation');
     $this->_purgeExisting('tax/calculation_rate');
     $this->_createRates($regionCode);
+    $this->_createShippingRuleIfTaxable();
   }
 
   // private methods
+
+  private function _createShippingRuleIfTaxable() {
+    if($configJson['shipping_taxable']) {   
+      $attributes = array(
+        'code' => 'Retail Customer-Shipping-Rate 1',        
+        'tax_customer_class' => array(3), 
+        'tax_product_class' => array(4), 
+        'tax_rate' => $this->newRates,
+        'priority' => 1,
+        'position' => 1
+      );
+      $ruleModel = Mage::getSingleton('tax/calculation_rule');
+      $ruleModel->setData($attributes);
+      $ruleModel->setCalculateSubtotal(0);
+      $ruleModel->save();
+      $ruleModel->saveCalculationData();
+    }
+  }
 
   private function _createRates($regionCode) {
     $ratesJson = $this->_getResource('rates', $regionCode);
@@ -30,6 +50,7 @@ class Taxjar_Rateupdater_Model_Observer {
     $rateModel->setRate('8.2500');
     $rateModel->save();
     $rateId = $rateModel->getId();
+    $this->newRates[] = $rateId; 
 
     $taxCalculationData = array(
       'tax_calculation_rate_id'   => $rateId,
