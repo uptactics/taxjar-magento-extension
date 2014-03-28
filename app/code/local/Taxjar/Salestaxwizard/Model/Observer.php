@@ -3,9 +3,10 @@ class Taxjar_Salestaxwizard_Model_Observer {
   
   public function execute($observer) {    
     $this->newRates = array();
+    $this->client = Mage::getModel('salestaxwizard/client');
     $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
-    $configJson = $this->_getResource('configuration', $regionCode);
+    $configJson = $this->client->getResource('configuration', $regionCode);
     $this->_setTaxBasis($configJson);
     $this->_setShippingTaxability($configJson);
     $this->_purgeExisting('tax/calculation');
@@ -35,7 +36,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
   }
 
   private function _createRates($regionCode) {
-    $ratesJson = $this->_getResource('rates', $regionCode);
+    $ratesJson = $this->client->getResource('rates', $regionCode);
     foreach($ratesJson as $rateJson) {
       $this->_createRate($rateJson);
     }    
@@ -90,24 +91,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $config->saveConfig($path, $value, 'default', 0);
   }
 
-  private function _getClient($url) {
-    $apiKey = Mage::getStoreConfig('salestaxwizard/config/salestaxwizard_apikey');
-    $client = new Varien_Http_Client($url);
-    $client->setMethod(Varien_Http_Client::GET);
-    $client->setHeaders('Authorization', 'Token token="' . $apiKey .  '"');
-    return $client;
-  }
 
-  private function _getResource($resourceName, $regionCode) {
-    $url        = 'http://localhost:4000/magento/get_' . $resourceName . '/' . $regionCode;
-    $response   = $this->_getClient($url)->request();
-    if ($response->isSuccessful()) {
-      $json = $response->getBody();      
-      return json_decode($json, true);
-    } else {
-      throw new Exception('Could not connect to TaxJar.');
-    }
-  }
 
 }
 ?>
