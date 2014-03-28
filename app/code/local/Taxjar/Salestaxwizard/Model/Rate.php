@@ -2,6 +2,7 @@
 class Taxjar_Salestaxwizard_Model_Rate {
 
   public function create($rateJson) {
+
     $rateModel = Mage::getModel('tax/calculation_rate');
     $rateModel->setTaxCountryId('US');
     $rateModel->setTaxRegionId(12);
@@ -9,8 +10,15 @@ class Taxjar_Salestaxwizard_Model_Rate {
     $rateModel->setCode('US-CA-walnut-creek-Rate 1');
     $rateModel->setRate('8.2500');
     $rateModel->save();
+
     $rateId = $rateModel->getId();
     
+    $this->createTaxCalculation($rateId);
+
+    return $rateId;
+  }
+
+  private function createTaxCalculation($rateId) {
 
     $taxCalculationData = array(
       'tax_calculation_rate_id'   => $rateId,
@@ -21,8 +29,7 @@ class Taxjar_Salestaxwizard_Model_Rate {
 
     Mage::getSingleton('tax/calculation')->setData($taxCalculationData)->save();
 
-    return $rateId;
-  }  
+  }
 
 }
 ?>
