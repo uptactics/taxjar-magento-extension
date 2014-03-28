@@ -4,11 +4,12 @@ class Taxjar_Salestaxwizard_Model_Observer {
   public function execute($observer) {    
     $this->newRates = array();
     $this->client = Mage::getModel('salestaxwizard/client');
+    $this->configuration = Mage::getModel('salestaxwizard/configuration');
     $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
     $configJson = $this->client->getResource('configuration', $regionCode);
-    $this->_setTaxBasis($configJson);
-    $this->_setShippingTaxability($configJson);
+    $this->configuration->setTaxBasis($configJson);
+    $this->configuration->setShippingTaxability($configJson);
     $this->_purgeExisting('tax/calculation');
     $this->_purgeExisting('tax/calculation_rate');
     $this->_createRates($regionCode);
@@ -70,26 +71,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
     }        
   }
 
-  private function _setShippingTaxability($configJson) {
-    $taxClass = 0;
-    if($configJson['shipping_taxable']) {
-      $taxClass = 4;
-    }
-    $this->_setConfig('tax/classes/shipping_tax_class', $taxClass);
-  }
 
-  private function _setTaxBasis($configJson) {
-    $basis = 'shipping';
-    if($configJson['origin_based']) {
-      $basis = 'origin';
-    }
-    $this->_setConfig('tax/calculation/based_on', $basis);
-  }
-
-  private function _setConfig($path, $value){
-    $config = new Mage_Core_Model_Config();
-    $config->saveConfig($path, $value, 'default', 0);
-  }
 
 
 
