@@ -5,6 +5,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $this->newRates = array();
     $this->client = Mage::getModel('salestaxwizard/client');
     $this->configuration = Mage::getModel('salestaxwizard/configuration');
+    $this->shippingrule = Mage::getModel('salestaxwizard/shippingrule');
     $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
     $configJson = $this->client->getResource('configuration', $regionCode);
@@ -13,28 +14,12 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $this->_purgeExisting('tax/calculation');
     $this->_purgeExisting('tax/calculation_rate');
     $this->_createRates($regionCode);
-    $this->_createShippingRuleIfTaxable($configJson);
+    $this->shippingrule->createIfTaxable($configJson, $this->newRates);
   }
 
   // private methods
 
-  private function _createShippingRuleIfTaxable($configJson) {
-    if($configJson['shipping_taxable']) {   
-      $attributes = array(
-        'code' => 'Retail Customer-Shipping-Rate 1',        
-        'tax_customer_class' => array(3), 
-        'tax_product_class' => array(4), 
-        'tax_rate' => $this->newRates,
-        'priority' => 1,
-        'position' => 1
-      );
-      $ruleModel = Mage::getSingleton('tax/calculation_rule');
-      $ruleModel->setData($attributes);
-      $ruleModel->setCalculateSubtotal(0);
-      $ruleModel->save();
-      $ruleModel->saveCalculationData();
-    }
-  }
+
 
   private function _createRates($regionCode) {
     $ratesJson = $this->client->getResource('rates', $regionCode);
