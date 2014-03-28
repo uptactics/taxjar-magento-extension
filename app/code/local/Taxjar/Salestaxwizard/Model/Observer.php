@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Rateupdater_Model_Observer {
+class Taxjar_Salestaxwizard_Model_Observer {
   
   public function execute($observer) {    
     $this->newRates = array();
@@ -11,12 +11,12 @@ class Taxjar_Rateupdater_Model_Observer {
     $this->_purgeExisting('tax/calculation');
     $this->_purgeExisting('tax/calculation_rate');
     $this->_createRates($regionCode);
-    $this->_createShippingRuleIfTaxable();
+    $this->_createShippingRuleIfTaxable($configJson);
   }
 
   // private methods
 
-  private function _createShippingRuleIfTaxable() {
+  private function _createShippingRuleIfTaxable($configJson) {
     if($configJson['shipping_taxable']) {   
       $attributes = array(
         'code' => 'Retail Customer-Shipping-Rate 1',        
@@ -91,7 +91,7 @@ class Taxjar_Rateupdater_Model_Observer {
   }
 
   private function _getClient($url) {
-    $apiKey = Mage::getStoreConfig('rateupdater_options/states/rateupdater_apikey');
+    $apiKey = Mage::getStoreConfig('salestaxwizard/config/salestaxwizard_apikey');
     $client = new Varien_Http_Client($url);
     $client->setMethod(Varien_Http_Client::GET);
     $client->setHeaders('Authorization', 'Token token="' . $apiKey .  '"');

@@ -1,9 +1,9 @@
 <config>
     <modules>
-        <Taxjar_Rateupdater>
+        <Taxjar_Salestaxwizard>
             <active>true</active>
             <codePool>local</codePool>
             <depends></depends>
-        </Taxjar_Rateupdater>
+        </Taxjar_Salestaxwizard>
     </modules>   
 </config>    
