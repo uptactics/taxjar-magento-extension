@@ -6,6 +6,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $this->client = Mage::getModel('salestaxwizard/client');
     $this->configuration = Mage::getModel('salestaxwizard/configuration');
     $this->shippingrule = Mage::getModel('salestaxwizard/shippingrule');
+    $this->rate = Mage::getModel('salestaxwizard/rate');
     $regionId   = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode = Mage::getModel('directory/region')->load($regionId)->getCode(); 
     $configJson = $this->client->getResource('configuration', $regionCode);
@@ -24,30 +25,10 @@ class Taxjar_Salestaxwizard_Model_Observer {
   private function _createRates($regionCode) {
     $ratesJson = $this->client->getResource('rates', $regionCode);
     foreach($ratesJson as $rateJson) {
-      $this->_createRate($rateJson);
+      $this->newRates[] = $this->rate->create($rateJson);
     }    
   }
 
-  private function _createRate($rateJson) {
-    $rateModel = Mage::getModel('tax/calculation_rate');
-    $rateModel->setTaxCountryId('US');
-    $rateModel->setTaxRegionId(12);
-    $rateModel->setTaxPostcode('94597');
-    $rateModel->setCode('US-CA-walnut-creek-Rate 1');
-    $rateModel->setRate('8.2500');
-    $rateModel->save();
-    $rateId = $rateModel->getId();
-    $this->newRates[] = $rateId; 
-
-    $taxCalculationData = array(
-      'tax_calculation_rate_id'   => $rateId,
-      'tax_calculation_rule_id'   => 1,
-      'customer_tax_class_id'     => 3,
-      'product_tax_class_id'      => 2
-    );
-
-    Mage::getSingleton('tax/calculation')->setData($taxCalculationData)->save();
-  }
 
   private function _purgeExisting($path) {
     $existingRecords = Mage::getModel($path)->getCollection();    
