@@ -4,7 +4,7 @@ class Taxjar_Salestaxwizard_Model_Configuration {
 
   public function setShippingTaxability($configJson) {
     $taxClass = 0;
-    if($configJson['shipping_taxable']) {
+    if($configJson['freight_taxable']) {
       $taxClass = 4;
     }
     $this->_setConfig('tax/classes/shipping_tax_class', $taxClass);
@@ -12,7 +12,7 @@ class Taxjar_Salestaxwizard_Model_Configuration {
 
   public function setTaxBasis($configJson) {
     $basis = 'shipping';
-    if($configJson['origin_based']) {
+    if($configJson['tax_source']==='origin') {
       $basis = 'origin';
     }
     $this->_setConfig('tax/calculation/based_on', $basis);

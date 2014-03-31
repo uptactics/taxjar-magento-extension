@@ -24,7 +24,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
 
     $rule->create('Retail Customer-Taxable Goods-Rate 1', 2, 1, $this->newRates);
 
-    if($configJson['shipping_taxable']) {
+    if($configJson['freight_taxable']) {
 
       $rule->create('Retail Customer-Shipping-Rate 1', 4, 2, $this->newRates);
 
