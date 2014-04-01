@@ -1,8 +1,7 @@
 <?php
 class Taxjar_Salestaxwizard_Model_Client {
 
-    public function getResource($resourceName, $regionCode) {
-      $url        = 'http://localhost:4000/magento/get_' . $resourceName . '/' . $regionCode;
+    public function getResource($url) {
       $response   = $this->_getClient($url)->request();
       if ($response->isSuccessful()) {
         $json = $response->getBody();      

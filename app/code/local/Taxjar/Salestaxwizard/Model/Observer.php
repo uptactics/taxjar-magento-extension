@@ -10,9 +10,21 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $rule           = Mage::getModel('salestaxwizard/rule');
     $regionId       = Mage::getStoreConfig('shipping/origin/region_id');
     $regionCode     = Mage::getModel('directory/region')->load($regionId)->getCode();
+    $storeZip       = Mage::getStoreConfig('shipping/origin/postcode');
 
-    $configJson     = $client->getResource('configuration', $regionCode);
-    $ratesJson      = $client->getResource('rates', $regionCode);
+    $apiHost = 'http://localhost:4000';
+      
+    $configJson = $client->getResource(
+      $apiHost . '/magento/get_configuration/' . $regionCode
+    );
+
+    if(!$configJson['allow_update']) {
+      return;
+    }
+
+    $ratesJson = $client->getResource(
+      $apiHost . '/magento/get_rates/' . $regionCode . '/' . $storeZip
+    );
 
     $configuration->setTaxBasis($configJson);
 
