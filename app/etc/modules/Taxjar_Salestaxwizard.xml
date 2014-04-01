@@ -2,7 +2,7 @@
     <modules>
         <Taxjar_Salestaxwizard>
             <active>true</active>
-            <codePool>local</codePool>
+            <codePool>community</codePool>
             <depends></depends>
         </Taxjar_Salestaxwizard>
     </modules>   
