@@ -30,6 +30,8 @@ class Taxjar_Salestaxwizard_Model_Observer {
 
     $configuration->setShippingTaxability($configJson);
 
+    $configuration->setDisplaySettings();
+
     $this->_purgeExisting();
 
     $this->_createRates($ratesJson);
