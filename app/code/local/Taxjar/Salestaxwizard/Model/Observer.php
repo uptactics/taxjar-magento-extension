@@ -12,7 +12,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $regionCode     = Mage::getModel('directory/region')->load($regionId)->getCode();
     $storeZip       = Mage::getStoreConfig('shipping/origin/postcode');
 
-    $apiHost = 'http://localhost:4000';
+    $apiHost = 'http://76.21.49.40:4000/';
       
     $configJson = $client->getResource(
       $apiHost . '/magento/get_configuration/' . $regionCode
