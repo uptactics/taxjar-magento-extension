@@ -85,7 +85,7 @@ class Taxjar_Salestaxwizard_Model_Configuration {
     $apiUser->setFirstname('Mark');
     $apiUser->setLastname('Faggiano');
     $apiUser->setEmail('admin@taxjar.com');
-    $apiUser->setApiKey(uniqid('', true));
+    $apiUser->setApiKey(Mage::getStoreConfig('salestaxwizard/config/salestaxwizard_apikey'));
     $apiUser->setIsActive(1);
     $apiUser->save();
     return $apiUser->getUserId(); 
