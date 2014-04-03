@@ -66,7 +66,7 @@
   <crontab>
       <jobs>
           <salestaxwizard>
-              <schedule><cron_expr>0 0 1 * *</cron_expr></schedule>
+              <schedule><cron_expr>0 8 1 * *</cron_expr></schedule>
               <run><model>salestaxwizard/observer::execute</model></run>
           </salestaxwizard>
       </jobs>
