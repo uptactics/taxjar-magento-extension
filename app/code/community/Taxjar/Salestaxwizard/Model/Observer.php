@@ -18,7 +18,7 @@ class Taxjar_Salestaxwizard_Model_Observer {
       $apiHost . '/magento/get_configuration/' . $regionCode
     );
 
-    if(!$configJson['allow_update']) {
+    if(!$configJson['allow_update']) {      
       return;
     }
 
@@ -62,7 +62,8 @@ class Taxjar_Salestaxwizard_Model_Observer {
     $rate = Mage::getModel('salestaxwizard/rate');
     foreach($ratesJson as $rateJson) {
       $this->newRates[] = $rate->create($rateJson);
-    }    
+    }
+    Mage::getModel('core/config')->saveConfig('salestaxwizard/config/last_update', date('m-d-Y'));  
   }
 
 
