@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Salestaxwizard_Model_Configuration {
+class Taxjar_Salestaxautomation_Model_Configuration {
 
 
   public function setShippingTaxability($configJson) {
@@ -31,11 +31,11 @@ class Taxjar_Salestaxwizard_Model_Configuration {
     }
   }
 
-  public function setApiSettings() {
+  public function setApiSettings($apiKey) {
     $apiUser = Mage::getModel('api/user');
     $existingUserId = $apiUser->load('taxjar', 'username')->getUserId();
     if(!$existingUserId) {
-      $apiUserId = $this->_createApiUser();
+      $apiUserId = $this->_createApiUser($apiKey);
       $parentRoleId = $this->_createApiRoles($apiUserId);
       $this->_createApiRules($parentRoleId);
     }
@@ -79,13 +79,13 @@ class Taxjar_Salestaxwizard_Model_Configuration {
     return $parentRoleId;
   }
 
-  private function _createApiUser() {
+  private function _createApiUser($apiKey) {
     $apiUser = Mage::getModel('api/user');
     $apiUser->setUsername('taxjar');
     $apiUser->setFirstname('Mark');
     $apiUser->setLastname('Faggiano');
     $apiUser->setEmail('admin@taxjar.com');
-    $apiUser->setApiKey(Mage::getStoreConfig('salestaxwizard/config/salestaxwizard_apikey'));
+    $apiUser->setApiKey($apiKey);
     $apiUser->setIsActive(1);
     $apiUser->save();
     return $apiUser->getUserId(); 

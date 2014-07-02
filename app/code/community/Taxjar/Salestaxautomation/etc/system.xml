@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config>
 	<tabs>
-		<salestaxwizard translate="label" module="salestaxwizard">
+		<salestaxautomation translate="label" module="salestaxautomation">
 			<label>TaxJar</label>
 			<sort_order>99999</sort_order>
-		</salestaxwizard>
+		</salestaxautomation>
 	</tabs>	
 	<sections>
-		<salestaxwizard translate="label" module="salestaxwizard">
-			<label>Sales Tax Wizard</label>
-			<tab>salestaxwizard</tab>
+		<salestaxautomation translate="label" module="salestaxautomation">
+			<label>Sales Tax Automation</label>
+			<tab>salestaxautomation</tab>
 			<frontend_type>text</frontend_type>
 			<sort_order>1000</sort_order>
 			<show_in_default>1</show_in_default>
@@ -24,20 +24,20 @@
   				<show_in_website>1</show_in_website>
   				<show_in_store>1</show_in_store>                
         	<fields>
-            <salestaxwizard_apikey>
+            <salestaxautomation_apikey>
                 <label>API Token</label>
                 <comment>
-                  <model>salestaxwizard/comment</model>
+                  <model>salestaxautomation/comment</model>
                 </comment>
                 <frontend_type>text</frontend_type>
                 <sort_order>1</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
                 <show_in_store>1</show_in_store>                    
-            </salestaxwizard_apikey>           
+            </salestaxautomation_apikey>           
         	</fields>                 
   			</config>
 			</groups>
-		</salestaxwizard>
+		</salestaxautomation>
 	</sections>		
 </config>

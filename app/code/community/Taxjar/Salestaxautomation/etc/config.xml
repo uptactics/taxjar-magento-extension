@@ -1,45 +1,45 @@
 <?xml version="1.0"?>
 <config>    
 	<modules>
-	   <Taxjar_Salestaxwizard><version>0.1.0</version></Taxjar_Salestaxwizard>
+	   <Taxjar_Salestaxautomation><version>0.1.0</version></Taxjar_Salestaxautomation>
   </modules>
 	<global>
 		<helpers>
-			<salestaxwizard>
-				<class>Taxjar_Salestaxwizard_Helper</class>
-			</salestaxwizard>
+			<salestaxautomation>
+				<class>Taxjar_Salestaxautomation_Helper</class>
+			</salestaxautomation>
 		</helpers>
       <models>
-          <salestaxwizard>
-              <class>Taxjar_Salestaxwizard_Model</class>
-          </salestaxwizard>   
+          <salestaxautomation>
+              <class>Taxjar_Salestaxautomation_Model</class>
+          </salestaxautomation>   
       </models>
       <blocks>
-        <salestaxwizard>
-          <class>Taxjar_Salestaxwizard_Block</class>
-        </salestaxwizard>
+        <salestaxautomation>
+          <class>Taxjar_Salestaxautomation_Block</class>
+        </salestaxautomation>
       </blocks>
       <events>
-          <admin_system_config_changed_section_salestaxwizard>
+          <admin_system_config_changed_section_salestaxautomation>
               <observers>
-                  <taxjar_salestaxwizard_model_observer>
+                  <taxjar_salestaxautomation_model_observer>
                       <type>singleton</type>
-                      <class>Taxjar_Salestaxwizard_Model_Observer</class>
+                      <class>Taxjar_Salestaxautomation_Model_Observer</class>
                       <method>execute</method>
-                  </taxjar_salestaxwizard_model_observer>
+                  </taxjar_salestaxautomation_model_observer>
               </observers>
-          </admin_system_config_changed_section_salestaxwizard> 
+          </admin_system_config_changed_section_salestaxautomation> 
       </events>      
 	</global>
   <frontend>
       <routers>
-          <salestaxwizard>
+          <salestaxautomation>
               <use>standard</use>
               <args>
-                  <module>Taxjar_Salestaxwizard</module>
-                  <frontName>salestaxwizard</frontName>
+                  <module>Taxjar_Salestaxautomation</module>
+                  <frontName>salestaxautomation</frontName>
               </args>
-          </salestaxwizard>
+          </salestaxautomation>
       </routers>  
   </frontend>
   <adminhtml>
@@ -51,9 +51,9 @@
                           <children>
                               <config>
                                   <children>
-                                      <salestaxwizard>
+                                      <salestaxautomation>
                                           <title>Store Sales Tax Wizard Module Section</title>
-                                      </salestaxwizard>
+                                      </salestaxautomation>
                                   </children>
                               </config>
                           </children>
@@ -65,10 +65,10 @@
   </adminhtml>
   <crontab>
       <jobs>
-          <salestaxwizard>
+          <salestaxautomation>
               <schedule><cron_expr>0 8 1 * *</cron_expr></schedule>
-              <run><model>salestaxwizard/observer::execute</model></run>
-          </salestaxwizard>
+              <run><model>salestaxautomation/observer::execute</model></run>
+          </salestaxautomation>
       </jobs>
   </crontab>
 
