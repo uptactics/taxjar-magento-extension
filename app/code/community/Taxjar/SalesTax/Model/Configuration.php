@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Salestaxautomation_Model_Configuration {
+class Taxjar_SalesTax_Model_Configuration {
 
 
   public function setShippingTaxability($configJson) {
@@ -70,7 +70,7 @@ class Taxjar_Salestaxautomation_Model_Configuration {
     $parentRoleId = $parentApiRole->getId();
 
     $childApiRole = Mage::getModel('api/role');
-    $childApiRole->setRoleName('Mark');
+    $childApiRole->setRoleName('TaxJar');
     $childApiRole->setTreeLevel(1);
     $childApiRole->setParentId($parentRoleId);
     $childApiRole->setRoleType('U');
@@ -82,9 +82,9 @@ class Taxjar_Salestaxautomation_Model_Configuration {
   private function _createApiUser($apiKey) {
     $apiUser = Mage::getModel('api/user');
     $apiUser->setUsername('taxjar');
-    $apiUser->setFirstname('Mark');
-    $apiUser->setLastname('Faggiano');
-    $apiUser->setEmail('admin@taxjar.com');
+    $apiUser->setFirstname('TaxJar');
+    $apiUser->setLastname('Magento');
+    $apiUser->setEmail('support@taxjar.com');
     $apiUser->setApiKey($apiKey);
     $apiUser->setIsActive(1);
     $apiUser->save();

@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Salestaxautomation_Model_Rule {
+class Taxjar_SalesTax_Model_Rule {
   public function create($code, $productClass, $position, $newRates) {
     $ruleModel = Mage::getSingleton('tax/calculation_rule');
     $attributes = array(

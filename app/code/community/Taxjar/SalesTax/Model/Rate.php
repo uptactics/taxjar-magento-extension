@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Salestaxautomation_Model_Rate {
+class Taxjar_SalesTax_Model_Rate {
 
   public function create($regionId, $regionCode, $rateJson) {    
     $zip       = $rateJson['zip'];

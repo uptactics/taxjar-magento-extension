@@ -1,5 +1,5 @@
 <?php
-class Taxjar_Salestaxautomation_Model_Client {
+class Taxjar_SalesTax_Model_Client {
 
     public function getResource($apiKey, $url) {
       $response   = $this->_getClient($apiKey, $url)->request();

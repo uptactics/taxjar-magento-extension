@@ -1,17 +1,21 @@
 <?php
-class Taxjar_Salestaxautomation_Model_Observer {
+class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
+{
   
   public function execute($observer) {
-    $apiKey = Mage::getStoreConfig('salestaxautomation/config/salestaxautomation_apikey');
+  	$session = Mage::getSingleton('adminhtml/session');
+  	$storeId = Mage::getModel('core/store')->load($observer->getEvent()->getStore())->getStoreId();
+  	    
+    $apiKey = Mage::getStoreConfig('taxjar/config/apikey',$storeId);
     $apiKey = preg_replace('/\s+/', '', $apiKey);
     if ($apiKey){
       $this->newRates = array();
-      $client         = Mage::getModel('salestaxautomation/client');
-      $configuration  = Mage::getModel('salestaxautomation/configuration');
-      $rule           = Mage::getModel('salestaxautomation/rule');
-      $regionId       = Mage::getStoreConfig('shipping/origin/region_id');
+      $client         = Mage::getModel('taxjar/client');
+      $configuration  = Mage::getModel('taxjar/configuration');
+      $rule           = Mage::getModel('taxjar/rule');
+      $regionId       = Mage::getStoreConfig('shipping/origin/region_id',$storeId);
       $regionCode     = Mage::getModel('directory/region')->load($regionId)->getCode();
-      $storeZip       = Mage::getStoreConfig('shipping/origin/postcode');
+      $storeZip       = Mage::getStoreConfig('shipping/origin/postcode',$storeId);
       $apiHost = 'http://api.taxjar.com';
       $validZip = preg_match("/(\d{5}-\d{4})|(\d{5})/", $storeZip);
       if(isset($regionCode)){
@@ -62,7 +66,7 @@ class Taxjar_Salestaxautomation_Model_Observer {
   }
 
   private function _createRates($regionId, $regionCode, $ratesJson) {
-    $rate = Mage::getModel('salestaxautomation/rate');
+    $rate = Mage::getModel('taxjar/rate');
     foreach($ratesJson as $rateJson) {
       $this->newRates[] = $rate->create($regionId, $regionCode, $rateJson);
     }
@@ -70,7 +74,7 @@ class Taxjar_Salestaxautomation_Model_Observer {
   }
 
   private function _setLastUpdateDate($date) {
-    Mage::getModel('core/config')->saveConfig('salestaxautomation/config/last_update', $date);
+    Mage::getModel('core/config')->saveConfig('taxjar/config/last_update', $date);
   }
 
 
