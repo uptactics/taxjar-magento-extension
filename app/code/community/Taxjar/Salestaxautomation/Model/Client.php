@@ -1,8 +1,8 @@
 <?php
-class Taxjar_Salestaxwizard_Model_Client {
+class Taxjar_Salestaxautomation_Model_Client {
 
-    public function getResource($url) {
-      $response   = $this->_getClient($url)->request();
+    public function getResource($apiKey, $url) {
+      $response   = $this->_getClient($apiKey, $url)->request();
       if ($response->isSuccessful()) {
         $json = $response->getBody();      
         return json_decode($json, true);
@@ -11,8 +11,7 @@ class Taxjar_Salestaxwizard_Model_Client {
       }
     }  
 
-    private function _getClient($url) {
-      $apiKey = Mage::getStoreConfig('salestaxwizard/config/salestaxwizard_apikey');
+    private function _getClient($apiKey, $url) {
       $client = new Varien_Http_Client($url);
       $client->setMethod(Varien_Http_Client::GET);
       $client->setHeaders('Authorization', 'Token token="' . $apiKey .  '"');
