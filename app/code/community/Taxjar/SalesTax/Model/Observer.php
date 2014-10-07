@@ -16,7 +16,7 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
       $regionId       = Mage::getStoreConfig('shipping/origin/region_id',$storeId);
       $regionCode     = Mage::getModel('directory/region')->load($regionId)->getCode();
       $storeZip       = Mage::getStoreConfig('shipping/origin/postcode',$storeId);
-      $apiHost = 'http://tax-rate-service.dev';
+      $apiHost = 'https://api.taxjar.com';
       $validZip = preg_match("/(\d{5}-\d{4})|(\d{5})/", $storeZip);
       if(isset($regionCode)){
           $configJson = $client->getResource(
