@@ -3,7 +3,7 @@
 	<tabs>
 		<taxjar translate="label" module="taxjar">
 			<label>TaxJar</label>
-			<sort_order>1</sort_order>
+			<sort_order>0</sort_order>
 		</taxjar>
 	</tabs>	
 	<sections>

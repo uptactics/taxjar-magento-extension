@@ -16,7 +16,7 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
       $regionId       = Mage::getStoreConfig('shipping/origin/region_id',$storeId);
       $regionCode     = Mage::getModel('directory/region')->load($regionId)->getCode();
       $storeZip       = Mage::getStoreConfig('shipping/origin/postcode',$storeId);
-      $apiHost = 'http://api.taxjar.com';
+      $apiHost = 'http://tax-rate-service.dev';
       $validZip = preg_match("/(\d{5}-\d{4})|(\d{5})/", $storeZip);
       if(isset($regionCode)){
           $configJson = $client->getResource(
@@ -42,7 +42,7 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
       $configuration->setDisplaySettings();
       $configuration->setApiSettings($apiKey);
       $this->_purgeExisting();
-      $this->_createRates($regionId, $regionCode, $ratesJson);
+      $this->_createRates($ratesJson);
       $rule->create('Retail Customer-Taxable Goods-Rate 1', 2, 1, $this->newRates);
       if($configJson['freight_taxable']) {
         $rule->create('Retail Customer-Shipping-Rate 1', 4, 2, $this->newRates);
@@ -65,10 +65,10 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
     }
   }
 
-  private function _createRates($regionId, $regionCode, $ratesJson) {
+  private function _createRates($ratesJson) {
     $rate = Mage::getModel('taxjar/rate');
     foreach($ratesJson as $rateJson) {
-      $this->newRates[] = $rate->create($regionId, $regionCode, $rateJson);
+      $this->newRates[] = $rate->create($rateJson);
     }
     $this->_setLastUpdateDate(date('m-d-Y'));
   }

@@ -1,14 +1,22 @@
 <?php
 class Taxjar_SalesTax_Model_Rate {
 
-  public function create($regionId, $regionCode, $rateJson) {    
-    $zip       = $rateJson['zip'];
-    $rate      = $rateJson['rate'];
+  public function create($rateJson) {    
+    $zip        = $rateJson['zip'];
+    $regionCode = $rateJson['state'];
+    $rate       = $rateJson['rate'];
+    if ( isset( $rateJson['country'] ) ) {
+      $countryCode = $rateJson['country'];
+    }
+    else {
+      $countryCode = 'US';
+    }
+    $regionId  = Mage::getModel('directory/region')->loadByCode($regionCode, $countryCode)->getId();
     $rateModel = Mage::getModel('tax/calculation_rate');
-    $rateModel->setTaxCountryId('US');
+    $rateModel->setTaxCountryId($countryCode);
     $rateModel->setTaxRegionId($regionId);
     $rateModel->setTaxPostcode($zip);
-    $rateModel->setCode('US-' . $regionCode . '-' . $zip);
+    $rateModel->setCode($countryCode . '-' . $regionCode . '-' . $zip);
     $rateModel->setRate($rate);
     $rateModel->save();
 
