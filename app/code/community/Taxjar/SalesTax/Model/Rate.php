@@ -20,7 +20,14 @@ class Taxjar_SalesTax_Model_Rate {
     $rateModel->setRate($rate);
     $rateModel->save();
 
-    return $rateModel->getId();
+    if ( $rateJson['freight_taxable'] ) {
+      $shippingRateId = $rateModel->getId();
+    }
+    else {
+      $shippingRateId = 0;
+    }
+
+    return array( $rateModel->getId(), $shippingRateId );
   }
   
 }

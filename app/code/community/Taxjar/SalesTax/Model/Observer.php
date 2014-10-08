@@ -1,5 +1,5 @@
 <?php
-class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
+class Taxjar_SalesTax_Model_Observer //extends Mage_Core_Model_Abstract
 {
   
   public function execute($observer) {
@@ -10,6 +10,7 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
     $apiKey = preg_replace('/\s+/', '', $apiKey);
     if ($apiKey){
       $this->newRates = array();
+      $this->freightTaxableRates = array();
       $client         = Mage::getModel('taxjar/client');
       $configuration  = Mage::getModel('taxjar/configuration');
       $rule           = Mage::getModel('taxjar/rule');
@@ -44,8 +45,8 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
       $this->_purgeExisting();
       $this->_createRates($ratesJson);
       $rule->create('Retail Customer-Taxable Goods-Rate 1', 2, 1, $this->newRates);
-      if($configJson['freight_taxable']) {
-        $rule->create('Retail Customer-Shipping-Rate 1', 4, 2, $this->newRates);
+      if ( $configJson['freight_taxable'] ){
+        $rule->create('Retail Customer-Shipping-Rate 1', 4, 2, $this->freightTaxableRates); 
       }
     } else {
       $this->_purgeExisting();
@@ -68,7 +69,11 @@ class Taxjar_SalesTax_Model_Observer extends Mage_Core_Model_Abstract
   private function _createRates($ratesJson) {
     $rate = Mage::getModel('taxjar/rate');
     foreach($ratesJson as $rateJson) {
-      $this->newRates[] = $rate->create($rateJson);
+      $rateIdWithShippingId = $rate->create($rateJson);
+      if ( $rateIdWithShippingId[1] ) {
+        $this->freightTaxableRates[] = $rateIdWithShippingId[1];
+      }
+      $this->newRates[] = $rateIdWithShippingId[0];
     }
     $this->_setLastUpdateDate(date('m-d-Y'));
   }
