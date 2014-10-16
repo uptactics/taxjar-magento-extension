@@ -20,15 +20,15 @@ class Taxjar_SalesTax_Model_Observer {
     $apiKey = preg_replace( '/\s+/', '', $apiKey );
 
     if ( $apiKey ) {
-      $this->$version    = 'v1.0';
+      $this->version     = 'v1';
       $client            = Mage::getModel('taxjar/client');
       $configuration     = Mage::getModel('taxjar/configuration');
       $regionId          = Mage::getStoreConfig('shipping/origin/region_id', $storeId);
-      $this->$storeZip   = Mage::getStoreConfig('shipping/origin/postcode', $storeId);
-      $this->$regionCode = Mage::getModel('directory/region')->load( $regionId )->getCode();
-      $validZip          = preg_match( "/(\d{5}-\d{4})|(\d{5})/", $this->$storeZip );
+      $this->storeZip    = Mage::getStoreConfig('shipping/origin/postcode', $storeId);
+      $this->regionCode  = Mage::getModel('directory/region')->load( $regionId )->getCode();
+      $validZip          = preg_match( "/(\d{5}-\d{4})|(\d{5})/", $this->storeZip );
 
-      if( isset( $this->$regionCode ) ) {
+      if( isset( $this->regionCode ) ) {
         $configJson = $client->getResource( $apiKey, $this->apiUrl( 'config' ) );
       }
       else {
@@ -39,7 +39,7 @@ class Taxjar_SalesTax_Model_Observer {
         return;
       }
 
-      if( $validZip === 1 && isset( $this->$storeZip ) && trim( $this->$storeZip ) !== '' ) {
+      if( $validZip === 1 && isset( $this->storeZip ) && trim( $this->storeZip ) !== '' ) {
         $ratesJson = $client->getResource( $apiKey, $this->apiUrl( 'rates' ));
       }
       else {
@@ -119,14 +119,14 @@ class Taxjar_SalesTax_Model_Observer {
    * @return $string
    */
   private function apiUrl( $type ) {
-    $apiHost = 'https://api.taxjar.com';
-    $prefix  = $apiHost . '/' $this->$version;
+    $apiHost = 'http://tax-rate-service.dev/';
+    $prefix  = $apiHost . 'magento/' . $this->version . '/';
 
     if ( $type == 'config' ) {
-      return $prefix . '/magento/get_configuration/' . $this->$regionCode;
+      return $prefix . 'get_configuration/' . $this->regionCode;
     }
     elseif ( $type == 'rates' ) {
-      return $prefix . '/magento/get_rates/' . $this->$regionCode . '/' . $this->$storeZip;
+      return $prefix . 'get_rates/' . $this->regionCode . '/' . $this->storeZip;
     }
     
   }
