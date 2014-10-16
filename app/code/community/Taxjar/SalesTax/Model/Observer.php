@@ -43,12 +43,11 @@ class Taxjar_SalesTax_Model_Observer //extends Mage_Core_Model_Abstract
       $configuration->setApiSettings($apiKey);
       $this->_purgeExisting();
       if ( false !== file_put_contents($filename, serialize($ratesJson)) ) {
-        $currentRatesHash = md5_file($filename);
+        Mage::dispatchEvent('taxjar_salestax_import_rates'); 
       }
       else {
         throw new Exception("Could not write to your Magento temp directory (".Mage::getBaseDir('tmp').").");
       }
-      Mage::dispatchEvent('taxjar_salestax_import_rates');
     } else {
       $this->_purgeExisting();
       $this->_setLastUpdateDate(NULL);
