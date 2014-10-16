@@ -34,9 +34,9 @@ class Taxjar_SalesTax_Model_Client {
    * @return Varien_Http_Client $response
    */
   private function getClient( $apiKey, $url ) {
-    $client = new Varien_Http_Client($url);
-    $client->setMethod(Varien_Http_Client::GET);
-    $client->setHeaders('Authorization', 'Token token="' . $apiKey .  '"');
+    $client = new Varien_Http_Client( $url );
+    $client->setMethod( Varien_Http_Client::GET );
+    $client->setHeaders( 'Authorization', 'Token token="' . $apiKey .  '"' );
 
     return $client;
   }
