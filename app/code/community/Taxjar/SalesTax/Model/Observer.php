@@ -8,7 +8,7 @@
 class Taxjar_SalesTax_Model_Observer {
 
   /**
-   * Display Nexus states loaded and API Key setting
+   * TaxJar observer
    *
    * @param Varien_Event_Observer $observer
    * @return void
@@ -80,6 +80,7 @@ class Taxjar_SalesTax_Model_Observer {
    * @return void
    */
   public function importRates() {
+    // This process can take a while
     @set_time_limit( 0 );
     @ignore_user_abort( true );
 
@@ -93,9 +94,11 @@ class Taxjar_SalesTax_Model_Observer {
 
     foreach( $ratesJson as $rateJson ) {
       $rateIdWithShippingId = $rate->create( $rateJson );
+
       if ( $rateIdWithShippingId[1] ) {
         $this->freightTaxableRates[] = $rateIdWithShippingId[1];
       }
+
       $this->newRates[] = $rateIdWithShippingId[0];
     }
 
