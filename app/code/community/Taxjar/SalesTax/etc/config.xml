@@ -34,6 +34,15 @@
                   </taxjar_salestax_model_observer>
               </observers>
           </admin_system_config_changed_section_taxjar> 
+          <taxjar_salestax_import_rates>
+              <observers>
+                  <taxjar_salestax_model_observer>
+                      <type>singleton</type>
+                      <class>taxjar/observer</class>
+                      <method>importRates</method>
+                  </taxjar_salestax_model_observer>
+              </observers>
+          </taxjar_salestax_import_rates> 
       </events>      
 	</global>
   <frontend>
