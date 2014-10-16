@@ -35,8 +35,8 @@ class Taxjar_SalesTax_Model_Comment {
    * @param $string
    * @return $string
    */
-  private function fullStateName($stateCode) {
-    $regionModel = Mage::getModel('directory/region')->loadByCode($stateCode, 'US');
+  private function fullStateName( $stateCode ) {
+    $regionModel = Mage::getModel('directory/region')->loadByCode( $stateCode, 'US' );
     return $regionModel->getDefaultName();
   }
 
