@@ -1,9 +1,9 @@
 <config>
     <modules>
-        <Taxjar_Salestaxwizard>
+        <Taxjar_SalesTax>
             <active>true</active>
             <codePool>community</codePool>
             <depends></depends>
-        </Taxjar_Salestaxwizard>
+        </Taxjar_SalesTax>
     </modules>   
 </config>    
