@@ -23,7 +23,6 @@ class Taxjar_SalesTax_Model_Observer {
       $this->version     = 'v1';
       $client            = Mage::getModel('taxjar/client');
       $configuration     = Mage::getModel('taxjar/configuration');
-      $debug             = Mage::getModel('taxjar/debug');
       $regionId          = Mage::getStoreConfig('shipping/origin/region_id', $storeId);
       $this->storeZip    = Mage::getStoreConfig('shipping/origin/postcode', $storeId);
       $this->regionCode  = Mage::getModel('directory/region')->load( $regionId )->getCode();
@@ -130,7 +129,7 @@ class Taxjar_SalesTax_Model_Observer {
    * @return $string
    */
   private function apiUrl( $type ) {
-    $apiHost = 'http://tax-rate-service.dev/';
+    $apiHost = 'https://api.taxjar.com/';
     $prefix  = $apiHost . 'magento/' . $this->version . '/';
 
     if ( $type == 'config' ) {
