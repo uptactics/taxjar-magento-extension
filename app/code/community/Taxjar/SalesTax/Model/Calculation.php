@@ -30,6 +30,7 @@ class Taxjar_SalesTax_Model_Calculation extends Mage_Tax_Model_Resource_Calculat
         $request->setPostcode($currentPostcode);
       }
       else {
+        // Non-US should just work normally
         $rates = parent::_getRates($request);
       }
       return $rates;
