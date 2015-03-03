@@ -17,7 +17,7 @@
       <models>
           <taxjar>
               <class>Taxjar_SalesTax_Model</class>
-          </taxjar>   Mage_Tax_Model_Resource_Calculation
+          </taxjar>
           <tax_resource>
               <rewrite>
                   <calculation>Taxjar_SalesTax_Model_Calculation</calculation>
