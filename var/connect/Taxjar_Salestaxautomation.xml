@@ -1,0 +1,86 @@
+<_>
+   <form_key>FSd3nYYphmJAeUZd</form_key>
+   <name>Taxjar_Salestaxautomation</name>
+   <channel>community</channel>
+   <version_ids>
+      <version_ids>2</version_ids>
+   </version_ids>
+   <summary>Easily collect sales tax without altering your Magento store’s checkout experience or performance.</summary>
+   <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
+   <license>MIT</license>
+   <license_uri/>
+   <version>1.3.0</version>
+   <stability>stable</stability>
+   <notes>* Adds support for zip plus four rate calculations to Magento.
+* Rates may now only be installed on one Magento installation at a time.</notes>
+   <authors>
+      <name>
+         <name>TaxJar</name>
+      </name>
+      <user>
+         <user>taxjar</user>
+      </user>
+      <email>
+         <email>support@taxjar.com</email>
+      </email>
+   </authors>
+   <depends_php_min>5.0.0</depends_php_min>
+   <depends_php_max>6.0.0</depends_php_max>
+   <depends>
+      <package>
+         <name>
+            <name/>
+         </name>
+         <channel>
+            <channel/>
+         </channel>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+         <files>
+            <files>            </files>
+         </files>
+      </package>
+      <extension>
+         <name>
+            <name>Core</name>
+         </name>
+         <min>
+            <min/>
+         </min>
+         <max>
+            <max/>
+         </max>
+      </extension>
+   </depends>
+   <contents>
+      <target>
+         <target>magelocal</target>
+         <target>magecommunity</target>
+         <target>mageetc</target>
+      </target>
+      <path>
+         <path/>
+         <path>Taxjar</path>
+         <path>modules/Taxjar_SalesTax.xml</path>
+      </path>
+      <type>
+         <type>file</type>
+         <type>dir</type>
+         <type>file</type>
+      </type>
+      <include>
+         <include/>
+         <include/>
+         <include/>
+      </include>
+      <ignore>
+         <ignore/>
+         <ignore/>
+         <ignore/>
+      </ignore>
+   </contents>
+</_>
