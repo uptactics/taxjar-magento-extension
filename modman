@@ -1,2 +1,3 @@
 app/etc/modules/*                                       app/etc/modules/
 app/code/community/Taxjar/SalesTax                      app/code/community/Taxjar/SalesTax
+var/connect/*                                           var/connect/
