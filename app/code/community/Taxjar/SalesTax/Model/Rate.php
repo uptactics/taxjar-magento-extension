@@ -23,7 +23,7 @@ class Taxjar_SalesTax_Model_Rate {
       $zip        = $rateJson['zip'];
       $regionCode = $rateJson['state'];
       $rate       = $rateJson['rate'];
-
+      
       if ( isset( $rateJson['country'] ) ) {
         $countryCode = $rateJson['country'];
       }
@@ -58,11 +58,10 @@ class Taxjar_SalesTax_Model_Rate {
       return array( $rateModel->getId(), $shippingRateId );
     }
     catch ( Exception $e ) {
-      Mage::getSingleton('core/session')->addNotice("There was an error encountered while loading rate with code " . $rateModel->getCode() . ". This is most likely due to duplicate codes and can be safely ignored if lots of other rates were loaded. If the error persists, email support@taxjar.com with a screenshot of any Magento errors displayed." );
+      Mage::getSingleton('core/session')->addNotice( "There was an error encountered while loading rate with code " . $rateModel->getCode() . ". This is most likely due to duplicate codes and can be safely ignored if lots of other rates were loaded. If the error persists, email support@taxjar.com with a screenshot of any Magento errors displayed." );
       unset( $rateModel );
       return;
     }
-  }  
-  
+  }
 }
 ?>

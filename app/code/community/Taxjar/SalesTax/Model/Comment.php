@@ -18,7 +18,7 @@ class Taxjar_SalesTax_Model_Comment {
     $regionCode     = Mage::getModel('directory/region')->load( $regionId )->getCode();
     $lastUpdate     = Mage::getStoreConfig('taxjar/config/last_update');
 
-    if( ! empty( $lastUpdate ) ){
+    if ( ! empty( $lastUpdate ) ) {
       $states     = unserialize( Mage::getStoreConfig('taxjar/config/states') );
       $statesHtml = $this->buildStatesHtml( $states, $regionCode );
       return $this->buildInstalledHtml( $statesHtml, $lastUpdate );
@@ -96,23 +96,26 @@ class Taxjar_SalesTax_Model_Comment {
   private function buildStatesHtml( $states, $regionCode ) {
     $states[] = $regionCode;
     $statesHtml = '';
+
     sort( $states );
+
     $taxRatesByState = $this->getNumberOfRatesLoaded( $states );
+
     foreach ( array_unique( $states ) as $state ) {
       if ( ( $stateName = $this->fullStateName( $state ) ) && ! empty( $stateName ) ){
-          if ( $taxRatesByState["rates_by_state"][$state] == 1 && ( $taxRatesByState['rates_loaded'] == $taxRatesByState['total_rates'] ) ){
-            $totalForState = 'Origin-based rates set';
-            $class = 'success';
-          }
-          elseif ( $taxRatesByState["rates_by_state"][$state] == 0 && ( $taxRatesByState['rates_loaded'] == $taxRatesByState['total_rates'] ) ) {
-            $class = 'error';
-            $totalForState = '<a href="https://app.taxjar.com/account#states" target="_blank">Click here</a> and add a zip code for this state to load rates.';
-          }
-          else {
-            $class = 'success';
-            $totalForState = $taxRatesByState["rates_by_state"][$state] . " rates";
-          }
-          $statesHtml .= '<li class="' . $class . '-msg"><ul><li><span style="font-size: 1.4em;">' . $stateName . '</span>: ' . $totalForState . '</li></ul></li>'; 
+        if ( $taxRatesByState["rates_by_state"][$state] == 1 && ( $taxRatesByState['rates_loaded'] == $taxRatesByState['total_rates'] ) ){
+          $totalForState = 'Origin-based rates set';
+          $class = 'success';
+        }
+        elseif ( $taxRatesByState["rates_by_state"][$state] == 0 && ( $taxRatesByState['rates_loaded'] == $taxRatesByState['total_rates'] ) ) {
+          $class = 'error';
+          $totalForState = '<a href="https://app.taxjar.com/account#states" target="_blank">Click here</a> and add a zip code for this state to load rates.';
+        }
+        else {
+          $class = 'success';
+          $totalForState = $taxRatesByState["rates_by_state"][$state] . " rates";
+        }
+        $statesHtml .= '<li class="' . $class . '-msg"><ul><li><span style="font-size: 1.4em;">' . $stateName . '</span>: ' . $totalForState . '</li></ul></li>'; 
       }
     };
 
