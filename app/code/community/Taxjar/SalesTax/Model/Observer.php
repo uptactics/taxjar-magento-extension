@@ -103,12 +103,14 @@ class Taxjar_SalesTax_Model_Observer {
 
     foreach( $ratesJson as $rateJson ) {
       $rateIdWithShippingId = $rate->create( $rateJson );
+      
+      if ( $rateIdWithShippingId[0] ) {
+        $this->newRates[] = $rateIdWithShippingId[0];
+      }
 
       if ( $rateIdWithShippingId[1] ) {
         $this->freightTaxableRates[] = $rateIdWithShippingId[1];
       }
-
-      $this->newRates[] = $rateIdWithShippingId[0];
     }
 
     $this->setLastUpdateDate( date( 'm-d-Y' ) );
