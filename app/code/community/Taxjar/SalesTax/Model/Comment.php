@@ -95,6 +95,7 @@ class Taxjar_SalesTax_Model_Comment {
    */
   private function buildStatesHtml( $states, $regionCode ) {
     $states[] = $regionCode;
+    $statesHtml = '';
     sort( $states );
     $taxRatesByState = $this->getNumberOfRatesLoaded( $states );
     foreach ( array_unique( $states ) as $state ) {
