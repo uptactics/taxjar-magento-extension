@@ -6,6 +6,11 @@
  * @author Taxjar (support@taxjar.com)
  */
 class Taxjar_SalesTax_Model_Rate {
+  private $cache;
+  
+  public function __construct() {
+    $this->cache = Mage::getSingleton('core/cache');
+  }
 
   /**
    * Try to create the rate
@@ -25,10 +30,17 @@ class Taxjar_SalesTax_Model_Rate {
       else {
         $countryCode = 'US';
       }
-
-      $regionId  = Mage::getModel('directory/region')->loadByCode($regionCode, $countryCode)->getId();
+      
+      if ($this->cache->load('regionId') && $regionCode == $this->cache->load('regionCode') && $countryCode == $this->cache->load('countryCode')) {
+        $regionId = $this->cache->load('regionId');
+      } else {
+        $regionId = Mage::getModel('directory/region')->loadByCode($regionCode, $countryCode)->getId();
+        $this->cache->save($regionId, 'regionId');
+        $this->cache->save($regionCode, 'regionCode');
+        $this->cache->save($countryCode, 'countryCode');
+      }
+      
       $rateModel = Mage::getModel('tax/calculation_rate');
-
       $rateModel->setTaxCountryId($countryCode);
       $rateModel->setTaxRegionId($regionId);
       $rateModel->setTaxPostcode($zip);
