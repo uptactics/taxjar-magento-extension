@@ -189,4 +189,4 @@ class Taxjar_SalesTax_Model_Observer {
   }
 
 }
-?>
+

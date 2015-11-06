@@ -6,6 +6,7 @@
  * @author Taxjar (support@taxjar.com)
  */
 class Taxjar_SalesTax_Model_Rate {
+
   private $cache;
   
   public function __construct() {
@@ -63,5 +64,6 @@ class Taxjar_SalesTax_Model_Rate {
       return;
     }
   }
+
 }
-?>
+
