@@ -9,10 +9,12 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>1.3.0</version>
+   <version>1.4.0</version>
    <stability>stable</stability>
-   <notes>* Adds support for zip plus four rate calculations to Magento.
-* Rates may now only be installed on one Magento installation at a time.</notes>
+   <notes>* Fix SQLSTATE constraint error when importing new rates and creating tax rules.
+* Fix background exception when rendering list of imported states.
+* Cache Magento region query while importing rates to improve performance.
+* Provide more extension help and links.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
