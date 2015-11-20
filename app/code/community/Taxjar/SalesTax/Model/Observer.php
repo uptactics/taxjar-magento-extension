@@ -20,7 +20,7 @@ class Taxjar_SalesTax_Model_Observer {
     $apiKey = preg_replace( '/\s+/', '', $apiKey );
 
     if ( $apiKey ) {
-      $this->version     = 'v1';
+      $this->version     = 'v2';
       $client            = Mage::getModel('taxjar/client');
       $configuration     = Mage::getModel('taxjar/configuration');
       $regionId          = Mage::getStoreConfig('shipping/origin/region_id', $storeId);
@@ -31,6 +31,7 @@ class Taxjar_SalesTax_Model_Observer {
 
       if( isset( $this->regionCode ) ) {
         $configJson = $client->getResource( $apiKey, $this->apiUrl( 'config' ) );
+        $configJson = $configJson['configuration'];
       }
       else {
         throw new Exception( "Please check that you have set a Region/State in Shipping Settings." );
@@ -41,7 +42,7 @@ class Taxjar_SalesTax_Model_Observer {
         return;
       }
 
-      if( ! $configJson['allow_update'] ) {
+      if( $configJson['wait_for_rates'] > 0 ) {
         $dateUpdated = Mage::getStoreConfig('taxjar/config/last_update');
         Mage::getSingleton('core/session')->addNotice("Your last rate update was too recent. Please wait at least 5 minutes and try again.");
         return;
@@ -133,13 +134,13 @@ class Taxjar_SalesTax_Model_Observer {
    */
   private function apiUrl( $type ) {
     $apiHost = 'https://api.taxjar.com/';
-    $prefix  = $apiHost . 'magento/' . $this->version . '/';
+    $prefix  = $apiHost . $this->version . '/plugins/magento/';
 
     if ( $type == 'config' ) {
-      return $prefix . 'get_configuration/' . $this->regionCode;
+      return $prefix . 'configuration/' . $this->regionCode;
     }
     elseif ( $type == 'rates' ) {
-      return $prefix . 'get_rates/' . $this->regionCode . '/' . $this->storeZip;
+      return $prefix . 'rates/' . $this->regionCode . '/' . $this->storeZip;
     }
   }
 
