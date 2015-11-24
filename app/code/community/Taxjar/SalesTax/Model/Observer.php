@@ -102,7 +102,7 @@ class Taxjar_SalesTax_Model_Observer {
     $shippingTaxable           = Mage::getStoreConfig('taxjar/config/freight_taxable');
     $ratesJson                 = unserialize( file_get_contents( $filename ) );
 
-    foreach( $ratesJson as $rateJson ) {
+    foreach( $ratesJson['rates'] as $rateJson ) {
       $rateIdWithShippingId = $rate->create( $rateJson );
       
       if ( $rateIdWithShippingId[0] ) {
