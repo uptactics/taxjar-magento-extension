@@ -34,7 +34,7 @@ class Taxjar_SalesTax_Model_Observer {
         $configJson = $configJson['configuration'];
       }
       else {
-        throw new Exception( "Please check that you have set a Region/State in Shipping Settings." );
+        Mage::throwException("Please check that you have set a Region/State in Shipping Settings.");
       }
 
       if ( $debug ) {
@@ -52,7 +52,7 @@ class Taxjar_SalesTax_Model_Observer {
         $ratesJson = $client->getResource( $apiKey, $this->apiUrl( 'rates' ));
       }
       else {
-        throw new Exception("Please check that your zip code is a valid US zip code in Shipping Settings.");
+        Mage::throwException("Please check that your zip code is a valid US zip code in Shipping Settings.");
       }
 
       Mage::getModel('core/config')
@@ -70,7 +70,7 @@ class Taxjar_SalesTax_Model_Observer {
       }
       else {
         // We need to be able to store the file...
-        throw new Exception("Could not write to your Magento temp directory. Please check permissions for " . Mage::getBaseDir('tmp') . ".");
+        Mage::throwException("Could not write to your Magento temp directory. Please check permissions for " . Mage::getBaseDir('tmp') . ".");
       }
 
     }
