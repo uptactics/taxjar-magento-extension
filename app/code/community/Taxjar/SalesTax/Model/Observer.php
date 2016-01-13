@@ -15,7 +15,7 @@ class Taxjar_SalesTax_Model_Observer {
    */
   public function execute( $observer ) {
     $session = Mage::getSingleton( 'adminhtml/session' );
-    $storeId = Mage::getModel('core/store')->load( $observer->getEvent()->getStore() )->getStoreId();
+    $storeId = ( $observer->getEvent() ? Mage::getModel('core/store')->load( $observer->getEvent()->getStore() )->getStoreId() : Mage::app()->getDefaultStoreView()->getStoreId() );
     $apiKey = Mage::getStoreConfig('taxjar/config/apikey', $storeId);
     $apiKey = preg_replace( '/\s+/', '', $apiKey );
 
