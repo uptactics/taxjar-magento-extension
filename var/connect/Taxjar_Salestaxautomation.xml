@@ -9,9 +9,9 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>1.4.3</version>
+   <version>1.4.4</version>
    <stability>stable</stability>
-   <notes>* Fix bug with rate renewal while processing cron job.</notes>
+   <notes>* Fix cron job for international users with a non-US default store.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
