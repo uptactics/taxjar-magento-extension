@@ -39,6 +39,7 @@ class Taxjar_SalesTax_Model_Comment {
     $rates = Mage::getModel("tax/calculation_rate");
     $stateRatesLoadedCount = 0;
     $ratesByState = array();
+
     foreach ( array_unique( $states ) as $state ) {
       $regionModel = Mage::getModel('directory/region')->loadByCode($state, 'US');
       $regionId = $regionModel->getId();
@@ -47,11 +48,29 @@ class Taxjar_SalesTax_Model_Comment {
 
     $rateCalcs = array(
       "total_rates" => array_sum($ratesByState), 
-      "rates_loaded" => Mage::getModel("tax/calculation_rate")->getCollection()->getSize(),
+      "rates_loaded" => $rates->getCollection()->addFieldToFilter( 'tax_region_id', $this->getRegionFilter() )->getSize(),
       "rates_by_state" => $ratesByState
     );
 
     return $rateCalcs;
+  }
+  
+  /**
+   * Get region filter for purging
+   *
+   * @param void
+   * @return void
+   */
+  private function getRegionFilter() {
+    $states = unserialize(Mage::getStoreConfig('taxjar/config/states'));
+    $filter = [];
+
+    foreach (array_unique($states) as $state) {
+      $regionId = Mage::getModel('directory/region')->loadByCode($state, 'US')->getId();
+      $filter[] = array('finset' => array($regionId));
+    }
+    
+    return $filter;
   }
 
   /**
