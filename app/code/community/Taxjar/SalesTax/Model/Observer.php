@@ -150,18 +150,22 @@ class Taxjar_SalesTax_Model_Observer {
    * @return void
    */
   private function purgeExisting() {
-    $paths = array('tax/calculation', 'tax/calculation_rate', 'tax/calculation_rule');
-
-    foreach( $paths as $path ) {
-      $existingRecords = Mage::getModel($path)->getCollection();
+    $rates = Mage::getModel('taxjar/rate')->getExistingRates()->load();
     
-      foreach( $existingRecords as $record ) {
-        try {
-          $record->delete();
-        }
-        catch (Exception $e) {
-          Mage::getSingleton('core/session')->addError("There was an error deleting from Magento model " . $path);
-        }
+    foreach ($rates as $rate) {
+      try {
+        $calculation = Mage::getModel('tax/calculation')->load($rate->getId(), 'tax_calculation_rate_id');
+        $calculation->delete();
+      }
+      catch (Exception $e) {
+        Mage::getSingleton('core/session')->addError("There was an error deleting from Magento model tax/calculation");
+      }
+      
+      try {
+        $rate->delete();
+      }
+      catch (Exception $e) {
+        Mage::getSingleton('core/session')->addError("There was an error deleting from Magento model tax/calculation_rate");
       }
     }
   }

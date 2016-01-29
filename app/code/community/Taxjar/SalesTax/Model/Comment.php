@@ -39,6 +39,7 @@ class Taxjar_SalesTax_Model_Comment {
     $rates = Mage::getModel("tax/calculation_rate");
     $stateRatesLoadedCount = 0;
     $ratesByState = array();
+
     foreach ( array_unique( $states ) as $state ) {
       $regionModel = Mage::getModel('directory/region')->loadByCode($state, 'US');
       $regionId = $regionModel->getId();
@@ -47,7 +48,7 @@ class Taxjar_SalesTax_Model_Comment {
 
     $rateCalcs = array(
       "total_rates" => array_sum($ratesByState), 
-      "rates_loaded" => Mage::getModel("tax/calculation_rate")->getCollection()->getSize(),
+      "rates_loaded" => Mage::getModel('taxjar/rate')->getExistingRates()->getSize(),
       "rates_by_state" => $ratesByState
     );
 
