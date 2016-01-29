@@ -124,24 +124,6 @@ class Taxjar_SalesTax_Model_Observer {
     Mage::getSingleton('core/session')->addSuccess("TaxJar has added new rates to your database! Thanks for using TaxJar!");
     Mage::dispatchEvent('taxjar_salestax_import_rates_after');
   }
-  
-  /**
-   * Get region filter for purging
-   *
-   * @param void
-   * @return void
-   */
-  private function getRegionFilter() {
-    $states = unserialize(Mage::getStoreConfig('taxjar/config/states'));
-    $filter = [];
-
-    foreach (array_unique($states) as $state) {
-      $regionId = Mage::getModel('directory/region')->loadByCode($state, 'US')->getId();
-      $filter[] = array('finset' => array($regionId));
-    }
-    
-    return $filter;
-  }
 
   /**
    * Build URL string
@@ -168,22 +150,19 @@ class Taxjar_SalesTax_Model_Observer {
    * @return void
    */
   private function purgeExisting() {
-    $rateRecords = Mage::getModel('tax/calculation_rate')
-      ->getCollection()
-      ->addFieldToFilter('tax_region_id', $this->getRegionFilter())
-      ->load();
+    $rates = Mage::getModel('taxjar/rate')->getExistingRates()->load();
     
-    foreach ($rateRecords as $record) {
+    foreach ($rates as $rate) {
       try {
-        $calculationRecord = Mage::getModel('tax/calculation')->load($record->getId(), 'tax_calculation_rate_id');
-        $calculationRecord->delete();
+        $calculation = Mage::getModel('tax/calculation')->load($rate->getId(), 'tax_calculation_rate_id');
+        $calculation->delete();
       }
       catch (Exception $e) {
         Mage::getSingleton('core/session')->addError("There was an error deleting from Magento model tax/calculation");
       }
       
       try {
-        $record->delete();
+        $rate->delete();
       }
       catch (Exception $e) {
         Mage::getSingleton('core/session')->addError("There was an error deleting from Magento model tax/calculation_rate");

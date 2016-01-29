@@ -64,6 +64,35 @@ class Taxjar_SalesTax_Model_Rate {
       return;
     }
   }
+  
+  /**
+   * Get existing TaxJar calculations based on configuration states
+   *
+   * @param void
+   * @return $array
+   */
+  public function getExistingRates() {
+    return Mage::getModel('tax/calculation_rate')
+      ->getCollection()
+      ->addFieldToFilter('tax_region_id', $this->getRegionFilter());
+  }
+
+  /**
+   * Get region filter for existing configuration states
+   *
+   * @param void
+   * @return void
+   */
+  private function getRegionFilter() {
+    $states = unserialize(Mage::getStoreConfig('taxjar/config/states'));
+    $filter = [];
+
+    foreach (array_unique($states) as $state) {
+      $regionId = Mage::getModel('directory/region')->loadByCode($state, 'US')->getId();
+      $filter[] = array('finset' => array($regionId));
+    }
+    
+    return $filter;
+  }
 
 }
-
