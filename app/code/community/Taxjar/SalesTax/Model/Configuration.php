@@ -158,9 +158,9 @@ class Taxjar_SalesTax_Model_Configuration
    * @param $string, $mixed
    * @return void
    */
-  private function setConfig( $path, $value ) {
-    $config = new Mage_Core_Model_Config();
-    $config->saveConfig($path, $value, 'default', 0);
+  private function setConfig($path, $value)
+  {
+    Mage::getConfig()->saveConfig($path, $value, 'default', 0);
   }
 
   /**
