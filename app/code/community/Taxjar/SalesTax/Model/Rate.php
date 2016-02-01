@@ -26,7 +26,7 @@ class Taxjar_SalesTax_Model_Rate
       $regionCode = $rateJson['state'];
       $rate       = $rateJson['rate'];
       
-      if (isset( $rateJson['country'])) {
+      if (isset($rateJson['country'])) {
         $countryCode = $rateJson['country'];
       } else {
         $countryCode = 'US';

@@ -29,7 +29,7 @@ class Taxjar_SalesTax_Model_Observer
       $debug             = Mage::getStoreConfig('taxjar/config/debug');
 
       if (isset($this->regionCode)) {
-        $configJson = $client->getResource( $apiKey, $this->apiUrl( 'config' ) );
+        $configJson = $client->getResource($apiKey, $this->apiUrl('config'));
         $configJson = $configJson['configuration'];
       } else {
         Mage::throwException("Please check that you have set a Region/State in Shipping Settings.");
@@ -46,14 +46,14 @@ class Taxjar_SalesTax_Model_Observer
         return;
       }
 
-      if ($validZip === 1 && isset($this->storeZip) && trim($this->storeZip) !== '' ) {
+      if ($validZip === 1 && isset($this->storeZip) && trim($this->storeZip) !== '') {
         $ratesJson = $client->getResource($apiKey, $this->apiUrl('rates'));
       } else {
         Mage::throwException("Please check that your zip code is a valid US zip code in Shipping Settings.");
       }
 
       Mage::getModel('core/config')
-        ->saveConfig('taxjar/config/states', serialize(explode( ',', $configJson['states'])));
+        ->saveConfig('taxjar/config/states', serialize(explode(',', $configJson['states'])));
       $configuration->setTaxBasis($configJson);
       $configuration->setShippingTaxability($configJson);
       $configuration->setDisplaySettings();
@@ -98,7 +98,7 @@ class Taxjar_SalesTax_Model_Observer
     $ratesJson                 = unserialize(file_get_contents($filename));
 
     foreach ($ratesJson['rates'] as $rateJson) {
-      $rateIdWithShippingId = $rate->create( $rateJson );
+      $rateIdWithShippingId = $rate->create($rateJson);
       
       if ($rateIdWithShippingId[0]) {
         $this->newRates[] = $rateIdWithShippingId[0];

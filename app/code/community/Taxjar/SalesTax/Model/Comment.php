@@ -19,7 +19,7 @@ class Taxjar_SalesTax_Model_Comment
     $lastUpdate = Mage::getStoreConfig('taxjar/config/last_update');
 
     if (!empty($lastUpdate)) {
-      $states = unserialize( Mage::getStoreConfig('taxjar/config/states'));
+      $states = unserialize(Mage::getStoreConfig('taxjar/config/states'));
       $statesHtml = $this->buildStatesHtml($states, $regionCode);
       return $this->buildInstalledHtml($statesHtml, $lastUpdate);
     } else {

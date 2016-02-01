@@ -56,7 +56,7 @@ class Taxjar_SalesTax_Model_Configuration
       'tax/cart_display/shipping'
     );
 
-    foreach($settings as $setting) {
+    foreach ($settings as $setting) {
       $this->setConfig($setting, 1);
     }
   }
