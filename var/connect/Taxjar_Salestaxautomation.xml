@@ -9,11 +9,9 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>1.5.0</version>
+   <version>1.5.1</version>
    <stability>stable</stability>
-   <notes>* Existing sales tax rates and rules are no longer overwritten.
-* Rates imported from TaxJar are appended to the default rules for taxable goods and shipping.
-* Codebase improved to more closely follow Magento standards.</notes>
+   <notes>* Fix 500 server error for stores running older versions of PHP (< 5.4).</notes>
    <authors>
       <name>
          <name>TaxJar</name>

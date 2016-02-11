@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
 <package>
     <name>Taxjar_Salestaxautomation</name>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <stability>stable</stability>
     <license>MIT</license>
     <channel>community</channel>
     <extends/>
     <summary>Easily collect sales tax without altering your Magento store&#x2019;s checkout experience or performance.</summary>
     <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store's checkout experience.</description>
-    <notes>* Existing sales tax rates and rules are no longer overwritten.
-* Rates imported from TaxJar are appended to the default rules for taxable goods and shipping.
-* Codebase improved to more closely follow Magento standards.</notes>
+    <notes>* Fix 500 server error for stores running older versions of PHP (< 5.4).</notes>
     <authors><author><name>TaxJar</name><user>taxjar</user><email>support@taxjar.com</email></author></authors>
     <date>2016-02-01</date>
     <time>22:22:45</time>
