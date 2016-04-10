@@ -1,5 +1,5 @@
 <_>
-   <form_key>FSd3nYYphmJAeUZd</form_key>
+   <form_key>lbGxjLDIVJyAoegg</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,9 +9,11 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>1.5.1</version>
+   <version>1.6.0</version>
    <stability>stable</stability>
-   <notes>* Fix 500 server error for stores running older versions of PHP (< 5.4).</notes>
+   <notes>* SmartCalcs integration at checkout for live sales tax calculations and higher accuracy.
+* Product tax code support for exemptions.
+* Update support copy around SmartCalcs.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -40,7 +42,7 @@
             <max/>
          </max>
          <files>
-            <files>            </files>
+            <files>                  </files>
          </files>
       </package>
       <extension>
@@ -82,4 +84,8 @@
          <ignore/>
       </ignore>
    </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
 </_>
