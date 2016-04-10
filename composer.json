@@ -1,0 +1,15 @@
+{
+    "name": "taxjar/taxjar-magento-extension",
+    "type": "magento-module",
+    "license": "OSL-3.0",
+    "description": "Magento Sales Tax Extension by TaxJar",
+    "homepage": "https://github.com/taxjar/taxjar-magento-extension",
+    "authors": [{
+        "name": "TaxJar",
+        "email": "jake@taxjar.com",
+        "homepage": "http://www.taxjar.com"
+    }],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
