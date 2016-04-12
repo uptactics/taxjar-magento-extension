@@ -6,7 +6,7 @@ To get started, check out our [extension guide](http://www.taxjar.com/guides/int
 
 ## Getting Started
 
-Before installing you'll want to [set up a TaxJar account](https://app.taxjar.com/sign_up), configure your [nexus states](http://blog.taxjar.com/sales-tax-nexus-definition/), and generate an API token. Our [guide](http://www.taxjar.com/guides/integrations/magento/) will show you exactly how.
+Before installing you'll want to [set up a TaxJar account](https://app.taxjar.com/sign_up), configure your [nexus states](http://blog.taxjar.com/sales-tax-nexus-definition/) and generate an API token. Our [guide](http://www.taxjar.com/guides/integrations/magento/) will show you exactly how.
 
 Now comes the really fun part. Install our extension one of four ways:
 
