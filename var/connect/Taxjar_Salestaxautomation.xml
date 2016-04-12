@@ -9,11 +9,11 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>1.6.0</version>
+   <version>1.6.1</version>
    <stability>stable</stability>
-   <notes>* SmartCalcs integration at checkout for live sales tax calculations and higher accuracy.
-* Product tax code support for exemptions.
-* Update support copy around SmartCalcs.</notes>
+   <notes>* Hotfix SmartCalcs integration model casing.
+* Trim shipping origin postal code before making API requests.
+* Minor code cleanup.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
