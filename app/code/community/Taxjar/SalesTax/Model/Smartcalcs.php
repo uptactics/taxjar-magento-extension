@@ -139,10 +139,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $matchedKey = array_search($productId, Mage::helper('taxjar')->array_column($lineItems, 'id'));
                 
                 if (isset($lineItems[$matchedKey])) {
-                    $matchedItem = $lineItems[$matchedKey];
-                    $matchedItem['combined_rate'] = $matchedItem['state_sales_tax_rate'] + $matchedItem['county_tax_rate'] + $matchedItem['city_tax_rate'] + $matchedItem['special_tax_rate'];
-
-                    return $matchedItem;
+                    return $lineItems[$matchedKey];
                 }
             }
         }
