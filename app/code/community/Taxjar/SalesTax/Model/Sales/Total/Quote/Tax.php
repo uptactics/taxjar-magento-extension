@@ -31,7 +31,9 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
         $this->_roundingDeltas = array();
         $this->_baseRoundingDeltas = array();
         $this->_hiddenTaxes = array();
-        $this->_address = $address;
+        $this->_setAddress($address);
+        $this->_setAmount(0);
+        $this->_setBaseAmount(0);
         $address->setShippingTaxAmount(0);
         $address->setBaseShippingTaxAmount(0);
 
