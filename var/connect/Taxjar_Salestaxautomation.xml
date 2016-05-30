@@ -9,14 +9,11 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>2.0.0</version>
+   <version>2.0.1</version>
    <stability>stable</stability>
-   <notes>* Moved TaxJar configuration to System &gt; Configuration &gt; Tax. This is a breaking change with new configuration fields. If upgrading from a previous version, you'll need to re-connect to TaxJar and re-enable your settings.
-* Streamlined configuration with focus on SmartCalcs for upcoming free calculations and zip-based rates as a fallback.
-* New "Connect to TaxJar" button for faster onboarding.
-* New select fields for assigning backup tax rules to custom product and customer tax classes.
-* New AJAX sync button for manually refreshing backup rates from TaxJar.
-* Admin notifications tied to our RSS feed for extension updates and news.</notes>
+   <notes>* Separate SmartCalcs shipping tax amount for orders and invoices.
+* Fix display issue after connecting to TaxJar with caching enabled.
+* Minor bug fixes for older versions of PHP and strict standards.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
