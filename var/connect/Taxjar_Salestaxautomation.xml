@@ -9,11 +9,12 @@
    <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>2.0.1</version>
+   <version>2.1.0</version>
    <stability>stable</stability>
-   <notes>* Separate SmartCalcs shipping tax amount for orders and invoices.
-* Fix display issue after connecting to TaxJar with caching enabled.
-* Minor bug fixes for older versions of PHP and strict standards.</notes>
+   <notes>* Nexus addresses can now be managed in Magento under Sales &gt; Tax &gt; Nexus Addresses. If upgrading from a previous version and using checkout calculations, make sure you sync your existing addresses from TaxJar or set up a new address. Your addresses will automatically sync with TaxJar when added or changed.
+* International support for SmartCalcs checkout calculations. One nexus address per country outside of US/CA is currently supported for more than 30 countries.
+* Review nexus addresses for missing data and set up observer to report tax configuration issues.
+* Report errors when using AJAX sync backup rate button in the TaxJar configuration.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
