@@ -1,20 +1,19 @@
 <_>
-   <form_key>lbGxjLDIVJyAoegg</form_key>
+   <form_key>2bHCvbM4YT1s8UyE</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
       <version_ids>2</version_ids>
    </version_ids>
    <summary>Easily collect sales tax without altering your Magento store’s checkout experience or performance.</summary>
-   <description>TaxJar for Magento allows you to install rates for multiple origin or destination-based states without affecting your store&apos;s checkout experience.</description>
+   <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>MIT</license>
    <license_uri/>
-   <version>2.1.0</version>
+   <version>2.1.1</version>
    <stability>stable</stability>
-   <notes>* Nexus addresses can now be managed in Magento under Sales &gt; Tax &gt; Nexus Addresses. If upgrading from a previous version and using checkout calculations, make sure you sync your existing addresses from TaxJar or set up a new address. Your addresses will automatically sync with TaxJar when added or changed.
-* International support for SmartCalcs checkout calculations. One nexus address per country outside of US/CA is currently supported for more than 30 countries.
-* Review nexus addresses for missing data and set up observer to report tax configuration issues.
-* Report errors when using AJAX sync backup rate button in the TaxJar configuration.</notes>
+   <notes>* Fix nexus upgrade script for v2.0.1 users.
+* Purge nexus addresses on disconnect for switching accounts.
+* Package nexus address template form.phtml.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -43,7 +42,7 @@
             <max/>
          </max>
          <files>
-            <files>                  </files>
+            <files>                                     </files>
          </files>
       </package>
       <extension>
@@ -63,18 +62,22 @@
          <target>magelocal</target>
          <target>magecommunity</target>
          <target>mageetc</target>
+         <target>magedesign</target>
       </target>
       <path>
          <path/>
          <path>Taxjar</path>
          <path>modules/Taxjar_SalesTax.xml</path>
+         <path>adminhtml/default/default/template/taxjar</path>
       </path>
       <type>
          <type>file</type>
          <type>dir</type>
          <type>file</type>
+         <type>dir</type>
       </type>
       <include>
+         <include/>
          <include/>
          <include/>
          <include/>
@@ -83,10 +86,7 @@
          <ignore/>
          <ignore/>
          <ignore/>
+         <ignore/>
       </ignore>
    </contents>
-   <page>1</page>
-   <limit>200</limit>
-   <folder/>
-   <package/>
 </_>
