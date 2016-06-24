@@ -164,7 +164,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 return true;
             }
         } else {
-            $nexusInCountry = $nexusCollection->addFieldToFilter('country_id', $regionCode);
+            $nexusInCountry = $nexusCollection->addFieldToFilter('country_id', $country);
             
             if ($nexusInCountry->getSize()) {
                 return true;
