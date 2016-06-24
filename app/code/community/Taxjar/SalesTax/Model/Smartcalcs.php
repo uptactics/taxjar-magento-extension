@@ -47,7 +47,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             return;
         }
 
-        if (!$this->_hasNexus($address->getRegionCode())) {
+        if (!$this->_hasNexus($address->getRegionCode(), $address->getCountry())) {
             return;
         }
 
@@ -150,17 +150,28 @@ class Taxjar_SalesTax_Model_Smartcalcs
      * Verify if nexus is triggered for location
      *
      * @param  string $regionCode
+     * @param  string $country
      * @return bool
      */
-    private function _hasNexus($regionCode)
+    private function _hasNexus($regionCode, $country)
     {
-        $nexusInRegion = Mage::getModel('taxjar/tax_nexus')->getCollection()->addFieldToFilter('region_code', $regionCode);
-
-        if ($nexusInRegion->getSize()) {
-            return true;
+        $nexusCollection = Mage::getModel('taxjar/tax_nexus')->getCollection();
+        
+        if ($country == 'US') {
+            $nexusInRegion = $nexusCollection->addFieldToFilter('region_code', $regionCode);
+            
+            if ($nexusInRegion->getSize()) {
+                return true;
+            }
         } else {
-            return false;
+            $nexusInCountry = $nexusCollection->addFieldToFilter('country_id', $regionCode);
+            
+            if ($nexusInCountry->getSize()) {
+                return true;
+            }
         }
+        
+        return false;
     }
 
     /**
