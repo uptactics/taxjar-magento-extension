@@ -50,11 +50,6 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
             } else {
                 $shippingTaxAmount = 0;
             }
-            
-            $taxAmount = $rates['amount_to_collect'] - $shippingTaxAmount;
-
-            $this->_addAmount($store->convertPrice($taxAmount));
-            $this->_addBaseAmount($taxAmount);
 
             $this->_addAmount($store->convertPrice($shippingTaxAmount));
             $this->_addBaseAmount($shippingTaxAmount);
@@ -67,9 +62,11 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
                     $itemTax = $smartCalcs->getResponseLineItem($item->getId());
                     
                     if (isset($itemTax)) {
+                        $this->_addAmount($store->convertPrice($itemTax['tax_collectable']));
+                        $this->_addBaseAmount($itemTax['tax_collectable']);
                         $item->setTaxPercent($itemTax['combined_tax_rate'] * 100);
                         $item->setTaxAmount($store->convertPrice($itemTax['tax_collectable']));
-                        $item->setBaseTaxAmount($itemTax['tax_collectable']);    
+                        $item->setBaseTaxAmount($itemTax['tax_collectable']);
                     }
                 }    
             }
