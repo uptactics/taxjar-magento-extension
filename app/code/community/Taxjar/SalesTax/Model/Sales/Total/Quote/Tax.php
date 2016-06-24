@@ -64,7 +64,7 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
             
             if (count($items) > 0) {
                 foreach ($items as $item) {
-                    $itemTax = $smartCalcs->getResponseLineItem($item->getProductId());
+                    $itemTax = $smartCalcs->getResponseLineItem($item->getId());
                     
                     if (isset($itemTax)) {
                         $item->setTaxPercent($itemTax['combined_tax_rate'] * 100);
