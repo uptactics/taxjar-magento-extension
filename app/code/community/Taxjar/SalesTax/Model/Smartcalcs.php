@@ -43,7 +43,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             return;
         }
 
-        if (!$address->getRegionCode() || !$address->getPostcode()) {
+        if (!$address->getPostcode()) {
             return;
         }
 
