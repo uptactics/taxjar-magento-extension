@@ -1,5 +1,5 @@
 <_>
-   <form_key>2bHCvbM4YT1s8UyE</form_key>
+   <form_key>mH0gL7jeKwzOgwEU</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -7,13 +7,14 @@
    </version_ids>
    <summary>Easily collect sales tax without altering your Magento store’s checkout experience or performance.</summary>
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
-   <license>MIT</license>
+   <license>OSL-3.0</license>
    <license_uri/>
-   <version>2.1.1</version>
+   <version>2.1.2</version>
    <stability>stable</stability>
-   <notes>* Fix nexus upgrade script for v2.0.1 users.
-* Purge nexus addresses on disconnect for switching accounts.
-* Package nexus address template form.phtml.</notes>
+   <notes>* Fix calculations with associated items sharing the same product ID in configurable/bundled products.
+* Fix calculations fallback for earlier versions of Magento CE before 1.8.
+* Add tax by line item rather than subtotal to prevent rounding issues.
+* Fix nexus check for international locations.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -42,7 +43,7 @@
             <max/>
          </max>
          <files>
-            <files>                                     </files>
+            <files>                                      </files>
          </files>
       </package>
       <extension>
