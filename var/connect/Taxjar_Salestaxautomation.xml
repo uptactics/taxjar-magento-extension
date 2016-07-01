@@ -1,5 +1,5 @@
 <_>
-   <form_key>mH0gL7jeKwzOgwEU</form_key>
+   <form_key>lFg0RFWWXU5DpnV0</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,12 +9,9 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>2.1.2</version>
+   <version>2.2.0</version>
    <stability>stable</stability>
-   <notes>* Fix calculations with associated items sharing the same product ID in configurable/bundled products.
-* Fix calculations fallback for earlier versions of Magento CE before 1.8.
-* Add tax by line item rather than subtotal to prevent rounding issues.
-* Fix nexus check for international locations.</notes>
+   <notes>* Free sales tax calculations for Magento merchants. You must upgrade to this version to receive free calculations at checkout using our new API endpoint.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -43,7 +40,7 @@
             <max/>
          </max>
          <files>
-            <files>                                      </files>
+            <files>                                       </files>
          </files>
       </package>
       <extension>
