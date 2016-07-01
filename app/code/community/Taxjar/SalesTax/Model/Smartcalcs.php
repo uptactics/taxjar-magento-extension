@@ -72,7 +72,6 @@ class Taxjar_SalesTax_Model_Smartcalcs
         );
 
         $order = array_merge($fromAddress, $toAddress, array(
-            'amount' => (float) $address->getSubtotal(),
             'shipping' => (float) $address->getShippingAmount(),
             'line_items' => $this->_getLineItems($address),
             'nexus_addresses' => $this->_getNexusAddresses(),
