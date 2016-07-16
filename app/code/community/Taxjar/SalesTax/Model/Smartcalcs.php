@@ -194,6 +194,20 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $unitPrice = (float) $item->getPrice();
                 $discount = (float) $item->getDiscountAmount();
 
+                if (Mage::getEdition() == 'Enterprise') {
+                    if ($item->getProductType() == Enterprise_GiftCard_Model_Catalog_Product_Type_Giftcard::TYPE_GIFTCARD) {
+                        $giftTaxClassId = Mage::getStoreConfig('tax/classes/wrapping_tax_class');
+                        $giftTaxClass = Mage::getModel('tax/class')->load($giftTaxClassId);
+                        $giftTaxClassCode = $giftTaxClass->getTjSalestaxCode();
+                        
+                        if ($giftTaxClassCode) {
+                            $taxCode = $giftTaxClassCode;
+                        } else {
+                            $taxCode = '99999';
+                        }
+                    }
+                }
+
                 if ($unitPrice) {
                     array_push($lineItems, array(
                         'id' => $id,
