@@ -1,5 +1,5 @@
 <_>
-   <form_key>lFg0RFWWXU5DpnV0</form_key>
+   <form_key>8EaVcpge6AScViG6</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,9 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>2.2.0</version>
+   <version>2.2.1</version>
    <stability>stable</stability>
-   <notes>* Free sales tax calculations for Magento merchants. You must upgrade to this version to receive free calculations at checkout using our new API endpoint.</notes>
+   <notes>* Support Magento EE gift card tax exemption.
+* Tweak calculation requests to rely directly on line items for upcoming SmartCalcs accuracy check.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -40,7 +41,7 @@
             <max/>
          </max>
          <files>
-            <files>                                       </files>
+            <files>                                         </files>
          </files>
       </package>
       <extension>
@@ -87,4 +88,8 @@
          <ignore/>
       </ignore>
    </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
 </_>
