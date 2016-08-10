@@ -52,6 +52,11 @@
                     </tax_nexus>
                 </entities>
             </taxjar_resource>
+            <sales>
+                <rewrite>
+                    <order_api_v2>Taxjar_SalesTax_Model_Sales_Order_Api_V2</order_api_v2>
+                </rewrite>
+            </sales>
             <tax_resource>
                 <rewrite>
                     <calculation>Taxjar_SalesTax_Model_Calculation</calculation>
