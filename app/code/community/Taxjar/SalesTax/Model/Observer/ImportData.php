@@ -23,15 +23,14 @@ class Taxjar_SalesTax_Model_Observer_ImportData
     public function execute(Varien_Event_Observer $observer)
     {
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
-        $storeRegionCode = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'))->getCode();
+        $storeRegion = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'));
+        $storeRegionCode = $storeRegion->getCode();
 
         if ($this->_apiKey) {
             $this->_client = Mage::getModel('taxjar/client');
 
-            if (isset($storeRegionCode)) {
+            if (isset($storeRegionCode) && $storeRegion->getCountryId() == 'US') {
                 $this->_setConfiguration();
-            } else {
-                Mage::throwException('Please check that you have set a Region/State in Shipping Settings.');
             }
         }
     }
