@@ -20,7 +20,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     protected $_apiKey;
     protected $_client;
     protected $_storeZip;
-    protected $_storeRegionCode;
+    protected $_storeRegion;
     protected $_customerTaxClasses;
     protected $_productTaxClasses;
     protected $_newRates = array();
@@ -34,7 +34,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
         if ($isEnabled && $this->_apiKey) {
             $this->_client = Mage::getModel('taxjar/client');
             $this->_storeZip = trim(Mage::getStoreConfig('shipping/origin/postcode'));
-            $this->_storeRegionCode = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'))->getCode();
+            $this->_storeRegion = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'));
             $this->_customerTaxClasses = explode(',', Mage::getStoreConfig('tax/taxjar/customer_tax_classes'));
             $this->_productTaxClasses = explode(',', Mage::getStoreConfig('tax/taxjar/product_tax_classes'));
             $this->_importRates();
@@ -46,8 +46,8 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             }
 
             $this->_setLastUpdateDate(null);
-            Mage::getConfig()->saveConfig('taxjar/smartcalcs/backup', 0);
-            Mage::getSingleton('core/session')->addNotice('TaxJar has been uninstalled. All tax rates imported by TaxJar have been removed.');
+            $this->_unsetBackupRates();
+            Mage::getSingleton('core/session')->addNotice('Backup tax rates imported by TaxJar have been removed.');
         }
 
         // Clear the cache to avoid UI elements not loading
@@ -69,14 +69,21 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             return;
         }
 
-        if ($this->_storeZip && preg_match("/(\d{5}-\d{4})|(\d{5})/", $this->_storeZip)) {
-            $ratesJson = $this->_getRatesJson();
-        } else {
-            Mage::throwException('Please check that your zip code is a valid US zip code in Shipping Settings.');
+        if ($this->_storeRegion && $this->_storeRegion->getCountryId() != 'US') {
+            $this->_unsetBackupRates();
+            Mage::throwException('Please check that your region is a valid US region in Shipping Settings > Origin. Currently we only support backup rates for US regions.');
         }
 
         if (!count($this->_productTaxClasses) || !count($this->_customerTaxClasses)) {
+            $this->_unsetBackupRates();
             Mage::throwException('Please select at least one product tax class and one customer tax class to import backup rates from TaxJar.');
+        }
+
+        if ($this->_storeZip && preg_match("/(\d{5}-\d{4})|(\d{5})/", $this->_storeZip)) {
+            $ratesJson = $this->_getRatesJson();
+        } else {
+            $this->_unsetBackupRates();
+            Mage::throwException('Please check that your zip code is a valid US zip code in Shipping Settings > Origin. Currently we only support backup rates for US regions.');
         }
 
         // Purge existing TaxJar rates and remove from rules
@@ -100,6 +107,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             Mage::getSingleton('core/session')->addSuccess('TaxJar has added new rates to your database. Thanks for using TaxJar!');
             Mage::dispatchEvent('taxjar_salestax_import_rates_after');
         } else {
+            $this->_unsetBackupRates();
             Mage::throwException('Could not write to your Magento temp directory. Please check permissions for ' . Mage::getBaseDir('tmp') . '.');
         }
     }
@@ -214,5 +222,16 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     private function _setLastUpdateDate($date)
     {
         Mage::getConfig()->saveConfig('tax/taxjar/last_update', $date);
+    }
+
+    /**
+     * Unset the backup rates configuration option
+     *
+     * @param void
+     * @return void
+     */
+    private function _unsetBackupRates()
+    {
+        Mage::getConfig()->saveConfig('tax/taxjar/backup', 0);
     }
 }
