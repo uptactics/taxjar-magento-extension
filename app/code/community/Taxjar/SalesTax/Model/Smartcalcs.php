@@ -224,7 +224,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
                     continue;
                 }
 
-                if ($parentId) {
+                if (isset($parentQuantities[$parentId])) {
                     $quantity *= $parentQuantities[$parentId];
                 }
 
