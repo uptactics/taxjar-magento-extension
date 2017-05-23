@@ -1,5 +1,5 @@
 <_>
-   <form_key>jKP4TdkQV4bBORZY</form_key>
+   <form_key>ZWNBaeseW1D3eRRb</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,9 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>2.3.3</version>
+   <version>2.3.4</version>
    <stability>stable</stability>
-   <notes>* Fix child item quantity calculation for bundle items when parent quantity is &gt; 1.</notes>
+   <notes>* Fix child item quantity undefined offset error.
+* Improve US region validation for backup rates and tax configuration.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
