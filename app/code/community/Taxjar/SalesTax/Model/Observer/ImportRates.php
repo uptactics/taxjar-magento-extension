@@ -177,13 +177,13 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
                     $calculation->delete();
                 }
             } catch (Exception $e) {
-                Mage::getSingleton('core/session')->addError('There was an error deleting from Magento model tax/calculation');
+                Mage::getSingleton('core/session')->addError(Mage::helper('taxjar')->__('There was an error deleting from Magento model tax/calculation'));
             }
 
             try {
                 $rate->delete();
             } catch (Exception $e) {
-                Mage::getSingleton('core/session')->addError('There was an error deleting from Magento model tax/calculation_rate');
+                Mage::getSingleton('core/session')->addError(Mage::helper('taxjar')->__('There was an error deleting from Magento model tax/calculation_rate'));
             }
         }
     }
