@@ -27,7 +27,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
         $storeRegionCode = $storeRegion->getCode();
 
         if ($this->_apiKey) {
-            $this->_client = Mage::getModel('taxjar/client');
+            $this->_client = Mage::getSingleton('taxjar/client');
 
             if (isset($storeRegionCode) && $storeRegion->getCountryId() == 'US') {
                 $this->_setConfiguration();
@@ -55,7 +55,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
      */
     private function _setConfiguration()
     {
-        $configuration = Mage::getModel('taxjar/configuration');
+        $configuration = Mage::getSingleton('taxjar/configuration');
         $configJson = $this->_getConfigJson();
 
         $configuration->setTaxBasis($configJson);
