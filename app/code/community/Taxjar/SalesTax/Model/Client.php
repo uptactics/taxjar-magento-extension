@@ -153,6 +153,12 @@ class Taxjar_SalesTax_Model_Client
             case 'nexus':
                 $apiUrl .= '/nexus/addresses';
                 break;
+            case 'orders':
+                $apiUrl .= '/transactions/orders';
+                break;
+            case 'refunds':
+                $apiUrl .= '/transactions/refunds';
+                break;
         }
 
         return $apiUrl;
