@@ -221,7 +221,10 @@ class Taxjar_SalesTax_Model_Smartcalcs
 
                 if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                     $parentQuantities[$id] = $quantity;
-                    continue;
+
+                    if ($item->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_DYNAMIC) {
+                        continue;
+                    }
                 }
 
                 if (isset($parentQuantities[$parentId])) {
