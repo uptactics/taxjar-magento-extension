@@ -89,7 +89,7 @@ class Taxjar_SalesTax_Model_Import_Comment
     private function buildEnabledHtml()
     {
         $states = unserialize(Mage::getStoreConfig('tax/taxjar/states'));
-        $htmlString = "<p class='note'><span>Download zip-based rates from TaxJar as a fallback. TaxJar uses your shipping origin and nexus addresses to sync rates rach month.</span></p><br/>";
+        $htmlString = "<p class='note'><span>Download zip-based rates from TaxJar as a fallback. TaxJar uses your shipping origin and nexus addresses to sync rates each month.</span></p><br/>";
 
         if (!empty($states)) {
             $htmlString .= "<ul class='messages'>" . $this->buildStatesHtml($states) . "</ul>";
@@ -107,7 +107,7 @@ class Taxjar_SalesTax_Model_Import_Comment
      */
     private function buildDisabledHtml()
     {
-        $htmlString = "<p class='note'><span>Download zip-based rates from TaxJar as a fallback. TaxJar uses your shipping origin and nexus addresses to sync rates rach month.</span></p><br/>";
+        $htmlString = "<p class='note'><span>Download zip-based rates from TaxJar as a fallback. TaxJar uses your shipping origin and nexus addresses to sync rates each month.</span></p><br/>";
 
         return $htmlString;
     }
