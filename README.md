@@ -10,7 +10,7 @@ Before installing you'll want to [set up a TaxJar account](https://app.taxjar.co
 
 Now comes the really fun part. Install our extension one of four ways:
 
-- Install via [Magento Connect](https://www.magentocommerce.com/magento-connect/sales-tax-automation-by-taxjar.html).
+- Install via [Magento Connect](https://marketplace.magento.com/taxjar-taxjar-salestaxautomation.html).
 - Upload the latest `tgz` package from `/var/connect/` using the Magento Connect Manager.
 - Manually upload the `/app` files to your server.
 - Use [magento-composer-installer](https://github.com/Cotya/magento-composer-installer) to install via [Composer](https://getcomposer.org).
