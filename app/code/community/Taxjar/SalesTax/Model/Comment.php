@@ -99,10 +99,6 @@ EOT;
         $connectUrl .= (parse_url($connectUrl, PHP_URL_QUERY) ? '&' : '?');
         $pluginVersion = Mage::getConfig()->getModuleConfig('Taxjar_SalesTax')->version;
 
-        if ($this->_getStoreGeneralEmail()) {
-            $popupUrl .= '&email=' . urlencode($this->_getStoreGeneralEmail());
-        }
-
         $popupUrl .= '&plugin=magento&version=' . $pluginVersion;
 
         $htmlString = <<<EOT
