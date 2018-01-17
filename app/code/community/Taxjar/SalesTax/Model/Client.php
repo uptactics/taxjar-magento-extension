@@ -100,7 +100,7 @@ class Taxjar_SalesTax_Model_Client
      */
     private function _getClient($url, $method = Zend_Http_Client::GET)
     {
-        $client = new Zend_Http_Client($url);
+        $client = new Zend_Http_Client($url, array('timeout' => 30));
         $client->setMethod($method);
         $client->setHeaders('Authorization', 'Bearer ' . $this->_apiKey);
 

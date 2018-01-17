@@ -214,10 +214,9 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $id = $item->getId();
                 $parentId = $item->getParentItemId();
                 $quantity = $item->getQty();
-                $taxClass = Mage::getModel('tax/class')->load($item->getProduct()->getTaxClassId());
-                $taxCode = $taxClass->getTjSalestaxCode();
                 $unitPrice = (float) $item->getPrice();
                 $discount = (float) $item->getDiscountAmount();
+                $taxCode = '';
 
                 if ($item->getProductType() == Mage_Catalog_Model_Product_Type::TYPE_BUNDLE) {
                     $parentQuantities[$id] = $quantity;
@@ -229,6 +228,13 @@ class Taxjar_SalesTax_Model_Smartcalcs
 
                 if (isset($parentQuantities[$parentId])) {
                     $quantity *= $parentQuantities[$parentId];
+                }
+
+                if ($item->getProduct()->getTaxClassId()) {
+                    $taxClass = Mage::getModel('tax/class')->load($item->getProduct()->getTaxClassId());
+                    $taxCode = $taxClass->getTjSalestaxCode();
+                } else {
+                    $taxCode = '99999';
                 }
 
                 if (Mage::getEdition() == 'Enterprise') {
