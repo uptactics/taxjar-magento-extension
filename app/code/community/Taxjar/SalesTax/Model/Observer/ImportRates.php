@@ -26,7 +26,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     protected $_newRates = array();
     protected $_newShippingRates = array();
 
-    public function execute(Varien_Event_Observer $observer)
+    public function execute($ignoredObserverOrCronParameter = null)
     {
         $isEnabled = Mage::getStoreConfig('tax/taxjar/backup');
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
