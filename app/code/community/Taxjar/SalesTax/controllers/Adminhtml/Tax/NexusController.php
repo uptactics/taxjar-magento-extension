@@ -153,9 +153,9 @@ class Taxjar_SalesTax_Adminhtml_Tax_NexusController extends Mage_Adminhtml_Contr
             $nexusModel = Mage::getModel('taxjar/tax_nexus')->load($nexusId);
             if ($nexusModel->getId()) {
                 try {
-                    if ($nexusModel->getCountryId() == 'US') {
-                        $nexusModel->syncDelete();
-                    }
+                    // if ($nexusModel->getCountryId() == 'US') {
+                    //     $nexusModel->syncDelete();
+                    // }
                     $nexusModel->delete();
 
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('taxjar')->__('The nexus address has been deleted.'));
