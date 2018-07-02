@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.7] - 2018-07-02
+- Fix discounts applied to shipping amounts for calculations.
+- Fix calculations on newly added cart items if redirect to cart after adding a product is turned off.
+- Fix zip validation for backup rates.
+- Fix PHP 7 type error when running scheduled backup rate sync.
+
 ## [2.3.6] - 2018-01-17
 - Increase API request timeout to 30 seconds for merchants with large volume of backup rates.
 - Fully exempt tax when product tax class is set to "None".
@@ -74,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.6...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.7...HEAD
+[2.3.7]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.6...v2.3.7
 [2.3.6]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.5...v2.3.6
 [2.3.5]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.4...v2.3.5
 [2.3.4]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.3...v2.3.4
