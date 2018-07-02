@@ -51,7 +51,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             return;
         }
 
-        if (!count($address->getAllItems())) {
+        if (!count($address->getAllNonNominalItems())) {
             return;
         }
 
@@ -208,13 +208,13 @@ class Taxjar_SalesTax_Model_Smartcalcs
     private function _getLineItems($address)
     {
         $lineItems = array();
-        $items = $address->getAllItems();
+        $items = $address->getAllNonNominalItems();
 
         if (count($items) > 0) {
             $parentQuantities = array();
 
-            foreach ($items as $item) {
-                $id = $item->getId();
+            foreach ($items as $itemIndex => $item) {
+                $id = $itemIndex;
                 $parentId = $item->getParentItemId();
                 $quantity = $item->getQty();
                 $unitPrice = (float) $item->getPrice();
