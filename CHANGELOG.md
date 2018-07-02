@@ -73,3 +73,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New select fields for assigning backup tax rules to custom product and customer tax classes.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
+
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.6...HEAD
+[2.3.6]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.5...v2.3.6
+[2.3.5]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.4...v2.3.5
+[2.3.4]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.3...v2.3.4
+[2.3.3]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.2...v2.3.3
+[2.3.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.1...v2.3.2
+[2.3.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.0...v2.3.1
+[2.3.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.2.1...v2.3.0
+[2.2.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.1.2...v2.2.0
+[2.1.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.1.1...v2.1.2
+[2.1.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.1.0...v2.1.1
+[2.1.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.0.1...v2.1.0
+[2.0.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.0.0...v2.0.1
+[2.0.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v1.6.1...v2.0.0
