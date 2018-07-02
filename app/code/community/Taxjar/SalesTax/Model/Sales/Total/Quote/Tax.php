@@ -58,8 +58,8 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
             $address->setBaseShippingTaxAmount($shippingTaxAmount);
 
             if (count($items) > 0) {
-                foreach ($items as $item) {
-                    $itemTax = $smartCalcs->getResponseLineItem($item->getId());
+                foreach ($items as $itemIndex => $item) {
+                    $itemTax = $smartCalcs->getResponseLineItem($itemIndex);
 
                     if (isset($itemTax)) {
                         $this->_addAmount($store->convertPrice($itemTax['tax_collectable']));

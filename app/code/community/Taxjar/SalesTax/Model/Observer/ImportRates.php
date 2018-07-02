@@ -26,7 +26,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     protected $_newRates = array();
     protected $_newShippingRates = array();
 
-    public function execute(Varien_Event_Observer $observer)
+    public function execute($ignoredObserverOrCronParameter = null)
     {
         $isEnabled = Mage::getStoreConfig('tax/taxjar/backup');
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
@@ -79,7 +79,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             Mage::throwException('Please select at least one product tax class and one customer tax class to import backup rates from TaxJar.');
         }
 
-        if ($this->_storeZip && preg_match("/(\d{5}-\d{4})|(\d{5})/", $this->_storeZip)) {
+        if ($this->_storeZip && preg_match('/^(\d{5}-\d{4}|\d{5})$/', $this->_storeZip)) {
             $ratesJson = $this->_getRatesJson();
         } else {
             $this->_unsetBackupRates();

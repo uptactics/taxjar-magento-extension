@@ -51,7 +51,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             return;
         }
 
-        if (!count($address->getAllItems())) {
+        if (!count($address->getAllNonNominalItems())) {
             return;
         }
 
@@ -75,8 +75,11 @@ class Taxjar_SalesTax_Model_Smartcalcs
             'to_street' => $address->getData('street'),
         );
 
+        $shipping = (float) $address->getShippingAmount();
+        $shippingDiscount = (float) $address->getShippingDiscountAmount();
+
         $order = array_merge($fromAddress, $toAddress, array(
-            'shipping' => (float) $address->getShippingAmount(),
+            'shipping' => $shipping - abs($shippingDiscount),
             'line_items' => $this->_getLineItems($address),
             'nexus_addresses' => $this->_getNexusAddresses(),
             'plugin' => 'magento'
@@ -205,13 +208,13 @@ class Taxjar_SalesTax_Model_Smartcalcs
     private function _getLineItems($address)
     {
         $lineItems = array();
-        $items = $address->getAllItems();
+        $items = $address->getAllNonNominalItems();
 
         if (count($items) > 0) {
             $parentQuantities = array();
 
-            foreach ($items as $item) {
-                $id = $item->getId();
+            foreach ($items as $itemIndex => $item) {
+                $id = $itemIndex;
                 $parentId = $item->getParentItemId();
                 $quantity = $item->getQty();
                 $unitPrice = (float) $item->getPrice();
