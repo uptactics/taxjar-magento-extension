@@ -75,8 +75,11 @@ class Taxjar_SalesTax_Model_Smartcalcs
             'to_street' => $address->getData('street'),
         );
 
+        $shipping = (float) $address->getShippingAmount();
+        $shippingDiscount = (float) $address->getShippingDiscountAmount();
+
         $order = array_merge($fromAddress, $toAddress, array(
-            'shipping' => (float) $address->getShippingAmount(),
+            'shipping' => $shipping - abs($shippingDiscount),
             'line_items' => $this->_getLineItems($address),
             'nexus_addresses' => $this->_getNexusAddresses(),
             'plugin' => 'magento'
