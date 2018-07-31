@@ -26,7 +26,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
 
     public function __construct($params = array())
     {
-        $this->_logger = Mage::getModel('taxjar/logger');
+        $this->_logger = Mage::getModel('taxjar/logger')->setFilename("calculations.log");
         $this->initTaxForOrder($params['address']);
     }
 
@@ -99,12 +99,9 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $response = $client->request('POST');
                 $this->_response = $response;
                 $this->_setSessionData('response', $response);
-                if ($response->getStatus() ==200 ) // Success
-                {
+                if ($response->getStatus() ==200 ) {
                     $this->_logger->log('Successful API response: ' . $response->getBody(), 'success');
-                }
-                else
-                {
+                } else {
                     $errorResponse = json_decode($response->getBody());
                     $this->_logger->log($errorResponse->status . ' ' . $errorResponse->error . ' - ' . $errorResponse->detail, 'error');
 

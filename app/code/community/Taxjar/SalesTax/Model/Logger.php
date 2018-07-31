@@ -23,6 +23,14 @@ class Taxjar_SalesTax_Model_Logger
 {
     protected $playback = array();
     protected $isRecording;
+    protected $filename = 'default.log';
+
+
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+        return $this;
+    }
 
     /**
      * Get the temp log filename
@@ -31,7 +39,7 @@ class Taxjar_SalesTax_Model_Logger
      */
     public function getPath()
     {
-        return Mage::getBaseDir('log') . DS . 'taxjar.log';
+        return Mage::getBaseDir('log') . DS .'taxjar' . DS . $this->filename;
     }
 
     /**
@@ -43,8 +51,7 @@ class Taxjar_SalesTax_Model_Logger
      * @return void
      */
     public function log($message, $label = '') {
-        if(Mage::getIsDeveloperMode())
-        {
+        if (Mage::getStoreConfig('tax/taxjar/debug')) {
             try {
                 if (!empty($label)) {
                     $label = '[' . strtoupper($label) . '] ';
@@ -52,6 +59,12 @@ class Taxjar_SalesTax_Model_Logger
 
                 $timestamp = date('d M Y H:i:s', time());
                 $message = sprintf('%s%s - %s%s', PHP_EOL, $timestamp, $label, $message);
+
+                if (!is_dir(dirname($this->getPath()))) {
+                    // dir doesn't exist, make it
+                    mkdir(dirname($this->getPath()));
+                }
+
                 file_put_contents($this->getPath(), $message, FILE_APPEND);
 
                 if ($this->isRecording) {
