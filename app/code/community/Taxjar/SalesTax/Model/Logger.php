@@ -28,6 +28,7 @@ class Taxjar_SalesTax_Model_Logger
     /**
      * Sets the filename used for the logger
      *
+     * @param string $filename
      * @return Taxjar_SalesTax_Model_Logger
      */
     public function setFilename($filename)
