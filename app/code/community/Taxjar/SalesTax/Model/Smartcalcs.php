@@ -26,7 +26,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
 
     public function __construct($params = array())
     {
-        $this->_logger = Mage::getModel('taxjar/logger')->setFilename("calculations.log");
+        $this->_logger = Mage::getModel('taxjar/logger')->setFilename('calculations.log');
         $this->initTaxForOrder($params['address']);
     }
 
@@ -99,17 +99,17 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $response = $client->request('POST');
                 $this->_response = $response;
                 $this->_setSessionData('response', $response);
+
                 if (200 == $response->getStatus()) {
                     $this->_logger->log('Successful API response: ' . $response->getBody(), 'success');
                 } else {
                     $errorResponse = json_decode($response->getBody());
                     $this->_logger->log($errorResponse->status . ' ' . $errorResponse->error . ' - ' . $errorResponse->detail, 'error');
-
                 }
 
             } catch (Zend_Http_Client_Exception $e) {
                 // Catch API timeouts and network issues
-                $this->_logger->log('There has been an api timeout or a network issue between you and taxjar, please try again later.', 'error');
+                $this->_logger->log('API timeout or network issue between your store and TaxJar, please try again later.', 'error');
                 $this->_response = null;
                 $this->_unsetSessionData('response');
             }

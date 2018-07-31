@@ -39,7 +39,7 @@ class Taxjar_SalesTax_Model_Logger
      */
     public function getPath()
     {
-        return Mage::getBaseDir('log') . DS .'taxjar' . DS . $this->filename;
+        return Mage::getBaseDir('log') . DS . 'taxjar' . DS . $this->filename;
     }
 
     /**
