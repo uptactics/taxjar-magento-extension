@@ -99,7 +99,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $response = $client->request('POST');
                 $this->_response = $response;
                 $this->_setSessionData('response', $response);
-                if ($response->getStatus() ==200 ) {
+                if (200 == $response->getStatus()) {
                     $this->_logger->log('Successful API response: ' . $response->getBody(), 'success');
                 } else {
                     $errorResponse = json_decode($response->getBody());
