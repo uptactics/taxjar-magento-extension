@@ -25,7 +25,11 @@ class Taxjar_SalesTax_Model_Logger
     protected $isRecording;
     protected $filename = 'default.log';
 
-
+    /**
+     * Sets the filename used for the logger
+     *
+     * @return Taxjar_SalesTax_Model_Logger
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
