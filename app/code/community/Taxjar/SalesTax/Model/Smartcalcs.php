@@ -91,6 +91,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             $client = new Zend_Http_Client('https://api.taxjar.com/v2/magento/taxes');
             $client->setHeaders('Authorization', 'Bearer ' . $apiKey);
             $client->setRawData(json_encode($order), 'application/json');
+
             $this->_logger->log('Calculating sales tax: ' . json_encode($order), 'post');
 
             $this->_setSessionData('order', json_encode($order));
