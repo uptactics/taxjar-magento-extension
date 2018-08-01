@@ -22,9 +22,11 @@
 class Taxjar_SalesTax_Model_Smartcalcs
 {
     protected $_response;
+    protected $_logger;
 
     public function __construct($params = array())
     {
+        $this->_logger = Mage::getModel('taxjar/logger')->setFilename('calculations.log');
         $this->initTaxForOrder($params['address']);
     }
 
@@ -89,6 +91,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             $client = new Zend_Http_Client('https://api.taxjar.com/v2/magento/taxes');
             $client->setHeaders('Authorization', 'Bearer ' . $apiKey);
             $client->setRawData(json_encode($order), 'application/json');
+            $this->_logger->log('Calculating sales tax: ' . json_encode($order), 'post');
 
             $this->_setSessionData('order', json_encode($order));
 
@@ -96,8 +99,17 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 $response = $client->request('POST');
                 $this->_response = $response;
                 $this->_setSessionData('response', $response);
+
+                if (200 == $response->getStatus()) {
+                    $this->_logger->log('Successful API response: ' . $response->getBody(), 'success');
+                } else {
+                    $errorResponse = json_decode($response->getBody());
+                    $this->_logger->log($errorResponse->status . ' ' . $errorResponse->error . ' - ' . $errorResponse->detail, 'error');
+                }
+
             } catch (Zend_Http_Client_Exception $e) {
                 // Catch API timeouts and network issues
+                $this->_logger->log('API timeout or network issue between your store and TaxJar, please try again later.', 'error');
                 $this->_response = null;
                 $this->_unsetSessionData('response');
             }
