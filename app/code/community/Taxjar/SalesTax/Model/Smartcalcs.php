@@ -227,7 +227,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
             $parentQuantities = array();
 
             foreach ($items as $itemIndex => $item) {
-                $id = $item->getId();
+                $id = $item->getId() ? $item->getId() : $itemIndex;
                 $parentId = $item->getParentItemId();
                 $quantity = $item->getQty();
                 $unitPrice = (float) $item->getPrice();
