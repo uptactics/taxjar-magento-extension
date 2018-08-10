@@ -25,6 +25,12 @@ class Taxjar_SalesTax_Model_Logger
     protected $isRecording;
     protected $filename = 'default.log';
 
+
+    /**
+     * @var boolean
+     */
+    protected $isForced = false;
+
     /**
      * Sets the filename used for the logger
      *
@@ -34,6 +40,17 @@ class Taxjar_SalesTax_Model_Logger
     public function setFilename($filename)
     {
         $this->filename = $filename;
+        return $this;
+    }
+
+    /**
+     * Enables or disables the logger
+     * @param boolean $isForced
+     * @return Logger
+     */
+    public function force($isForced=true)
+    {
+        $this->isForced = $isForced;
         return $this;
     }
 
@@ -56,7 +73,7 @@ class Taxjar_SalesTax_Model_Logger
      * @return void
      */
     public function log($message, $label = '') {
-        if (Mage::getStoreConfig('tax/taxjar/debug')) {
+        if (Mage::getStoreConfig('tax/taxjar/debug') || $this->isForced) {
             try {
                 if (!empty($label)) {
                     $label = '[' . strtoupper($label) . '] ';
