@@ -25,7 +25,6 @@ class Taxjar_SalesTax_Model_Logger
     protected $isRecording;
     protected $filename = 'default.log';
 
-
     /**
      * @var boolean
      */
@@ -48,7 +47,7 @@ class Taxjar_SalesTax_Model_Logger
      * @param boolean $isForced
      * @return Logger
      */
-    public function force($isForced=true)
+    public function force($isForced = true)
     {
         $this->isForced = $isForced;
         return $this;
