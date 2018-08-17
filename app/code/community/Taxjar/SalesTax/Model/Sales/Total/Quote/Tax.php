@@ -61,6 +61,7 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
                 foreach ($items as $itemIndex => $item) {
                     $itemId = $item->getId() ? $item->getId() : $itemIndex;
                     $itemTax = $smartCalcs->getResponseLineItem($itemId);
+                    
                     if (isset($itemTax)) {
                         $this->_addAmount($store->convertPrice($itemTax['tax_collectable']));
                         $this->_addBaseAmount($itemTax['tax_collectable']);
