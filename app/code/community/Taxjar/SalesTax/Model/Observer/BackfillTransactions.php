@@ -21,7 +21,7 @@ class Taxjar_SalesTax_Model_Observer_BackfillTransactions
 
     public function __construct()
     {
-        $this->logger = Mage::getSingleton('taxjar/logger');
+        $this->logger = Mage::getSingleton('taxjar/logger')->setFilename('transactions.log')->force();
     }
 
     /**

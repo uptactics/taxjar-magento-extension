@@ -38,8 +38,7 @@ class Taxjar_SalesTax_Adminhtml_Tax_TransactionController extends Mage_Adminhtml
     public function backfillAction()
     {
         try {
-            $logger = Mage::getSingleton('taxjar/logger');
-            $logger->record();
+            $logger = Mage::getSingleton('taxjar/logger')->record();
 
             Mage::dispatchEvent('taxjar_salestax_backfill_transactions');
 

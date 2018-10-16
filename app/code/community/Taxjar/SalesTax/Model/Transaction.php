@@ -27,7 +27,7 @@ class Taxjar_SalesTax_Model_Transaction
     public function __construct()
     {
         $this->client = Mage::getSingleton('taxjar/client');
-        $this->logger = Mage::getSingleton('taxjar/logger');
+        $this->logger = Mage::getSingleton('taxjar/logger')->setFilename('transactions.log');
     }
 
     /**

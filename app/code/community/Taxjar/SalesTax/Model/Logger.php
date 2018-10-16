@@ -23,6 +23,35 @@ class Taxjar_SalesTax_Model_Logger
 {
     protected $playback = array();
     protected $isRecording;
+    protected $filename = 'default.log';
+
+    /**
+     * @var boolean
+     */
+    protected $isForced = false;
+
+    /**
+     * Sets the filename used for the logger
+     *
+     * @param string $filename
+     * @return Taxjar_SalesTax_Model_Logger
+     */
+    public function setFilename($filename)
+    {
+        $this->filename = $filename;
+        return $this;
+    }
+
+    /**
+     * Enables or disables the logger
+     * @param boolean $isForced
+     * @return Logger
+     */
+    public function force($isForced = true)
+    {
+        $this->isForced = $isForced;
+        return $this;
+    }
 
     /**
      * Get the temp log filename
@@ -31,7 +60,7 @@ class Taxjar_SalesTax_Model_Logger
      */
     public function getPath()
     {
-        return Mage::getBaseDir('log') . DS . 'taxjar.log';
+        return Mage::getBaseDir('log') . DS . 'taxjar' . DS . $this->filename;
     }
 
     /**
@@ -43,20 +72,28 @@ class Taxjar_SalesTax_Model_Logger
      * @return void
      */
     public function log($message, $label = '') {
-        try {
-            if (!empty($label)) {
-                $label = '[' . strtoupper($label) . '] ';
-            }
+        if (Mage::getStoreConfig('tax/taxjar/debug') || $this->isForced) {
+            try {
+                if (!empty($label)) {
+                    $label = '[' . strtoupper($label) . '] ';
+                }
 
-            $timestamp = date('d M Y H:i:s', time());
-            $message = sprintf('%s%s - %s%s', PHP_EOL, $timestamp, $label, $message);
-            file_put_contents($this->getPath(), $message, FILE_APPEND);
+                $timestamp = date('d M Y H:i:s', time());
+                $message = sprintf('%s%s - %s%s', PHP_EOL, $timestamp, $label, $message);
 
-            if ($this->isRecording) {
-                $this->playback[] = $message;
+                if (!is_dir(dirname($this->getPath()))) {
+                    // dir doesn't exist, make it
+                    mkdir(dirname($this->getPath()));
+                }
+
+                file_put_contents($this->getPath(), $message, FILE_APPEND);
+
+                if ($this->isRecording) {
+                    $this->playback[] = $message;
+                }
+            } catch (Exception $e) {
+                Mage::getSingleton('core/session')->addError(Mage::helper('taxjar')->__('Could not write to your Magento log directory under /var/log. Please make sure the directory is created and check permissions for %1.', Mage::getBaseDir('log')));
             }
-        } catch (Exception $e) {
-            Mage::getSingleton('core/session')->addError(Mage::helper('taxjar')->__('Could not write to your Magento log directory under /var/log. Please make sure the directory is created and check permissions for %1.', Mage::getBaseDir('log')));
         }
     }
 
@@ -68,6 +105,7 @@ class Taxjar_SalesTax_Model_Logger
     public function record()
     {
         $this->isRecording = true;
+        return $this;
     }
 
     /**

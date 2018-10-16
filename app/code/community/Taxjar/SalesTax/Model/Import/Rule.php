@@ -24,11 +24,12 @@ class Taxjar_SalesTax_Model_Import_Rule
     /**
      * Create new tax rule based on code
      *
-     * @param string $code
-     * @param integer $customerClass
-     * @param integer $productClass
+     * @param string  $code
+     * @param array   $customerClasses
+     * @param array   $productClasses
      * @param integer $position
-     * @param array $rates
+     * @param array   $rates
+     *
      * @return void
      */
     public function create($code, $customerClasses, $productClasses, $position, $rates)
@@ -43,7 +44,7 @@ class Taxjar_SalesTax_Model_Import_Rule
             'priority' => 1
         );
 
-        if (isset($rule)) {
+        if ($rule && $rule->getId()) {
             $attributes['tax_rate'] = array_merge($rule->getRates(), $rates);
             $rule->delete();
         } else {
@@ -54,6 +55,5 @@ class Taxjar_SalesTax_Model_Import_Rule
         $ruleModel->setData($attributes);
         $ruleModel->setCalculateSubtotal(0);
         $ruleModel->save();
-        $ruleModel->saveCalculationData();
     }
 }
