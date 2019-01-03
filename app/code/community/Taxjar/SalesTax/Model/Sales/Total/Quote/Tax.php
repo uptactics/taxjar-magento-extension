@@ -61,7 +61,13 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
                 foreach ($items as $itemIndex => $item) {
                     $itemId = $item->getId() ? $item->getId() : $itemIndex;
                     $itemTax = $smartCalcs->getResponseLineItem($itemId);
-                    
+
+                    if ($this->_getTaxConfig('weee/enable', $store->getId())) {
+                        $fptAmount = $item->getWeeeTaxAppliedAmount() * $item->getQty();
+                        $this->_addAmount($store->convertPrice($fptAmount));
+                        $this->_addBaseAmount($fptAmount);
+                    }
+
                     if (isset($itemTax)) {
                         $this->_addAmount($store->convertPrice($itemTax['tax_collectable']));
                         $this->_addBaseAmount($itemTax['tax_collectable']);
@@ -91,4 +97,17 @@ class Taxjar_SalesTax_Model_Sales_Total_Quote_Tax extends Mage_Tax_Model_Sales_T
             array('address' => $address)
         );
     }
+
+    /**
+     * Get Magento tax configuration field by store ID
+     *
+     * @param string $key
+     * @param integer $storeId
+     * @return string|bool
+     */
+    protected function _getTaxConfig($key, $storeId)
+    {
+        return Mage::getStoreConfig('tax/' . $key, $storeId);
+    }
+
 }
