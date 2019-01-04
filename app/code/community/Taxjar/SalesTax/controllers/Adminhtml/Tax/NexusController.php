@@ -27,7 +27,7 @@ class Taxjar_SalesTax_Adminhtml_Tax_NexusController extends Mage_Adminhtml_Contr
              ->_title($this->__('Tax'))
              ->_title($this->__('Nexus Addresses'));
 
-        $this->_reviewAddresses();
+//        $this->_reviewAddresses();
 
         $this->_initAction()
             ->_addContent($this->getLayout()->createBlock('taxjar/adminhtml_tax_nexus'))
@@ -123,7 +123,7 @@ class Taxjar_SalesTax_Adminhtml_Tax_NexusController extends Mage_Adminhtml_Contr
 
                 try {
                     if ($nexusModel->getCountryId() == 'US') {
-                        $nexusModel->sync();
+//                        $nexusModel->sync();
                     }
                     $nexusModel->save();
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('taxjar')->__('The nexus address has been saved.'));
