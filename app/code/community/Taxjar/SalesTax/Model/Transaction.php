@@ -105,7 +105,7 @@ class Taxjar_SalesTax_Model_Transaction
         $parentTaxes = $this->getParentAmounts('tax', $items, $type);
 
         foreach ($items as $item) {
-            if ($item->getParentItemId()) {
+            if ($item->getProductType() == 'bundle' || ($item->getParentItemId() && $item->getParentItem()->getProductType() !== 'bundle')) {
                 continue;
             }
 
