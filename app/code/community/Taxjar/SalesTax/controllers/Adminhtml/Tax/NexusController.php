@@ -122,9 +122,9 @@ class Taxjar_SalesTax_Adminhtml_Tax_NexusController extends Mage_Adminhtml_Contr
                 }
 
                 try {
-                    if ($nexusModel->getCountryId() == 'US') {
+//                    if ($nexusModel->getCountryId() == 'US') {
 //                        $nexusModel->sync();
-                    }
+//                    }
                     $nexusModel->save();
                     Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('taxjar')->__('The nexus address has been saved.'));
                     $this->getResponse()->setRedirect($this->getUrl("*/*/"));
