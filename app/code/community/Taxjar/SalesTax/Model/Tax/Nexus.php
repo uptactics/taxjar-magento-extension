@@ -141,20 +141,8 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
         $errors = array();
         $nexusModel = Mage::getModel('taxjar/tax_nexus');
 
-        if (!Zend_Validate::is($this->getStreet(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('Street address can\'t be empty');
-        }
-
-        if (!Zend_Validate::is($this->getCity(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('City can\'t be empty');
-        }
-
         if (!Zend_Validate::is($this->getCountryId(), 'NotEmpty')) {
             $errors[] = Mage::helper('taxjar')->__('Country can\'t be empty');
-        }
-
-        if (!Zend_Validate::is($this->getPostcode(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('Zip/Post Code can\'t be empty');
         }
 
         if (!$this->getId()) {
