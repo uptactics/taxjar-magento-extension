@@ -105,8 +105,21 @@ class Taxjar_SalesTax_Model_Transaction
         $parentTaxes = $this->getParentAmounts('tax', $items, $type);
 
         foreach ($items as $item) {
-            if ($item->getProductType() == 'bundle' || ($item->getParentItemId() && $item->getParentItem()->getProductType() !== 'bundle')) {
-                continue;
+            $itemType = $item->getProductType();
+            $parentItem = $item->getParentItem();
+
+            if (($itemType == 'simple' || $itemType == 'virtual') && $item->getParentItemId()) {
+                if (!empty($parentItem) && $parentItem->getProductType() == 'bundle') {
+                    if ($parentItem->getProduct()->getPriceType() == 1) {
+                        continue;  // Skip children of fixed price bundles
+                    }
+                } else {
+                    continue;  // Skip children of configurable products
+                }
+            }
+
+            if ($itemType == 'bundle' && $item->getProduct()->getPriceType() != 1) {
+                continue;  // Skip dynamic bundle parent item
             }
 
             if (method_exists($item, 'getOrderItem') && $item->getOrderItem()->getParentItemId()) {
