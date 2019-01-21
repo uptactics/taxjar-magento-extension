@@ -110,7 +110,7 @@ class Taxjar_SalesTax_Model_Transaction
 
             if (($itemType == 'simple' || $itemType == 'virtual') && $item->getParentItemId()) {
                 if (!empty($parentItem) && $parentItem->getProductType() == 'bundle') {
-                    if ($parentItem->getProduct()->getPriceType() == 1) {
+                    if ($parentItem->getProduct()->getPriceType() == Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
                         continue;  // Skip children of fixed price bundles
                     }
                 } else {
@@ -118,7 +118,7 @@ class Taxjar_SalesTax_Model_Transaction
                 }
             }
 
-            if ($itemType == 'bundle' && $item->getProduct()->getPriceType() != 1) {
+            if ($itemType == 'bundle' && $item->getProduct()->getPriceType() != Mage_Bundle_Model_Product_Price::PRICE_TYPE_FIXED) {
                 continue;  // Skip dynamic bundle parent item
             }
 
