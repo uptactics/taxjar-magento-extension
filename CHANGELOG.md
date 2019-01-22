@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.1] - 2019-01-22
+- Make nexus address fields (street, city, zip) optional for remote sellers / economic nexus.
+- Fix error when syncing nexus addresses with an incomplete TaxJar business profile.
+- Rename empty product category label from "None" to "Fully Taxable".
+- Include fixed product taxes in total tax amount.
+
 ## [2.4.0] - 2018-10-11
 - Add calculation logging when debug mode is enabled.
 - Improve backup rate sync performance up to 25%.
@@ -85,7 +91,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.7...v2.4.0
 [2.3.7]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.6...v2.3.7
 [2.3.6]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.5...v2.3.6
