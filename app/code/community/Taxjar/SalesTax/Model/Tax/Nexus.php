@@ -91,6 +91,14 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
             $addresses = $nexusJson['addresses'];
 
             foreach($addresses as $address) {
+                if (!isset($address['country']) || empty($address['country'])) {
+                    continue;
+                }
+
+                if (($address['country'] == 'US' || $address['country'] == 'CA') && (!isset($address['state']) || empty($address['state']))) {
+                    continue;
+                }
+
                 $addressRegion = Mage::getModel('directory/region')->loadByCode($address['state'], $address['country']);
                 $addressCountry = Mage::getModel('directory/country')->loadByCode($address['country']);
                 $addressCollection = Mage::getModel('taxjar/tax_nexus')->getCollection();
@@ -141,20 +149,13 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
         $errors = array();
         $nexusModel = Mage::getModel('taxjar/tax_nexus');
 
-        if (!Zend_Validate::is($this->getStreet(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('Street address can\'t be empty');
-        }
-
-        if (!Zend_Validate::is($this->getCity(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('City can\'t be empty');
-        }
-
         if (!Zend_Validate::is($this->getCountryId(), 'NotEmpty')) {
             $errors[] = Mage::helper('taxjar')->__('Country can\'t be empty');
         }
 
-        if (!Zend_Validate::is($this->getPostcode(), 'NotEmpty')) {
-            $errors[] = Mage::helper('taxjar')->__('Zip/Post Code can\'t be empty');
+        if (($this->getCountryId() == 'US' || $this->getCountryId() == 'CA') &&
+            !Zend_Validate::is($this->getRegionId(), 'NotEmpty')) {
+            $errors[] = Mage::helper('taxjar')->__('State can\'t be empty if country is US/Canada');
         }
 
         if (!$this->getId()) {

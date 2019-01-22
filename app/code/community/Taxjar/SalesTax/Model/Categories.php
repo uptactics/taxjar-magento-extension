@@ -34,7 +34,7 @@ class Taxjar_SalesTax_Model_Categories
 
         $output = array(
             array(
-                'label' => 'None',
+                'label' => 'Fully Taxable',
                 'value' => ''
             )
         );

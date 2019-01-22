@@ -75,9 +75,8 @@ class Taxjar_SalesTax_Block_Adminhtml_Tax_Nexus_Edit_Form extends Mage_Adminhtml
             array(
                 'name'     => 'street',
                 'label'    => Mage::helper('taxjar')->__('Street Address'),
-                'class'    => 'required-entry',
+                'class'    => '',
                 'value'    => $model->getStreet(),
-                'required' => true
             )
         );
 
@@ -85,9 +84,8 @@ class Taxjar_SalesTax_Block_Adminhtml_Tax_Nexus_Edit_Form extends Mage_Adminhtml
             array(
                 'name'     => 'city',
                 'label'    => Mage::helper('taxjar')->__('City'),
-                'class'    => 'required-entry',
+                'class'    => '',
                 'value'    => $model->getCity(),
-                'required' => true
             )
         );
 
@@ -114,9 +112,8 @@ class Taxjar_SalesTax_Block_Adminhtml_Tax_Nexus_Edit_Form extends Mage_Adminhtml
             array(
                 'name'     => 'postcode',
                 'label'    => Mage::helper('taxjar')->__('Zip/Post Code'),
-                'class'    => 'required-entry',
+                'class'    => '',
                 'value'    => $model->getPostcode(),
-                'required' => true
             )
         );
 
