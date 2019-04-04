@@ -29,8 +29,8 @@ class Taxjar_SalesTax_Model_Observer_SyncRefund
             return $this;
         }
 
-        if (!Mage::registry('taxjar_sync')) {
-            Mage::register('taxjar_sync', true);
+        if (!Mage::registry('taxjar_sync_refund')) {
+            Mage::register('taxjar_sync_refund', true);
         } else {
             return $this;
 
