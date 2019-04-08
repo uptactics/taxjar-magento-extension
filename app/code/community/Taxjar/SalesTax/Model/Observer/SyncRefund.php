@@ -35,12 +35,10 @@ class Taxjar_SalesTax_Model_Observer_SyncRefund
             return $this;
 
         }
+
         /** @var Mage_Sales_Model_Order_Creditmemo $creditmemo */
         $creditmemo = $observer->getCreditmemo();
         $order = $creditmemo->getOrder();
-
-        // Force the order to load the most recent data
-        $order->load($order->getId());
 
         $orderTransaction = Mage::getModel('taxjar/transaction_order');
 
