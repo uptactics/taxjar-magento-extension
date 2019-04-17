@@ -47,7 +47,9 @@ class Taxjar_SalesTax_Model_Observer_SyncTransaction
                 $orderTransaction->build($order);
                 $orderTransaction->push();
 
-                $creditmemos = $order->getCreditmemosCollection();
+                /** @var Mage_Sales_Model_Entity_Order_Creditmemo_Collection $creditmemos */
+                $creditmemos = Mage::getModel('sales/order_creditmemo')->getCollection();
+                $creditmemos->setOrderFilter($order);
 
                 foreach ($creditmemos as $creditmemo) {
                     $refundTransaction = Mage::getModel('taxjar/transaction_refund');
