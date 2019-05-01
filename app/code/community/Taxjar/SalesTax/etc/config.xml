@@ -107,7 +107,7 @@
                     </taxjar>
                 </observers>
             </sales_order_save_after>
-            <sales_order_payment_refund>
+            <sales_order_creditmemo_save_after>
                 <observers>
                     <taxjar>
                         <type>singleton</type>
@@ -115,7 +115,7 @@
                         <method>execute</method>
                     </taxjar>
                 </observers>
-            </sales_order_payment_refund>
+            </sales_order_creditmemo_save_after>
             <sales_quote_collect_totals_before>
                 <observers>
                     <taxjar>
