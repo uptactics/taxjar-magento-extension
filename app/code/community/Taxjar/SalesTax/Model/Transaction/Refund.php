@@ -49,11 +49,16 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             'sales_tax' => $salesTax
         );
 
+        $items = array();
+        foreach ($creditmemo->getAllItems() as $item) {
+            $items[] = Mage::getModel('sales/order_item')->load($item->getOrderItemId());
+        }
+
         $this->request = array_merge(
             $refund,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
-            $this->buildLineItems($order, $creditmemo->getAllItems(), 'refund')
+            $this->buildLineItems($order, $items, 'refund')
         );
 
         if (isset($this->request['line_items'])) {
