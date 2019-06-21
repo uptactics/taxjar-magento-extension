@@ -35,6 +35,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
         $salesTax = (float) $creditmemo->getTaxAmount();
         $adjustment = (float) $creditmemo->getAdjustment();
         $itemDiscounts = 0;
+        $items = array();
 
         $this->originalOrder = $order;
         $this->originalRefund = $creditmemo;
@@ -49,7 +50,6 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             'sales_tax' => $salesTax
         );
 
-        $items = array();
         foreach ($creditmemo->getAllItems() as $item) {
             $items[] = Mage::getModel('sales/order_item')->load($item->getOrderItemId());
         }
