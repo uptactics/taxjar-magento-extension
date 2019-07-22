@@ -143,8 +143,6 @@ class Taxjar_SalesTax_Model_Transaction
             if ($product->getTaxClassId()) {
                 $taxClass = Mage::getModel('tax/class')->load($product->getTaxClassId());
                 $taxCode = $taxClass->getTjSalestaxCode();
-            } else {
-                $taxCode = '99999';
             }
 
             $lineItem = array(
