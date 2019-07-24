@@ -16,10 +16,6 @@
  */
 
 /** @var Mage_Eav_Model_Entity_Setup $installer */
-//$installer = $this;
-//$installer->startSetup();
-
-/** @var Mage_Eav_Model_Entity_Setup $installer */
 $installer = new Mage_Eav_Model_Entity_Setup('core_setup');
 $installer->startSetup();
 
