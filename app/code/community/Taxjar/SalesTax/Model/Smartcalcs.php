@@ -249,8 +249,6 @@ class Taxjar_SalesTax_Model_Smartcalcs
                 if ($item->getProduct()->getTaxClassId()) {
                     $taxClass = Mage::getModel('tax/class')->load($item->getProduct()->getTaxClassId());
                     $taxCode = $taxClass->getTjSalestaxCode();
-                } else {
-                    $taxCode = '99999';
                 }
 
                 if (Mage::getEdition() == 'Enterprise') {
