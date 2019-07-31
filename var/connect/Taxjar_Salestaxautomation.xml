@@ -1,5 +1,5 @@
 <_>
-   <form_key>amNqsk84TtDB2Fj5</form_key>
+   <form_key>5V9WaGdozx59zjVI</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,12 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>2.4.1</version>
+   <version>2.4.2</version>
    <stability>stable</stability>
-   <notes>* Make nexus address fields (street, city, zip) optional for remote sellers / economic nexus.
-* Fix error when syncing nexus addresses with an incomplete TaxJar business profile.
-* Rename empty product category label from &quot;None&quot; to &quot;Fully Taxable&quot;.
-* Include fixed product taxes in total tax amount.</notes>
+   <notes>* Products set to &quot;None&quot; tax class will no longer pass a fully exempt `99999` tax code for calculations and transaction sync in order to support AutoFile.
+* Add description to product tax class field explaining that a TaxJar category is required to exempt products from sales tax.</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -90,4 +88,8 @@
          <ignore/>
       </ignore>
    </contents>
+   <page>1</page>
+   <limit>200</limit>
+   <folder/>
+   <package/>
 </_>
