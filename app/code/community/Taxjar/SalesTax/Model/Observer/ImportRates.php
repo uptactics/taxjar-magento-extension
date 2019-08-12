@@ -30,6 +30,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     {
         $isEnabled = Mage::getStoreConfig('tax/taxjar/backup');
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
+        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
 
         if ($isEnabled && $this->_apiKey) {
             $this->_client = Mage::getModel('taxjar/client');
@@ -39,7 +40,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             $this->_productTaxClasses = explode(',', Mage::getStoreConfig('tax/taxjar/product_tax_classes'));
             $this->_importRates();
         } else {
-            $states = unserialize(Mage::getStoreConfig('tax/taxjar/states'));
+            $states = $serializer->unserialize(Mage::getStoreConfig('tax/taxjar/states'));
 
             if (!empty($states)) {
                 $this->_purgeRates();
@@ -63,6 +64,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
     private function _importRates()
     {
         $isDebugMode = Mage::getStoreConfig('tax/taxjar/debug');
+        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
 
         if ($isDebugMode) {
             Mage::getSingleton('core/session')->addNotice('Debug mode enabled. Backup tax rates have not been altered.');
@@ -89,13 +91,13 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
         // Purge existing TaxJar rates and remove from rules
         $this->_purgeRates();
 
-        if (file_put_contents($this->_getTempRatesFileName(), serialize($ratesJson)) !== false) {
+        if (file_put_contents($this->_getTempRatesFileName(), $serializer->serialize($ratesJson)) !== false) {
             // This process can take awhile
             @set_time_limit(0);
             @ignore_user_abort(true);
 
             $filename = $this->_getTempRatesFileName();
-            $ratesJson = unserialize(file_get_contents($filename));
+            $ratesJson = $serializer->unserialize(file_get_contents($filename));
 
             // Create new TaxJar rates and rules
             $this->_createRates($ratesJson);

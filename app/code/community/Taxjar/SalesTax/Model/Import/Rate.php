@@ -109,10 +109,12 @@ class Taxjar_SalesTax_Model_Import_Rate
      *
      * @param void
      * @return array
+     * @throws Zend_Serializer_Exception
      */
     private function getRegionFilter()
     {
-        $states = unserialize(Mage::getStoreConfig('tax/taxjar/states'));
+        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
+        $states = $serializer->unserialize(Mage::getStoreConfig('tax/taxjar/states'));
         $filter = array();
 
         foreach (array_unique($states) as $state) {
