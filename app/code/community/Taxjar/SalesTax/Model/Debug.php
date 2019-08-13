@@ -47,8 +47,7 @@ class Taxjar_SalesTax_Model_Debug
      */
     private function _getDebugHtmlString()
     {
-        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
-
+        $serializer     = new Zend_Serializer_Adapter_PhpSerialize();
         $states         = $serializer->unserialize(Mage::getStoreConfig('tax/taxjar/states'));
         $apiUserId      = Mage::getModel('api/user')->load('taxjar', 'username')->getUserId();
         $pluginVersion  = Mage::getConfig()->getModuleConfig('Taxjar_SalesTax')->version;
