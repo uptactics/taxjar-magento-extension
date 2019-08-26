@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.2] - 2019-07-31
+- Products set to "None" tax class will no longer pass a fully exempt `99999` tax code for calculations and transaction sync in order to support AutoFile.
+- Add description to product tax class field explaining that a TaxJar category is required to exempt products from sales tax.
+
 ## [2.4.1] - 2019-01-22
 - Make nexus address fields (street, city, zip) optional for remote sellers / economic nexus.
 - Fix error when syncing nexus addresses with an incomplete TaxJar business profile.
@@ -91,7 +95,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.2...HEAD
+[2.4.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.7...v2.4.0
 [2.3.7]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.6...v2.3.7
