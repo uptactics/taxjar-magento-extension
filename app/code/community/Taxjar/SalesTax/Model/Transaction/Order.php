@@ -53,7 +53,8 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
             $newOrder,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
-            $this->buildLineItems($order, $order->getAllItems())
+            $this->buildLineItems($order, $order->getAllItems()),
+            array('provider' => 'magento')
         );
 
         return $this->request;
@@ -142,6 +143,12 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
 
         // US orders for reporting only
         if ($address->getCountryId() != 'US') {
+            return false;
+        }
+
+        // Don't resync orders from before tranx switch that were already synced
+        $syncDate = Mage::getStoreConfig('tax/taxjar/sync_switch_date');
+        if (strtotime($order->getUpdatedAt()) < $syncDate && !is_null($order->getTjSalestaxSyncDate())) {
             return false;
         }
 

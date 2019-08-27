@@ -19,7 +19,7 @@
 <config>
     <modules>
         <Taxjar_SalesTax>
-            <version>2.4.2</version>
+            <version>3.0.0</version>
         </Taxjar_SalesTax>
     </modules>
     <global>
@@ -98,6 +98,15 @@
                     </taxjar>
                 </observers>
             </taxjar_salestax_import_rates>
+            <taxjar_salestax_backfill_transactions>
+                <observers>
+                    <taxjar>
+                        <type>singleton</type>
+                        <class>taxjar/observer_backfillTransactions</class>
+                        <method>execute</method>
+                    </taxjar>
+                </observers>
+            </taxjar_salestax_backfill_transactions>
             <sales_order_save_after>
                 <observers>
                     <taxjar>
@@ -165,15 +174,6 @@
                     </taxjar>
                 </observers>
             </controller_action_layout_render_before>
-            <taxjar_salestax_backfill_transactions>
-                <observers>
-                    <taxjar>
-                        <type>singleton</type>
-                        <class>taxjar/observer_backfillTransactions</class>
-                        <method>execute</method>
-                    </taxjar>
-                </observers>
-            </taxjar_salestax_backfill_transactions>
         </events>
     </adminhtml>
     <admin>

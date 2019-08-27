@@ -41,6 +41,9 @@ class Taxjar_SalesTax_Model_Observer_BackfillTransactions
         $fromDate = Mage::app()->getRequest()->getParam('from_date');
         $toDate = Mage::app()->getRequest()->getParam('to_date');
 
+        $fromDate = $observer->getFromDate() ? $observer->getFromDate() : $fromDate;
+        $toDate = $observer->getToDate() ? $observer->getToDate() : $toDate;
+
         $this->logger->log('Initializing TaxJar transaction sync');
 
         if (!empty($fromDate)) {

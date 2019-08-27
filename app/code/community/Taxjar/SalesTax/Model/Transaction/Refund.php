@@ -58,7 +58,8 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             $refund,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
-            $this->buildLineItems($order, $items, 'refund')
+            $this->buildLineItems($order, $items, 'refund'),
+            array('provider' => 'magento')
         );
 
         if (isset($this->request['line_items'])) {
