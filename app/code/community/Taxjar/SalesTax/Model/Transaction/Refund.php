@@ -36,6 +36,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
         $adjustment = (float) $creditmemo->getAdjustment();
         $itemDiscounts = 0;
         $items = array();
+        $provider = array('provider' => 'magento');
 
         $this->originalOrder = $order;
         $this->originalRefund = $creditmemo;
@@ -54,12 +55,16 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             $items[] = Mage::getModel('sales/order_item')->load($item->getOrderItemId());
         }
 
+        if (strtotime($order->getCreatedAt()) < Mage::getStoreConfig('tax/taxjar/sync_switch_date')) {
+            $provider = array('provider' => 'api');
+        }
+
         $this->request = array_merge(
             $refund,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
             $this->buildLineItems($order, $items, 'refund'),
-            array('provider' => 'magento')
+            $provider
         );
 
         if (isset($this->request['line_items'])) {
