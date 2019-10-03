@@ -14,9 +14,25 @@ try {
 
     // Unlink legacy authentication
     $apiKey = preg_replace('/\s+/', '', Mage::getStoreConfig('tax/taxjar/apikey'));
+
     if ($apiKey) {
-        $client = Mage::getModel('taxjar/client');
-        $response = $client->getResource('categories'); //TODO: replace categories with deregister
+        $urls = array(
+            Mage::getBaseUrl() . 'api/soap/?wsdl',
+            Mage::getBaseUrl() . 'index.php/api/soap/?wsdl',
+            Mage::getBaseUrl() . 'api/v2_soap/?wsdl=1',
+            Mage::getBaseUrl() . 'index.php/api/v2_soap/?wsdl=1'
+        );
+
+        foreach($urls as $url) {
+            $client = Mage::getModel('taxjar/client');
+
+            try {
+                $response = $client->deleteResource('deregister', '', array('store_url' => $url));
+                break;
+            } catch (Exception $e) {
+                $msg = $e->getMessage();
+            }
+        }
     }
 
     // Remove API user/roles

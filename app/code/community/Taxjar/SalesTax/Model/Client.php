@@ -82,13 +82,20 @@ class Taxjar_SalesTax_Model_Client
      * Perform a DELETE request
      *
      * @param string $resource
+     * @param string $resourceId
+     * @param array $body
      * @param array $errors
      * @return array
      */
-    public function deleteResource($resource, $resourceId, $errors = array())
+    public function deleteResource($resource, $resourceId, $body = array(), $errors = array())
     {
         $resourceUrl = $this->_getApiUrl($resource) . '/' . $resourceId;
         $client = $this->_getClient($resourceUrl, Zend_Http_Client::DELETE);
+
+        if (!empty($body)) {
+            $client->setRawData(json_encode($body));
+        }
+
         return $this->_getRequest($client, $errors);
     }
 
@@ -158,6 +165,9 @@ class Taxjar_SalesTax_Model_Client
                 break;
             case 'refunds':
                 $apiUrl .= '/transactions/refunds';
+                break;
+            case 'deregister':
+                $apiUrl .= '/plugins/magento/deregister';
                 break;
         }
 
