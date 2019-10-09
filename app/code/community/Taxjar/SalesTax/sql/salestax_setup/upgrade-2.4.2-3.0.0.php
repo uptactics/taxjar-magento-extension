@@ -20,6 +20,8 @@ $installer->startSetup();
 $connection = $installer->getConnection();
 
 try {
+    Mage::getConfig()->saveConfig('tax/taxjar/provider', 'magento');
+
     if ($connection->tableColumnExists($installer->getTable('sales/order'), 'tj_salestax_sync_date') == false) {
         $connection
             ->addColumn($installer->getTable('sales/order'), 'tj_salestax_sync_date', array(
@@ -28,6 +30,12 @@ try {
                 'after' => null,
                 'comment' => 'Order sync date for TaxJar'
             ));
+    } else {
+        $orders = Mage::getModel('sales/order')->getCollection();
+        $orders->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+        if (count($orders) > 0) {
+            Mage::getConfig()->saveConfig('tax/taxjar/provider', 'api');
+        }
     }
 
     if ($connection->tableColumnExists($installer->getTable('sales/creditmemo'), 'tj_salestax_sync_date') == false) {
@@ -38,6 +46,12 @@ try {
                 'after' => null,
                 'comment' => 'Refund sync date for TaxJar'
             ));
+    } else {
+        $creditMemos = Mage::getModel('sales/order_creditmemo')->getCollection();
+        $creditMemos->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+        if (count($creditMemos) > 0) {
+            Mage::getConfig()->saveConfig('tax/taxjar/provider', 'api');
+        }
     }
 } catch (Exception $e) {
     Mage::logException($e);

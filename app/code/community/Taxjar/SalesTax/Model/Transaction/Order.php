@@ -37,7 +37,7 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
         $discount = (float) $order->getDiscountAmount();
         $shippingDiscount = (float) $order->getShippingDiscountAmount();
         $salesTax = (float) $order->getTaxAmount();
-        $provider = array('provider' => 'magento');
+        $provider = array('provider' => Mage::getConfig('tax/taxjar/provider'));
 
         $this->originalOrder = $order;
 
@@ -49,10 +49,6 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
             'shipping' => $shipping - abs($shippingDiscount),
             'sales_tax' => $salesTax
         );
-
-        if (strtotime($order->getCreatedAt()) < Mage::getStoreConfig('tax/taxjar/sync_switch_date')) {
-            $provider = array('provider' => 'api');
-        }
 
         $this->request = array_merge(
             $newOrder,
@@ -148,12 +144,6 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
 
         // US orders for reporting only
         if ($address->getCountryId() != 'US') {
-            return false;
-        }
-
-        // Don't resync orders from before tranx switch that were already synced
-        $syncDate = Mage::getStoreConfig('tax/taxjar/sync_switch_date');
-        if (strtotime($order->getUpdatedAt()) < $syncDate && !is_null($order->getTjSalestaxSyncDate())) {
             return false;
         }
 

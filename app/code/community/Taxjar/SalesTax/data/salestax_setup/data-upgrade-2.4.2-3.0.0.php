@@ -17,21 +17,34 @@ try {
 
     if ($apiKey) {
         $urls = array(
-            Mage::getBaseUrl() . 'api/soap/?wsdl',
-            Mage::getBaseUrl() . 'index.php/api/soap/?wsdl',
+            Mage::getBaseUrl() . 'index.php/api/v2_soap/?wsdl=1',
             Mage::getBaseUrl() . 'api/v2_soap/?wsdl=1',
-            Mage::getBaseUrl() . 'index.php/api/v2_soap/?wsdl=1'
+            Mage::getBaseUrl() . 'index.php/api/soap/?wsdl',
+            Mage::getBaseUrl() . 'api/soap/?wsdl'
         );
 
-        foreach($urls as $url) {
+        $deregistered = false;
+        foreach ($urls as $url) {
             $client = Mage::getModel('taxjar/client');
 
             try {
                 $response = $client->deleteResource('deregister', '', array('store_url' => $url));
+                $deregistered = true;
                 break;
             } catch (Exception $e) {
-                $msg = $e->getMessage();
+                // noop
             }
+        }
+
+        if (!$deregistered) {
+            /** @var Mage_AdminNotification_Model_Inbox $inbox */
+            $inbox = Mage::getModel('adminnotification/inbox');
+            $inbox->addCritical(
+                'Please unlink your TaxJar account ',
+                'We were unable to unlink your TaxJar account.  Please login to taxjar.com and manually 
+                unlink it.  You can email support@taxjar.com if you need assistance!',
+                'https://app.taxjar.com/account#linked-accounts'
+            );
         }
     }
 
