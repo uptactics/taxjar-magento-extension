@@ -38,12 +38,13 @@ try {
         }
 
         if (!$deregistered) {
-            /** @var Mage_AdminNotification_Model_Inbox $inbox */
             $inbox = Mage::getModel('adminnotification/inbox');
             $inbox->addNotice(
-                'Please unlink your TaxJar account ',
-                'We were unable to unlink your TaxJar account.  Please login to taxjar.com and manually 
-                unlink it.  You can email support@taxjar.com if you need assistance!',
+                'Please unlink your Magento store in TaxJar',
+                'Your Magento orders will now be synced to TaxJar in real-time through our API. This means you can 
+                unlink your Magento store in the TaxJar app. Please log in to app.taxjar.com and manually unlink your 
+                Magento store. For more information, check out https://support.taxjar.com/article/834-how-do-i-remove-a-linked-account. 
+                If you have additional questions, please email support@taxjar.com.',
                 'https://app.taxjar.com/account#linked-accounts'
             );
         }
