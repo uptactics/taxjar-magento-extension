@@ -37,7 +37,12 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
         $discount = (float) $order->getDiscountAmount();
         $shippingDiscount = (float) $order->getShippingDiscountAmount();
         $salesTax = (float) $order->getTaxAmount();
-        $provider = array('provider' => Mage::getConfig('tax/taxjar/provider'));
+        $provider = Mage::getStoreConfig('tax/taxjar/provider');
+
+        if (is_null($provider)) {
+            $this->logger->log('Default provider magento assumed for order #' . $order->getIncrementId(), 'notice');
+            $provider = 'magento';
+        }
 
         $this->originalOrder = $order;
 
@@ -55,7 +60,7 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
             $this->buildLineItems($order, $order->getAllItems()),
-            $provider
+            array('provider' => $provider)
         );
 
         return $this->request;

@@ -36,7 +36,12 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
         $adjustment = (float) $creditmemo->getAdjustment();
         $itemDiscounts = 0;
         $items = array();
-        $provider = array('provider' => Mage::getConfig('tax/taxjar/provider'));
+        $provider = Mage::getStoreConfig('tax/taxjar/provider');
+
+        if (is_null($provider)) {
+            $this->logger->log('Default provider magento assumed for refund #' . $creditmemo->getTransactionId(), 'notice');
+            $provider = 'magento';
+        }
 
         $this->originalOrder = $order;
         $this->originalRefund = $creditmemo;
@@ -60,7 +65,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
             $this->buildLineItems($order, $items, 'refund'),
-            $provider
+            array('provider' => $provider)
         );
 
         if (isset($this->request['line_items'])) {

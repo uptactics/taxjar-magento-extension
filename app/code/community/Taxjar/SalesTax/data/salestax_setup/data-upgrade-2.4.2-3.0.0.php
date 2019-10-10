@@ -24,6 +24,7 @@ try {
         );
 
         $deregistered = false;
+
         foreach ($urls as $url) {
             $client = Mage::getModel('taxjar/client');
 
@@ -39,7 +40,7 @@ try {
         if (!$deregistered) {
             /** @var Mage_AdminNotification_Model_Inbox $inbox */
             $inbox = Mage::getModel('adminnotification/inbox');
-            $inbox->addCritical(
+            $inbox->addNotice(
                 'Please unlink your TaxJar account ',
                 'We were unable to unlink your TaxJar account.  Please login to taxjar.com and manually 
                 unlink it.  You can email support@taxjar.com if you need assistance!',
