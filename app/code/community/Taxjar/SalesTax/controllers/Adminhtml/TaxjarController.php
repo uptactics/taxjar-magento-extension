@@ -28,17 +28,11 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
     {
         $apiKey = (string) $this->getRequest()->getParam('api_key');
         $apiEmail = (string) $this->getRequest()->getParam('api_email');
-        $reportingAccess = (string) $this->getRequest()->getParam('reporting_access');
 
         if ($apiKey && $apiEmail) {
             Mage::getConfig()->saveConfig('tax/taxjar/apikey', $apiKey);
             Mage::getConfig()->saveConfig('tax/taxjar/email', $apiEmail);
             Mage::getConfig()->saveConfig('tax/taxjar/connected', 1);
-
-            if ($reportingAccess == 'true') {
-                Mage::getConfig()->saveConfig('tax/taxjar/transaction_auth', 1);
-            }
-
             Mage::getConfig()->reinit();
             Mage::getSingleton('core/session')->addSuccess(Mage::helper('taxjar')->__('TaxJar account for %s is now connected.', $apiEmail));
             Mage::dispatchEvent('taxjar_salestax_import_categories');
@@ -59,7 +53,6 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
         Mage::getConfig()->saveConfig('tax/taxjar/connected', 0);
         Mage::getConfig()->saveConfig('tax/taxjar/enabled', 0);
         Mage::getConfig()->saveConfig('tax/taxjar/backup', 0);
-        Mage::getConfig()->saveConfig('tax/taxjar/transaction_auth', 0);
         Mage::getConfig()->saveConfig('tax/taxjar/transactions', 0);
         Mage::getConfig()->reinit();
 
@@ -76,7 +69,6 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
      */
     public function upgradeAction()
     {
-        Mage::getConfig()->saveConfig('tax/taxjar/transaction_auth', 1);
         Mage::getConfig()->saveConfig('tax/taxjar/transactions', 1);
         Mage::getConfig()->reinit();
         Mage::getSingleton('core/session')->addSuccess(Mage::helper('taxjar')->__('Transaction sync is now enabled.'));

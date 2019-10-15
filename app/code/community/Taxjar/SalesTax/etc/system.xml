@@ -47,7 +47,6 @@
                                 <model>taxjar/transaction_comment</model>
                             </comment>
                             <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <frontend_model>taxjar/adminhtml_transactions</frontend_model>
                             <frontend_type>select</frontend_type>
                             <sort_order>1</sort_order>
                             <show_in_default>1</show_in_default>
