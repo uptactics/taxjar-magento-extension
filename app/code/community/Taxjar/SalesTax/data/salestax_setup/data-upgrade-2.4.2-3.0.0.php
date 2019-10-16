@@ -45,6 +45,7 @@ try {
 
             try {
                 $response = $client->deleteResource('deregister', '', array('store_url' => $url));
+                Mage::getConfig()->saveConfig('tax/taxjar/transactions', 1);
                 $deregistered = true;
                 break;
             } catch (Exception $e) {

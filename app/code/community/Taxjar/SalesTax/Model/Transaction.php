@@ -231,4 +231,45 @@ class Taxjar_SalesTax_Model_Transaction
             '503' => Mage::helper('taxjar')->__('Service Unavailable – We’re temporarily offline for maintenance. Try again later.')
         );
     }
+
+    /**
+     * Get the default provider parameter
+     *
+     * @param string $transactionId
+     * @return string
+     */
+    protected function getProvider($transactionId) {
+        $provider = Mage::getStoreConfig('tax/taxjar/provider');
+
+        if (!is_null($provider)) {
+            $provider = 'magento';
+            /** @var Mage_Core_Model_Resource $connection */
+            $connection = Mage::getSingleton('core/resource');
+            $orderTable = $connection->getTableName('sales/order');
+            $creditMemoTable = $connection->getTableName('sales/creditmemo');
+
+            if ($connection->getConnection('core_read')->tableColumnExists($orderTable, 'tj_salestax_sync_date') == true) {
+                $orders = Mage::getModel('sales/order')->getCollection();
+                $orders->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+
+                if (count($orders) > 0) {
+                    $provider = 'api';
+                }
+            }
+
+            if ($connection->getConnection('core_read')->tableColumnExists($creditMemoTable, 'tj_salestax_sync_date') == true) {
+                $creditMemos = Mage::getModel('sales/order_creditmemo')->getCollection();
+                $creditMemos->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+
+                if (count($creditMemos) > 0) {
+                    $provider = 'api';
+                }
+            }
+
+            Mage::getConfig()->saveConfig('tax/taxjar/provider', $provider);
+            Mage::app()->cleanCache();
+        }
+
+        return $provider;
+    }
 }

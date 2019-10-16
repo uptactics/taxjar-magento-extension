@@ -33,6 +33,7 @@ try {
     } else {
         $orders = Mage::getModel('sales/order')->getCollection();
         $orders->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+
         if (count($orders) > 0) {
             Mage::getConfig()->saveConfig('tax/taxjar/provider', 'api');
         }
@@ -49,6 +50,7 @@ try {
     } else {
         $creditMemos = Mage::getModel('sales/order_creditmemo')->getCollection();
         $creditMemos->addFieldToFilter('tj_salestax_sync_date', array('notnull' => true));
+
         if (count($creditMemos) > 0) {
             Mage::getConfig()->saveConfig('tax/taxjar/provider', 'api');
         }

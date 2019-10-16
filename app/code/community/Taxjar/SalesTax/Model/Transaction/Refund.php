@@ -25,7 +25,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
      * Build a refund transaction
      *
      * @param $order
-     * @param $creditmemo
+     * @param Mage_Sales_Model_Order_Creditmemo $creditmemo
      * @return array
      */
     public function build($order, $creditmemo) {
@@ -36,12 +36,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
         $adjustment = (float) $creditmemo->getAdjustment();
         $itemDiscounts = 0;
         $items = array();
-        $provider = Mage::getStoreConfig('tax/taxjar/provider');
-
-        if (is_null($provider)) {
-            $this->logger->log('Default provider magento assumed for refund #' . $creditmemo->getTransactionId(), 'notice');
-            $provider = 'magento';
-        }
+        $provider = $this->getProvider($creditmemo->getTransactionId());
 
         $this->originalOrder = $order;
         $this->originalRefund = $creditmemo;
