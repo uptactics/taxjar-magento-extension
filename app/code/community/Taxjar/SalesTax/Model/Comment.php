@@ -99,7 +99,7 @@ EOT;
         $connectUrl .= (parse_url($connectUrl, PHP_URL_QUERY) ? '&' : '?');
         $pluginVersion = Mage::getConfig()->getModuleConfig('Taxjar_SalesTax')->version;
 
-        $popupUrl .= '&plugin=magento&version=' . $pluginVersion;
+        $popupUrl .= '&plugin=magento&version=' . $pluginVersion . '&email=' . $this->_getStoreGeneralEmail();
 
         $htmlString = <<<EOT
         <br/><p><button type='button' class='scalable' onclick='openConnectPopup("{$popupUrl}", "Connect to TaxJar", 400, 500)'><span>Connect to TaxJar</span></button>&nbsp;&nbsp;<button type='button' class='scalable' onclick='window.open("{$guideUrl}", "_blank")'><span>Learn More</span></button></p>
@@ -149,5 +149,21 @@ EOT;
     {
         $protocol = Mage::app()->getRequest()->isSecure() ? 'https://' : 'http://';
         return $protocol . $_SERVER['HTTP_HOST'];
+    }
+
+    /**
+     * Get store general contact email if non-default
+     *
+     * @param void
+     * @return string
+     */
+    private function _getStoreGeneralEmail()
+    {
+        $email = Mage::getStoreConfig('trans_email/ident_general/email');
+        if ($email != 'owner@example.com') {
+            return $email;
+        } else {
+            return '';
+        }
     }
 }
