@@ -29,51 +29,14 @@ class Taxjar_SalesTax_Model_Transaction_Comment
      */
     public function getCommentText()
     {
-        $syncUrl = Mage::helper('adminhtml')->getUrl('adminhtml/tax_transaction');
+        $isEnabled = Mage::getStoreConfig('tax/taxjar/transactions');
         $htmlString = "<p class='note'><span>Sync orders and refunds with TaxJar for automated sales tax reporting and filing. Complete and closed transactions sync automatically on update.</span></p><br/>";
-        $htmlString .= "<p><button type='button' class='scalable' onclick='window.location=\"$syncUrl\"'><span>Sync Transactions</span></button></p><br>";
+
+        if ($isEnabled) {
+            $syncUrl = Mage::helper('adminhtml')->getUrl('adminhtml/tax_transaction');
+            $htmlString .= "<p><button type='button' class='scalable' onclick='window.location=\"$syncUrl\"'><span>Sync Transactions</span></button></p><br>";
+        }
         return $htmlString;
     }
-
-    private function _getPopupUrl($authUrl)
-    {
-        $popupUrl = $authUrl . '/smartcalcs/connect/magento/upgrade_account/?store=' . urlencode($this->_getStoreOrigin());
-        $pluginVersion = Mage::getConfig()->getModuleConfig('Taxjar_SalesTax')->version;
-
-        if ($this->_getStoreGeneralEmail()) {
-            $popupUrl .= '&email=' . urlencode($this->_getStoreGeneralEmail());
-        }
-
-        $popupUrl .= '&plugin=magento&version=' . $pluginVersion;
-
-        return $popupUrl;
-    }
-
-    /**
-     * Get current store origin
-     *
-     * @param void
-     * @return string
-     */
-    private function _getStoreOrigin()
-    {
-        $protocol = Mage::app()->getRequest()->isSecure() ? 'https://' : 'http://';
-        return $protocol . $_SERVER['HTTP_HOST'];
-    }
-
-    /**
-     * Get store general contact email if non-default
-     *
-     * @param void
-     * @return string
-     */
-    private function _getStoreGeneralEmail()
-    {
-        $email = Mage::getStoreConfig('trans_email/ident_general/email');
-        if ($email != 'owner@example.com') {
-            return $email;
-        } else {
-            return '';
-        }
-    }
 }
+

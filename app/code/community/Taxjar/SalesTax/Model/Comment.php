@@ -150,20 +150,4 @@ EOT;
         $protocol = Mage::app()->getRequest()->isSecure() ? 'https://' : 'http://';
         return $protocol . $_SERVER['HTTP_HOST'];
     }
-
-    /**
-     * Get store general contact email if non-default
-     *
-     * @param void
-     * @return string
-     */
-    private function _getStoreGeneralEmail()
-    {
-        $email = Mage::getStoreConfig('trans_email/ident_general/email');
-        if ($email != 'owner@example.com') {
-            return $email;
-        } else {
-            return '';
-        }
-    }
 }

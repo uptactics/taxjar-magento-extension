@@ -65,17 +65,6 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
     }
 
     /**
-     * Upgrade to support transaction sync
-     */
-    public function upgradeAction()
-    {
-        Mage::getConfig()->saveConfig('tax/taxjar/transactions', 1);
-        Mage::getConfig()->reinit();
-        Mage::getSingleton('core/session')->addSuccess(Mage::helper('taxjar')->__('Transaction sync is now enabled.'));
-        $this->_redirect('adminhtml/system_config/edit/section/tax');
-    }
-
-    /**
      * Sync backup rates from TaxJar
      */
     public function sync_ratesAction()
