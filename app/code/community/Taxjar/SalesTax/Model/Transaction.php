@@ -235,13 +235,12 @@ class Taxjar_SalesTax_Model_Transaction
     /**
      * Get the default provider parameter
      *
-     * @param string $transactionId
      * @return string
      */
-    protected function getProvider($transactionId) {
+    protected function getProvider() {
         $provider = Mage::getStoreConfig('tax/taxjar/provider');
 
-        if (!is_null($provider)) {
+        if (is_null($provider)) {
             $provider = 'magento';
             /** @var Mage_Core_Model_Resource $connection */
             $connection = Mage::getSingleton('core/resource');

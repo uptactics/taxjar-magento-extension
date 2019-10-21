@@ -36,7 +36,6 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
         $adjustment = (float) $creditmemo->getAdjustment();
         $itemDiscounts = 0;
         $items = array();
-        $provider = $this->getProvider($creditmemo->getTransactionId());
 
         $this->originalOrder = $order;
         $this->originalRefund = $creditmemo;
@@ -48,7 +47,8 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             'transaction_date' => $creditmemo->getCreatedAt(),
             'amount' => $subtotal + $shipping - abs($discount) + $adjustment,
             'shipping' => $shipping,
-            'sales_tax' => $salesTax
+            'sales_tax' => $salesTax,
+            'provider' => $this->getProvider()
         );
 
         foreach ($creditmemo->getAllItems() as $item) {
@@ -59,8 +59,7 @@ class Taxjar_SalesTax_Model_Transaction_Refund extends Taxjar_SalesTax_Model_Tra
             $refund,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
-            $this->buildLineItems($order, $items, 'refund'),
-            array('provider' => $provider)
+            $this->buildLineItems($order, $items, 'refund')
         );
 
         if (isset($this->request['line_items'])) {

@@ -37,7 +37,6 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
         $discount = (float) $order->getDiscountAmount();
         $shippingDiscount = (float) $order->getShippingDiscountAmount();
         $salesTax = (float) $order->getTaxAmount();
-        $provider = $this->getProvider($order->getIncrementId());
 
         $this->originalOrder = $order;
 
@@ -47,15 +46,15 @@ class Taxjar_SalesTax_Model_Transaction_Order extends Taxjar_SalesTax_Model_Tran
             'transaction_date' => $createdAt->format(DateTime::ISO8601),
             'amount' => $subtotal + $shipping - abs($discount),
             'shipping' => $shipping - abs($shippingDiscount),
-            'sales_tax' => $salesTax
+            'sales_tax' => $salesTax,
+            'provider' => $this->getProvider()
         );
 
         $this->request = array_merge(
             $newOrder,
             $this->buildFromAddress($order->getStoreId()),
             $this->buildToAddress($order),
-            $this->buildLineItems($order, $order->getAllItems()),
-            array('provider' => $provider)
+            $this->buildLineItems($order, $order->getAllItems())
         );
 
         return $this->request;
