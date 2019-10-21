@@ -51,7 +51,6 @@ class Taxjar_SalesTax_Model_Import_Comment
     private function getNumberOfRatesLoaded($states)
     {
         $rates = Mage::getModel('tax/calculation_rate');
-        $stateRatesLoadedCount = 0;
         $ratesByState = array();
 
         foreach (array_unique($states) as $state) {
@@ -85,12 +84,10 @@ class Taxjar_SalesTax_Model_Import_Comment
      * Build HTML for backup rates enabled
      *
      * @return string
-     * @throws Zend_Serializer_Exception
      */
     private function buildEnabledHtml()
     {
-        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
-        $states = $serializer->unserialize(Mage::getStoreConfig('tax/taxjar/states'));
+        $states = json_decode(Mage::getStoreConfig('tax/taxjar/states'), true);
         $htmlString = "<p class='note'><span>Download zip-based rates from TaxJar as a fallback. TaxJar uses your shipping origin and nexus addresses to sync rates each month.</span></p><br/>";
 
         if (!empty($states)) {

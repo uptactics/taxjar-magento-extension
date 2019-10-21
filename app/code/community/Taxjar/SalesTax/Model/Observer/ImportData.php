@@ -52,19 +52,17 @@ class Taxjar_SalesTax_Model_Observer_ImportData
      *
      * @param array $configJson
      * @return void
-     * @throws Zend_Serializer_Exception
      */
     private function _setConfiguration()
     {
         $configuration = Mage::getModel('taxjar/configuration');
         $configJson = $this->_getConfigJson();
-        $serializer = new Zend_Serializer_Adapter_PhpSerialize();
 
         $configuration->setTaxBasis($configJson);
         $configuration->setShippingTaxability($configJson);
         $configuration->setDisplaySettings();
 
-        Mage::getConfig()->saveConfig('tax/taxjar/states', $serializer->serialize(explode(',', $configJson['states'])));
+        Mage::getConfig()->saveConfig('tax/taxjar/states', json_encode(explode(',', $configJson['states'])));
         Mage::getConfig()->saveConfig('tax/taxjar/freight_taxable', $configJson['freight_taxable']);
         Mage::getConfig()->reinit();
     }
