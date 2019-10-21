@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2017 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -31,7 +31,6 @@ if($apiKey) {
             $states = explode(',', $configJson['configuration']['states']);
             Mage::getConfig()->saveConfig('tax/taxjar/states', json_encode($states));
             Mage::app()->getCacheInstance()->flush();
-            $a = Mage::getStoreConfig('tax/taxjar/states');
         }
     } catch (Exception $e) {
         // noop
