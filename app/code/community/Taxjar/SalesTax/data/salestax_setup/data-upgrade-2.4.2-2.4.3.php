@@ -21,7 +21,7 @@ $installer->startSetup();
 
 $apiKey = preg_replace('/\s+/', '', Mage::getStoreConfig('tax/taxjar/apikey'));
 
-if($apiKey) {
+if ($apiKey) {
     $client = Mage::getModel('taxjar/client');
 
     try {

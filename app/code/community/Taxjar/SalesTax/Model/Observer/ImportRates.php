@@ -89,7 +89,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
         // Purge existing TaxJar rates and remove from rules
         $this->_purgeRates();
 
-            if (file_put_contents($this->_getTempRatesFileName(), json_encode($ratesJson)) !== false) {
+        if (file_put_contents($this->_getTempRatesFileName(), json_encode($ratesJson)) !== false) {
             // This process can take awhile
             @set_time_limit(0);
             @ignore_user_abort(true);
