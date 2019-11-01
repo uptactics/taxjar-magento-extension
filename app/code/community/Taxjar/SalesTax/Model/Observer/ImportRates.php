@@ -39,7 +39,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
             $this->_productTaxClasses = explode(',', Mage::getStoreConfig('tax/taxjar/product_tax_classes'));
             $this->_importRates();
         } else {
-            $states = unserialize(Mage::getStoreConfig('tax/taxjar/states'));
+            $states = json_decode(Mage::getStoreConfig('tax/taxjar/states'), true);
 
             if (!empty($states)) {
                 $this->_purgeRates();
@@ -89,13 +89,13 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
         // Purge existing TaxJar rates and remove from rules
         $this->_purgeRates();
 
-        if (file_put_contents($this->_getTempRatesFileName(), serialize($ratesJson)) !== false) {
+        if (file_put_contents($this->_getTempRatesFileName(), json_encode($ratesJson)) !== false) {
             // This process can take awhile
             @set_time_limit(0);
             @ignore_user_abort(true);
 
             $filename = $this->_getTempRatesFileName();
-            $ratesJson = unserialize(file_get_contents($filename));
+            $ratesJson = json_decode(file_get_contents($filename), true);
 
             // Create new TaxJar rates and rules
             $this->_createRates($ratesJson);

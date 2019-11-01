@@ -62,7 +62,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
         $configuration->setShippingTaxability($configJson);
         $configuration->setDisplaySettings();
 
-        Mage::getConfig()->saveConfig('tax/taxjar/states', serialize(explode(',', $configJson['states'])));
+        Mage::getConfig()->saveConfig('tax/taxjar/states', json_encode(explode(',', $configJson['states'])));
         Mage::getConfig()->saveConfig('tax/taxjar/freight_taxable', $configJson['freight_taxable']);
         Mage::getConfig()->reinit();
     }
