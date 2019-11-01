@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -29,7 +29,7 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
      */
     public function sync()
     {
-        $client = Mage::getModel('taxjar/client');
+        $client = Mage::getSingleton('taxjar/client');
         $apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
 
         $data = array(
@@ -48,9 +48,9 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
         );
 
         if ($this->getId()) {
-            $client->putResource($apiKey, 'nexus', $this->getApiId(), $data, $responseErrors);
+            $client->putResource('nexus', $this->getApiId(), $data, $responseErrors);
         } else {
-            $savedAddress = $client->postResource($apiKey, 'nexus', $data, $responseErrors);
+            $savedAddress = $client->postResource('nexus', $data, $responseErrors);
             $this->setApiId($savedAddress['id']);
             $this->save();
         }
@@ -63,7 +63,7 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
      */
     public function syncDelete()
     {
-        $client = Mage::getModel('taxjar/client');
+        $client = Mage::getSingleton('taxjar/client');
         $apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
 
         $responseErrors = array(
@@ -72,7 +72,7 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
         );
 
         if ($this->getId()) {
-            $client->deleteResource($apiKey, 'nexus', $this->getApiId(), $responseErrors);
+            $client->deleteResource('nexus', $this->getApiId(), $responseErrors);
         }
     }
 
@@ -83,9 +83,9 @@ class Taxjar_SalesTax_Model_Tax_Nexus extends Mage_Core_Model_Abstract
      */
     public function syncCollection()
     {
-        $client = Mage::getModel('taxjar/client');
+        $client = Mage::getSingleton('taxjar/client');
         $apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
-        $nexusJson = $client->getResource($apiKey, 'nexus');
+        $nexusJson = $client->getResource('nexus');
 
         if ($nexusJson['addresses']) {
             $addresses = $nexusJson['addresses'];

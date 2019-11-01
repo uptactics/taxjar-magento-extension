@@ -12,7 +12,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 -->
@@ -41,6 +41,19 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enabled>
+                        <transactions translate="label">
+                            <label>Transaction Sync</label>
+                            <comment>
+                                <model>taxjar/transaction_comment</model>
+                            </comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><connected>1</connected></depends>
+                        </transactions>
                         <backup translate="label">
                             <label>Backup Rates</label>
                             <comment>
@@ -49,7 +62,7 @@
                             <source_model>adminhtml/system_config_source_yesno</source_model>
                             <frontend_model>taxjar/adminhtml_backup</frontend_model>
                             <frontend_type>select</frontend_type>
-                            <sort_order>1</sort_order>
+                            <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -61,7 +74,7 @@
                             <source_model>taxjar/tax_class_source_product</source_model>
                             <frontend_model>taxjar/adminhtml_multiselect</frontend_model>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>2</sort_order>
+                            <sort_order>3</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -73,7 +86,7 @@
                             <source_model>taxjar/tax_class_source_customer</source_model>
                             <frontend_model>taxjar/adminhtml_multiselect</frontend_model>
                             <frontend_type>multiselect</frontend_type>
-                            <sort_order>3</sort_order>
+                            <sort_order>4</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>

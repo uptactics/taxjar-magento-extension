@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -20,10 +20,18 @@ class TaxJar_SalesTax_Model_Observer_AdminMenuItems
     public function execute(Varien_Event_Observer $observer)
     {
         $connected = Mage::getStoreConfig('tax/taxjar/connected');
+        $transactionSync = Mage::getStoreConfig('tax/taxjar/transactions');
 
         if (!$connected) {
             $config = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode();
             unset($config->menu->sales->children->tax->children->taxjar_salestax_nexus);
+            unset($config->menu->sales->children->tax->children->taxjar_salestax_transaction_sync);
+            Mage::getSingleton('admin/config')->getAdminhtmlConfig()->setXml($config);
+        }
+
+        if (!$transactionSync) {
+            $config = Mage::getSingleton('admin/config')->getAdminhtmlConfig()->getNode();
+            unset($config->menu->sales->children->tax->children->taxjar_salestax_transaction_sync);
             Mage::getSingleton('admin/config')->getAdminhtmlConfig()->setXml($config);
         }
 

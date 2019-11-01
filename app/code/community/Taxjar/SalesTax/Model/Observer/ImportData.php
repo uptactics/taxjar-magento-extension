@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -27,7 +27,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
         $storeRegionCode = $storeRegion->getCode();
 
         if ($this->_apiKey) {
-            $this->_client = Mage::getModel('taxjar/client');
+            $this->_client = Mage::getSingleton('taxjar/client');
 
             if (isset($storeRegionCode) && $storeRegion->getCountryId() == 'US') {
                 $this->_setConfiguration();
@@ -43,7 +43,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
      */
     private function _getConfigJson()
     {
-        $configJson = $this->_client->getResource($this->_apiKey, 'config');
+        $configJson = $this->_client->getResource('config');
         return $configJson['configuration'];
     }
 
@@ -55,7 +55,7 @@ class Taxjar_SalesTax_Model_Observer_ImportData
      */
     private function _setConfiguration()
     {
-        $configuration = Mage::getModel('taxjar/configuration');
+        $configuration = Mage::getSingleton('taxjar/configuration');
         $configJson = $this->_getConfigJson();
 
         $configuration->setTaxBasis($configJson);
