@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0] - 2019-11-01
+- **Real-time transaction sync for Magento 1 now available.** If you were previously connected to TaxJar through our app, we’ll automatically unlink your store and begin pushing orders through our API. If you were previously using our beta, orders will continue to be pushed through our API.
+- Improve security by removing the now deprecated SOAP API users/roles.
+- Make provider default to Magento for better reporting inside TaxJar.
+- Replace serialize/unserialize functions with JSON encode/decode.
+
 ## [2.4.2] - 2019-07-31
 - Products set to "None" tax class will no longer pass a fully exempt `99999` tax code for calculations and transaction sync in order to support AutoFile.
 - Add description to product tax class field explaining that a TaxJar category is required to exempt products from sales tax.
@@ -95,7 +101,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.2...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.2...v3.0.0
 [2.4.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.3.7...v2.4.0
