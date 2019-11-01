@@ -15,16 +15,25 @@
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
-/** @var Mage_Eav_Model_Entity_Setup $installer */
-$installer = new Mage_Eav_Model_Entity_Setup('core_setup');
+$installer = $this;
 $installer->startSetup();
 
 try {
-    $url = 'https://www.taxjar.com/guides/integrations/magento/#product-sales-tax-exemptions';
-    $note = 'TaxJar requires a product tax class assigned to a TaxJar category in order to exempt products from sales 
-    tax. <a href="' . $url . '" target="_blank">Click here</a> to learn more.';
+    $installer->getConnection()
+        ->addColumn($installer->getTable('sales/order'), 'tj_salestax_sync_date', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            'nullable' => true,
+            'after' => null,
+            'comment' => 'Order sync date for TaxJar'
+        ));
 
-    $installer->updateAttribute(Mage_Catalog_Model_Product::ENTITY, 'tax_class_id', 'note', $note);
+    $installer->getConnection()
+        ->addColumn($installer->getTable('sales/creditmemo'), 'tj_salestax_sync_date', array(
+            'type' => Varien_Db_Ddl_Table::TYPE_TIMESTAMP,
+            'nullable' => true,
+            'after' => null,
+            'comment' => 'Refund sync date for TaxJar'
+        ));
 } catch (Exception $e) {
     Mage::logException($e);
 }

@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -32,7 +32,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
 
         if ($isEnabled && $this->_apiKey) {
-            $this->_client = Mage::getModel('taxjar/client');
+            $this->_client = Mage::getSingleton('taxjar/client');
             $this->_storeZip = trim(Mage::getStoreConfig('shipping/origin/postcode'));
             $this->_storeRegion = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'));
             $this->_customerTaxClasses = explode(',', Mage::getStoreConfig('tax/taxjar/customer_tax_classes'));
@@ -219,7 +219,7 @@ class Taxjar_SalesTax_Model_Observer_ImportRates
      */
     private function _getRatesJson()
     {
-        $ratesJson = $this->_client->getResource($this->_apiKey, 'rates', array(
+        $ratesJson = $this->_client->getResource('rates', array(
             '403' => Mage::helper('taxjar')->__('Your last backup rate sync from TaxJar was too recent. Please wait at least 5 minutes and try again.')
         ));
         return $ratesJson;

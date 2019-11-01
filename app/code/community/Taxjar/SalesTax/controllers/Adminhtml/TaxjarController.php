@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -34,14 +34,10 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
             Mage::getConfig()->saveConfig('tax/taxjar/email', $apiEmail);
             Mage::getConfig()->saveConfig('tax/taxjar/connected', 1);
             Mage::getConfig()->reinit();
-
-            $configuration = Mage::getModel('taxjar/configuration');
-            $configuration->setApiSettings($apiKey);
-
-            Mage::getSingleton('core/session')->addSuccess('TaxJar account for ' . $apiEmail . ' is now connected.');
+            Mage::getSingleton('core/session')->addSuccess(Mage::helper('taxjar')->__('TaxJar account for %s is now connected.', $apiEmail));
             Mage::dispatchEvent('taxjar_salestax_import_categories');
         } else {
-            Mage::getSingleton('core/session')->addError('Could not connect your TaxJar account. Please make sure you have a valid API token and try again.');
+            Mage::getSingleton('core/session')->addError(Mage::helper('taxjar')->__('Could not connect your TaxJar account. Please make sure you have a valid API token and try again.'));
         }
 
         $this->_redirect('adminhtml/system_config/edit/section/tax');
@@ -57,11 +53,12 @@ class Taxjar_SalesTax_Adminhtml_TaxjarController extends Mage_Adminhtml_Controll
         Mage::getConfig()->saveConfig('tax/taxjar/connected', 0);
         Mage::getConfig()->saveConfig('tax/taxjar/enabled', 0);
         Mage::getConfig()->saveConfig('tax/taxjar/backup', 0);
+        Mage::getConfig()->saveConfig('tax/taxjar/transactions', 0);
         Mage::getConfig()->reinit();
 
         $this->_purgeNexusAddresses();
 
-        Mage::getSingleton('core/session')->addSuccess('Your TaxJar account has been disconnected.');
+        Mage::getSingleton('core/session')->addSuccess(Mage::helper('taxjar')->__('Your TaxJar account has been disconnected.'));
         Mage::dispatchEvent('taxjar_salestax_import_rates');
 
         $this->_redirect('adminhtml/system_config/edit/section/tax');

@@ -11,7 +11,7 @@
  *
  * @category   Taxjar
  * @package    Taxjar_SalesTax
- * @copyright  Copyright (c) 2016 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
+ * @copyright  Copyright (c) 2019 TaxJar. TaxJar is a trademark of TPS Unlimited, Inc. (http://www.taxjar.com)
  * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
  */
 
@@ -99,7 +99,7 @@ EOT;
         $connectUrl .= (parse_url($connectUrl, PHP_URL_QUERY) ? '&' : '?');
         $pluginVersion = Mage::getConfig()->getModuleConfig('Taxjar_SalesTax')->version;
 
-        $popupUrl .= '&plugin=magento&version=' . $pluginVersion;
+        $popupUrl .= '&plugin=magento&version=' . $pluginVersion . '&email=' . $this->_getStoreGeneralEmail();
 
         $htmlString = <<<EOT
         <br/><p><button type='button' class='scalable' onclick='openConnectPopup("{$popupUrl}", "Connect to TaxJar", 400, 500)'><span>Connect to TaxJar</span></button>&nbsp;&nbsp;<button type='button' class='scalable' onclick='window.open("{$guideUrl}", "_blank")'><span>Learn More</span></button></p>
@@ -125,7 +125,7 @@ EOT;
                     var data = JSON.parse(e.data);
                     if (data.api_token && data.email) {
                         window.connectPopup.postMessage('Data received', '{$authUrl}');
-                        window.location = encodeURI('{$connectUrl}api_key=' + data.api_token + '&api_email=' + data.email + '&reporting_access=' + data.reporting_access);
+                        window.location = encodeURI('{$connectUrl}api_key=' + data.api_token + '&api_email=' + data.email);
                     } else {
                         throw 'Invalid data';
                     }
