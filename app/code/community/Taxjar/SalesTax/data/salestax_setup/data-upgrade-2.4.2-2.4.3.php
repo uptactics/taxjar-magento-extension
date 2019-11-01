@@ -25,7 +25,7 @@ if ($apiKey) {
     $client = Mage::getModel('taxjar/client');
 
     try {
-        $configJson = $client->getResource($apiKey, 'config');
+        $configJson = $client->getResource('config');
 
         if (is_array($configJson) && isset($configJson['configuration']) && isset($configJson['configuration']['states'])) {
             $states = explode(',', $configJson['configuration']['states']);
