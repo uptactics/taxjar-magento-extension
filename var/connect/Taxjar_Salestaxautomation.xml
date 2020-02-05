@@ -1,5 +1,5 @@
 <_>
-   <form_key>FcnZUMSWrQe9Jvod</form_key>
+   <form_key>2DqFX4rzkJZc1Vaz</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,12 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>3.0.0</version>
+   <version>3.0.1</version>
    <stability>stable</stability>
-   <notes>- Real-time transaction sync for Magento 1 now available. If you were previously connected to TaxJar through our app, we’ll automatically unlink your store and begin pushing orders through our API. If you were previously using our beta, orders will continue to be pushed through our API.
-- Improve security by removing the now deprecated SOAP API users/roles.
-- Make provider default to Magento for better reporting inside TaxJar.
-- Replace serialize/unserialize functions with JSON encode/decode.</notes>
+   <notes>- Improve support for M2ePro users when syncing multi-channel orders to TaxJar
+- Improve storing product tax categories by storing them in their own table</notes>
    <authors>
       <name>
          <name>TaxJar</name>

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.1] - 2020-02-05
+- Improve support for M2ePro users when syncing multi-channel orders to TaxJar
+- Improve storing product tax categories by storing them in their own table
+
 ## [3.0.0] - 2019-11-01
 - **Real-time transaction sync for Magento 1 now available.** If you were previously connected to TaxJar through our app, we’ll automatically unlink your store and begin pushing orders through our API. If you were previously using our beta, orders will continue to be pushed through our API.
 - Improve security by removing the now deprecated SOAP API users/roles.
@@ -101,7 +105,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.2...v3.0.0
 [2.4.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...v2.4.2
 [2.4.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.0...v2.4.1
