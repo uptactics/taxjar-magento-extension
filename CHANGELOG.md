@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.2] - 2020-03-02
+- Update the gift card product tax category to be more accurate.
+- Add a custom user agent string and Referer header to all API requests.
+
 ## [3.0.1] - 2020-02-05
 - Improve support for M2ePro users when syncing multi-channel orders to TaxJar
 - Improve storing product tax categories by storing them in their own table
@@ -105,7 +109,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.1...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.2...HEAD
+[3.0.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.2...v3.0.0
 [2.4.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v2.4.1...v2.4.2
