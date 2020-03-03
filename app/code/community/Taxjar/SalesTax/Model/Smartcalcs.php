@@ -267,7 +267,7 @@ class Taxjar_SalesTax_Model_Smartcalcs
                         if ($giftTaxClassCode) {
                             $taxCode = $giftTaxClassCode;
                         } else {
-                            $taxCode = '99999';
+                            $taxCode = '14111803A0001';
                         }
                     }
                 }
