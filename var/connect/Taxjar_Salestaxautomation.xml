@@ -1,5 +1,5 @@
 <_>
-   <form_key>A5kr1bWdGxI4RTSy</form_key>
+   <form_key>gL3Eee3SimYZwq4j</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,10 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using our SmartCalcs API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>3.0.2</version>
+   <version>3.0.3</version>
    <stability>stable</stability>
-   <notes>- Update the gift card product tax category to be more accurate.
-- Add a custom user agent string and Referer header to all API requests.</notes>
+   <notes>- Improve error handling during transaction sync
+- Update product tax categories to remove the plus_only flag</notes>
    <authors>
       <name>
          <name>TaxJar</name>
