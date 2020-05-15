@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.4] - 2020-05-15
+- SmartCalcs Sales Tax API is now simplified to TaxJar Sales Tax API or TaxJar API.
+- Fix a typo in several class names
+
 ## [3.0.3] - 2020-05-01
 - Improve error handling during transaction sync
 - Update product tax categories to remove the plus_only flag
@@ -113,7 +117,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New AJAX sync button for manually refreshing backup rates from TaxJar.
 - Admin notifications tied to our RSS feed for extension updates and news.
 
-[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.3...HEAD
+[Unreleased]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.4...HEAD
+[3.0.4]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.3...v3.0.4
 [3.0.3]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.2...v3.0.3
 [3.0.2]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/taxjar/taxjar-magento-extension/compare/v3.0.0...v3.0.1
