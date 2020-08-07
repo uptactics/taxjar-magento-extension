@@ -1,5 +1,5 @@
 <_>
-   <form_key>nHtfahggiryrcNjh</form_key>
+   <form_key>BeDjL5sRdvbT5KCJ</form_key>
    <name>Taxjar_Salestaxautomation</name>
    <channel>community</channel>
    <version_ids>
@@ -9,10 +9,10 @@
    <description>TaxJar for Magento allows you to quickly calculate sales tax at checkout using the TaxJar API and zip-based rates as a backup.</description>
    <license>OSL-3.0</license>
    <license_uri/>
-   <version>3.0.4</version>
+   <version>3.0.5</version>
    <stability>stable</stability>
-   <notes>- SmartCalcs Sales Tax API is now simplified to TaxJar Sales Tax API or TaxJar API.
-- Fix a typo in several class names</notes>
+   <notes>- Update the &quot;transaction sync&quot; setting to use the current store&apos;s scope
+- Update the shipping origin to only use the first line in the street address</notes>
    <authors>
       <name>
          <name>TaxJar</name>
@@ -88,8 +88,4 @@
          <ignore/>
       </ignore>
    </contents>
-   <page>1</page>
-   <limit>200</limit>
-   <folder/>
-   <package/>
 </_>
