@@ -19,7 +19,7 @@
 <config>
     <modules>
         <Taxjar_SalesTax>
-            <version>3.0.5</version>
+            <version>4.0.0</version>
         </Taxjar_SalesTax>
     </modules>
     <global>
@@ -205,6 +205,8 @@
     <default>
         <tax>
             <taxjar>
+                <api_version>2022-01-24</api_version>
+                <api_timeout_seconds>15</api_timeout_seconds>
                 <product_tax_classes>2</product_tax_classes>
                 <customer_tax_classes>3</customer_tax_classes>
             </taxjar>

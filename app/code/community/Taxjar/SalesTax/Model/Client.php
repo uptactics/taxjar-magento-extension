@@ -27,12 +27,14 @@ class Taxjar_SalesTax_Model_Client
     protected $_storeZip;
     protected $_storeRegionCode;
     protected $_showResponseErrors;
+    protected $_apiRequestTimeout;
 
     public function __construct()
     {
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
         $this->_storeZip = trim(Mage::getStoreConfig('shipping/origin/postcode'));
         $this->_storeRegionCode = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'))->getCode();
+        $this->_apiRequestTimeout = Mage::getStoreConfig('tax/taxjar/api_timeout_seconds');
     }
 
     /**
@@ -118,7 +120,7 @@ class Taxjar_SalesTax_Model_Client
      */
     private function _getClient($url, $method = Zend_Http_Client::GET)
     {
-        $client = new Zend_Http_Client($url, array('timeout' => 30));
+        $client = new Zend_Http_Client($url, array('timeout' => $this->_apiRequestTimeout));
         $client->setMethod($method);
         $client->setConfig(array(
             'useragent' => Mage::helper('taxjar')->getUserAgent(),
@@ -126,7 +128,8 @@ class Taxjar_SalesTax_Model_Client
         ));
         $client->setHeaders(array(
             'Authorization' => 'Bearer ' . $this->_apiKey,
-            'Referer' => Mage::getBaseUrl()
+            'Referer' => Mage::getBaseUrl(),
+            'x-api-version' => Mage::getStoreConfig('tax/taxjar/api_version')
         ));
 
         return $client;
