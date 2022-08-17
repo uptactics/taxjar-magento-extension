@@ -24,6 +24,7 @@ class Taxjar_SalesTax_Model_Client
 {
     protected $_version = 'v2';
     protected $_apiKey;
+    protected $_sandboxApiKey;
     protected $_storeZip;
     protected $_storeRegionCode;
     protected $_showResponseErrors;
@@ -32,6 +33,7 @@ class Taxjar_SalesTax_Model_Client
     public function __construct()
     {
         $this->_apiKey = trim(Mage::getStoreConfig('tax/taxjar/apikey'));
+        $this->_sandboxApiKey = trim(Mage::getStoreConfig('tax/taxjar/sandbox_apikey'));
         $this->_storeZip = trim(Mage::getStoreConfig('shipping/origin/postcode'));
         $this->_storeRegionCode = Mage::getModel('directory/region')->load(Mage::getStoreConfig('shipping/origin/region_id'))->getCode();
         $this->_apiRequestTimeout = Mage::getStoreConfig('tax/taxjar/api_timeout_seconds');
@@ -127,7 +129,7 @@ class Taxjar_SalesTax_Model_Client
             'referer' => Mage::getBaseUrl()
         ));
         $client->setHeaders(array(
-            'Authorization' => 'Bearer ' . $this->_apiKey,
+            'Authorization' => 'Bearer ' . $this->isSandboxEnabled() ? $this->_sandboxApiKey : $this->_apiKey,
             'Referer' => Mage::getBaseUrl(),
             'x-api-version' => Mage::getStoreConfig('tax/taxjar/api_version')
         ));
@@ -166,7 +168,10 @@ class Taxjar_SalesTax_Model_Client
      */
     private function _getApiUrl($resource)
     {
-        $apiUrl = 'https://api.taxjar.com/' . $this->_version;
+        $baseUrl = $this->isSandboxEnabled() ?
+            'https://api.sandbox.taxjar.com/' : 'https://api.taxjar.com/';
+
+        $apiUrl =  $baseUrl . $this->_version;
 
         switch($resource) {
             case 'config':
@@ -228,5 +233,10 @@ class Taxjar_SalesTax_Model_Client
             '401' => Mage::helper('taxjar')->__('Your TaxJar API token is invalid. Please review your TaxJar account at https://app.taxjar.com.'),
             'default' => Mage::helper('taxjar')->__('Could not connect to TaxJar.')
         );
+    }
+
+    private function isSandboxEnabled(): bool
+    {
+        return (int)Mage::getStoreConfig('tax/taxjar/sandbox_mode') === 1;
     }
 }

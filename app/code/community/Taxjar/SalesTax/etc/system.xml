@@ -105,6 +105,17 @@
                             <show_in_store>1</show_in_store>
                             <depends><connected>1</connected></depends>
                         </debug>
+                        <sandbox_mode translate="label">
+                            <label>Sandbox Mode</label>
+                            <comment>Enable Sandbox Environment</comment>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><connected>1</connected></depends>
+                        </sandbox_mode>
                         <apikey translate="label">
                             <label>API Token</label>
                             <comment>Your TaxJar API token for sales tax calculations and backup rates.</comment>
@@ -118,6 +129,19 @@
                                 <debug>1</debug>
                             </depends>
                         </apikey>
+                        <sandbox_apikey translate="label">
+                            <label>Sandbox API Token</label>
+                            <comment>Your TaxJar Sandbox API token for sales tax calculations and backup rates.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>11</show_in_store>
+                            <depends>
+                                <connected>1</connected>
+                                <debug>1</debug>
+                            </depends>
+                        </sandbox_apikey>
                     </fields>
                 </taxjar>
             </groups>

@@ -205,6 +205,7 @@
     <default>
         <tax>
             <taxjar>
+                <sandbox_mode>0</sandbox_mode>
                 <api_version>2022-01-24</api_version>
                 <api_timeout_seconds>15</api_timeout_seconds>
                 <product_tax_classes>2</product_tax_classes>
